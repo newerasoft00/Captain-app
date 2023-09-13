@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "681994242014",
+    "project_id": "roshn-bet",
+    "storage_bucket": "roshn-bet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681994242014:android:f6511722055298e1f6bf4f",
+        "android_client_info": {
+          "package_name": "com.example.sportsbet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681994242014-rsuctd41ttresg0q8rjc2bd15ipp1118.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sportsbet",
+            "certificate_hash": "ba8524d2a04e019a45b26c0f179b246323c0e582"
+          }
+        },
+        {
+          "client_id": "681994242014-jcrsgnc721gor7uj4548hfabi8o18lau.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbLmxwr9zkstm94MMQCypgbVAewk9clis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681994242014-jcrsgnc721gor7uj4548hfabi8o18lau.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

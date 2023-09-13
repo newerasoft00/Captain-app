@@ -1,0 +1,73 @@
+name: sportsbet
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  get:
+  firebase_core:
+  firebase_auth:
+  firebase_storage:
+  firebase_ui_auth: 
+  getx_screen: ^1.0.0
+  shared_preferences: 
+  http: 
+  smooth_page_indicator: ^1.1.0
+  velocity_x: ^4.1.1
+  flutter_svg: ^2.0.7
+  json_theme: ^4.0.0
+  cloud_firestore:
+  line_awesome_flutter: ^2.0.0
+  firebase_database: ^10.2.5
+  curved_labeled_navigation_bar: ^2.0.2
+  animated_notch_bottom_bar: ^1.0.0
+  get_storage: ^2.1.1
+  intl_phone_field: ^3.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/Image/
+    - assets/appainter_theme dark.json
+    - assets/appainter_theme.json
+
+  fonts:
+    - family: Tajawal-Black
+      fonts:
+        - asset: assets/fonts/Tajawal/Tajawal-Black.ttf
+    - family: Tajawal-Bold
+      fonts:
+        - asset: assets/fonts/Tajawal/Tajawal-Bold.ttf
+    - family: Tajawal-ExtraBold
+      fonts:
+        - asset: assets/fonts/Tajawal/Tajawal-ExtraBold.ttf
+    - family: Tajawal-Light
+      fonts:
+        - asset: assets/fonts/Tajawal/Tajawal-Light.ttf
+    - family: Tajawal-Medium
+      fonts:
+        - asset: assets/fonts/Tajawal/Tajawal-Medium.ttf
+    - family: Tajawal-Regular
+      fonts:
+        - asset: assets/fonts/Tajawal/Tajawal-Regular.ttf
+
