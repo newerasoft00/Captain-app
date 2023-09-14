@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 
 class ProfileListItem extends StatelessWidget {
@@ -20,8 +21,20 @@ class ProfileListItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-        ),
+            color: Get.isDarkMode
+                ? Colors.black
+                : Colors.white, // Set the background color to white
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Get.isDarkMode
+                    ? const Color.fromARGB(255, 63, 63, 63)
+                    : const Color(0xFFd9d9d9),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
+              ),
+            ]),
         child: Row(
           children: [
             Icon(

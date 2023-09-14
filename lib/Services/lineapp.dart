@@ -13,7 +13,6 @@ class FootballApiClient {
 
     final response = await http.get(url, headers: headers);
     if (response.statusCode == 200) {
-      print(response.body.toString());
       return response.body;
     } else {
       throw Exception('Failed to fetch lineups');

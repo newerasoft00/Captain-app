@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
 import 'package:sportsbet/View/Screens/Home/home_screen.dart';
 import 'View/Screens/Auth/Login/login_screen.dart';
+import 'View/Screens/Match Day/match_day_screen.dart';
+import 'package:intl/intl.dart';
 
 SharedPreferences? sharedpref;
 void main() async {
@@ -35,8 +37,9 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale('ar', 'AE'),
         Locale('en', 'US'),
+        Locale('de', 'DE'),
       ],
-      locale: const Locale('en', 'US'),
+      locale: const Locale('de', 'DE'),
       home: UserPreference.isLoggedIn()
           ? const HomeScreen()
           : const LoginScreen(),

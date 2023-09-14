@@ -26,7 +26,7 @@ class CurrentMatches extends StatelessWidget {
             onTap: () async {
               final BetOptionController betOptionController =
                   Get.put(BetOptionController());
-              betOptionController.selectedM.value = teamName;
+              betOptionController.selectedM.value =controller.teamNames[index];
               /*  betOptionController.userbetted.value = await betOptionController
                   .doesMapContainKey(UserPreference.getUserid(),teamName); */
               /* await betOptionController.doesMapContainKey(

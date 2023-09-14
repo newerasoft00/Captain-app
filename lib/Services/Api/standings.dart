@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
-import 'package:sportsbet/res/strings.dart';
 import 'dart:convert';
 
+import '../../Core/utils/strings.dart';
 import '../../Model/teams_standing_model.dart';
 
 class StandingsService {

@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl_phone_field/country_picker_dialog.dart';
+
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/Core/utils/color.dart';
 import 'package:sportsbet/View/Screens/Auth/Login/Componant/custom_textfield.dart';
 import 'package:sportsbet/View/Screens/Auth/Login/signup_screen.dart';
-import 'package:sportsbet/View/Screens/Home/home_screen.dart';
+
 import '../../../../Controller/Auth/login_controller.dart';
 import '../../../../Services/lineapp.dart';
 
@@ -67,7 +67,8 @@ class LoginScreen extends StatelessWidget {
                       ),
                       initialCountryCode: 'SA',
                       onChanged: (phone) {
-                        controller.phoneNumber.value = phone.completeNumber.toString();
+                        controller.phoneNumber.value =
+                            phone.completeNumber.toString();
                       },
                     ),
                   )),

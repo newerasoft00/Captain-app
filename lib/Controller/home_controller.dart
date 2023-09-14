@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+
 class HomeController extends GetxController {
   var pageindex = 0.obs;
   RxDouble timerValue = 0.0.obs; // This will hold the timer value in seconds
@@ -78,6 +79,7 @@ class HomeController extends GetxController {
     return random.nextInt(
         91); // Generates a random integer between 0 (inclusive) and 91 (exclusive)
   }
+
 
   @override
   void onClose() {

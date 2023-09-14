@@ -49,7 +49,7 @@ class SignupController extends GetxController {
 
   void signupwithemail() async {
     try {
-      if (phoneNumber.value != '' &&
+      if (
           name.value != '' &&
           phoneNumber.value.toString() != '' &&
           password.value != '' &&
@@ -82,7 +82,6 @@ class SignupController extends GetxController {
           Get.to(() => const HomeScreen());
         });
 
-        print(UserPreference.getUserid());
         Get.snackbar(
           'Success',
           'Your account has been created',
@@ -98,7 +97,7 @@ class SignupController extends GetxController {
         );
       }
     } catch (e) {
-      print(e);
+     
       Get.snackbar(
         'Error',
         'Failed to create user: $e',

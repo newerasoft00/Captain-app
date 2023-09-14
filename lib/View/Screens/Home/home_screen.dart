@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Controller/home_controller.dart';
-import 'package:sportsbet/View/Screens/Home/current_matches.dart';
 import 'package:sportsbet/View/Screens/Profile/profile_screen.dart';
 import 'package:sportsbet/View/Screens/standing/standings.dart';
+import '../Match Day/match_day_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -13,9 +13,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController controller = Get.put(HomeController());
+
     final bottomBarItem = [
       const StandingsScreen(),
-      const CurrentMatches(),
+      MatchScreen(),
       const ProfileScreen(),
     ];
 
@@ -23,11 +24,13 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
         centerTitle: true,
         title: const Text(
           'Roshn Bet',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 20,
           ),
         ),

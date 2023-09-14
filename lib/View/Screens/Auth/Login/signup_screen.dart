@@ -61,7 +61,6 @@ class SignUpScreen extends StatelessWidget {
                           onChanged: (phone) {
                             controller.phoneNumber.value =
                                 phone.completeNumber.toString();
-
                           },
                         ))),
                 15.ph,
@@ -128,7 +127,6 @@ class SignUpScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10)),
                     ),
                     onPressed: () async {
-                      print(controller.phoneNumber);
                       controller.toggleSignup();
                       if (controller.formKey.currentState!.validate()) {
                         // Show CircularProgressIndicator
