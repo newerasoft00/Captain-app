@@ -5,7 +5,7 @@ import '../Services/Api/standings.dart';
 
 class StandingsController extends GetxController {
   final StandingsService service = StandingsService();
-  final RxList<Standings> standings = <Standings>[].obs;
+  final RxList<Standingsbondis> standings = <Standingsbondis>[].obs;
 
   @override
   void onInit() {

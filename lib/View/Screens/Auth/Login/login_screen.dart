@@ -1,15 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/Core/utils/color.dart';
 import 'package:sportsbet/View/Screens/Auth/Login/Componant/custom_textfield.dart';
 import 'package:sportsbet/View/Screens/Auth/Login/signup_screen.dart';
-
 import '../../../../Controller/Auth/login_controller.dart';
-import '../../../../Services/lineapp.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -26,10 +24,10 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              40.ph,
+              25.ph,
               SizedBox(
-                  width: Get.width / 2.5,
-                  height: Get.width / 2.5,
+                  width: Get.width * 0.2,
+                  height: Get.width * 0.2,
                   child: Image.asset('assets/Roshn_Saudi_League_Logo.svg.png')),
               const Text(
                 'Welcome',
@@ -41,37 +39,24 @@ class LoginScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               30.ph,
-              Container(
-                  decoration: BoxDecoration(
-                      color: Get.isDarkMode ? Colors.black : Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Get.isDarkMode
-                              ? const Color.fromARGB(255, 63, 63, 63)
-                              : const Color(0xFFd9d9d9),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3),
-                        ),
-                      ]),
+              Card(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IntlPhoneField(
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Phone Number',
-                        /*  border: OutlineInputBorder(
-                          borderSide: BorderSide(),
-                        ), */
-                      ),
-                      initialCountryCode: 'SA',
-                      onChanged: (phone) {
-                        controller.phoneNumber.value =
-                            phone.completeNumber.toString();
-                      },
-                    ),
-                  )),
+                padding: const EdgeInsets.all(8.0),
+                child: IntlPhoneField(
+                  pickerDialogStyle: PickerDialogStyle(
+                    backgroundColor: Theme.of(context).cardColor,
+                  ),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Phone Number',
+                  ),
+                  initialCountryCode: 'SA',
+                  onChanged: (phone) {
+                    controller.phoneNumber.value =
+                        phone.completeNumber.toString();
+                  },
+                ),
+              )),
               30.ph,
               CustomTextField(
                   suffixcolor: MyColors.grayhint,
@@ -95,7 +80,13 @@ class LoginScreen extends StatelessWidget {
               10.ph,
               Row(
                 children: [
-                  CupertinoCheckbox(value: true, onChanged: (val) {}),
+                  Obx(
+                    () => CupertinoCheckbox(
+                        value: controller.remmemberme.value,
+                        onChanged: (val) {
+                          controller.remmemberme.value = val!;
+                        }),
+                  ),
                   3.pw,
                   const Text(
                     'Remember me',
@@ -105,12 +96,14 @@ class LoginScreen extends StatelessWidget {
               20.ph,
               SizedBox(
                 width: Get.width,
+                height: 45,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      backgroundColor: MyColors.maincolor,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
                     onPressed: () async {
                       if (controller.email.value != '' ||
@@ -118,8 +111,14 @@ class LoginScreen extends StatelessWidget {
                         await controller.signinwithemail();
                       }
                     },
-                    child: const Text(
-                      'Login',
+                    child: const FittedBox(
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
                     )),
               ),
               25.ph,
@@ -128,7 +127,6 @@ class LoginScreen extends StatelessWidget {
                   const Spacer(),
                   GestureDetector(
                     onTap: () {
-                      FootballApiClient();
                       Get.to(() => const SignUpScreen());
                     },
                     child: RichText(
@@ -137,15 +135,16 @@ class LoginScreen extends StatelessWidget {
                           TextSpan(
                             text: "don't have an account ? ",
                             style: TextStyle(
-                                fontFamily: '',
-                                fontSize: 16,
-                                color: Color.fromARGB(188, 33, 149, 243)),
+                              fontFamily: '',
+                              fontSize: 16,
+                              color: Color(0xff0061A4),
+                            ),
                           ),
                           TextSpan(
                             text: " Register",
                             style: TextStyle(
                                 fontSize: 16,
-                                color: Colors.blue,
+                                color: Color(0xff0061A4),
                                 fontWeight: FontWeight.w700),
                           ),
                         ],

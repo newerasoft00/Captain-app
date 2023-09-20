@@ -2,40 +2,46 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:get/get.dart';
 
+import '../../Core/utils/strings.dart';
+import '../../Model/live matches/live_match_model.dart';
 import '../../Model/match Day Models/match_day.dart';
 
 class MatchDayService extends GetxController {
   var matches = <MatchDay>[].obs;
+    final livematches = <LiveMatch>[].obs;
 
-  Future<void> fetchMatches(int matchDay) async {
-  const url = 'https://api.openligadb.de/getmatchdata/bl1/2023/2';
-  try {
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      final List<dynamic> data = json.decode(response.body);
-      final List<MatchDay> loadedMatches = data
-          .map((json) => MatchDay.fromJson(json))
-          .where((match) => match.matchResults != []) // Filter matches with matchResults
-          .toList();
-      matches.value = loadedMatches;
-    } else {
-      throw Exception('Failed to load match data: ${response.statusCode}');
+
+
+  Future<void> fetchLiveMatches() async {
+    try {
+      final response = await http.get(Uri.parse(allsportsapi+liveMatchEndPoint+allsportsapiKey));
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        final resultData = jsonData['result'];
+
+        // Parse the result data into FootballMatch objects.
+        final parsedMatches = resultData
+            .map((matchData) => LiveMatch.fromJson(matchData))
+            .toList();
+
+        matches.assignAll(parsedMatches);
+      } else {
+        throw Exception('Failed to load matches');
+      }
+    } catch (error) {
+      throw Exception('Error: $error');
     }
-  } catch (e) {
-    print('Error: $e');
-    throw Exception('Failed to connect to the API');
   }
-}
-
-
 
   @override
   void onInit() {
-    fetchMatches(6); // Fetch matches for match day 1 initially
+    fetchLiveMatches();
+   // fetchMatches(6); // Fetch matches for match day 1 initially
     super.onInit();
   }
 
-  void fetchMatchesDay(int matchDay) {
-    fetchMatches(matchDay);
-  }
+/*   void fetchMatchesDay(int matchDay) {
+   // fetchMatches(matchDay);
+   fr
+  } */
 }

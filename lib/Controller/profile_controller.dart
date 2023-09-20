@@ -21,9 +21,11 @@ class ProfileController extends GetxController {
       if (userDocument.exists) {
         final userData = userDocument.data() as Map<String, dynamic>;
         // Now you can access user properties like email, name, etc.
+        
         User userinfo = User(
           email: userData['email'],
           phoneNumber: userData['phoneNumber'],
+          
           name: userData['name'],
           password: userData['password'],
           uid: userData['uid'],
@@ -32,9 +34,6 @@ class ProfileController extends GetxController {
         user.add(userinfo);
 
         // Do something with the user data
-      } else {
-        print('User document does not exist');
-        // Handle the case where the document doesn't exist
       }
     } catch (e) {
       print('Error getting user document: $e');

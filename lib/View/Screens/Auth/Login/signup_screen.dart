@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/View/Screens/Auth/Login/Componant/custom_textfield.dart';
+import 'package:sportsbet/View/Screens/Auth/Login/login_screen.dart';
 import '../../../../Controller/Auth/signup_controller.dart';
 import '../../../../Core/utils/color.dart';
 import '../../../../Core/utils/text_style.dart';
@@ -14,15 +16,16 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final SignupController controller = Get.put(SignupController());
     return Scaffold(
-      appBar: AppBar(),
       body: Form(
         key: controller.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: SingleChildScrollView(
-          reverse: true,
+          // reverse: true,
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding:
+                const EdgeInsets.only(top: 45, bottom: 16, right: 16, left: 16),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SizedBox(
                     width: Get.width / 4,
@@ -36,23 +39,13 @@ class SignUpScreen extends StatelessWidget {
                   style: tajawalb22,
                 ),
                 20.ph,
-                Container(
-                    decoration: BoxDecoration(
-                        color: Get.isDarkMode ? Colors.black : Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Get.isDarkMode
-                                ? const Color.fromARGB(255, 63, 63, 63)
-                                : const Color(0xFFd9d9d9),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(0, 3),
-                          ),
-                        ]),
+                Card(
                     child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IntlPhoneField(
+                          pickerDialogStyle: PickerDialogStyle(
+                            backgroundColor: Theme.of(context).cardColor,
+                          ),
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Phone Number',
@@ -121,16 +114,18 @@ class SignUpScreen extends StatelessWidget {
                   width: Get.width,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      backgroundColor: MyColors.maincolor,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
                     onPressed: () async {
                       controller.toggleSignup();
+                      controller.presssignup.value = true;
+
                       if (controller.formKey.currentState!.validate()) {
                         // Show CircularProgressIndicator
-                        controller.presssignup.value = true;
 
                         controller.signupwithemail();
 
@@ -145,14 +140,51 @@ class SignUpScreen extends StatelessWidget {
                           ? const CircularProgressIndicator(
                               color: Colors.white,
                             ) // Show CircularProgressIndicator
-                          : const Text(
-                              'Sign up',
-                              style: tajawalblue22,
+                          : const FittedBox(
+                              child: Text(
+                                'Sign up',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
                             );
                     }),
                   ),
                 ),
-                20.ph
+                20.ph,
+                Row(
+                  children: [
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        Get.off(() => const LoginScreen());
+                      },
+                      child: RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "already have account? ",
+                              style: TextStyle(
+                                fontFamily: '',
+                                fontSize: 16,
+                                color: Color(0xff0061A4),
+                              ),
+                            ),
+                            TextSpan(
+                              text: "Login",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color(0xff0061A4),
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                  ],
+                ),
               ],
             ),
           ),

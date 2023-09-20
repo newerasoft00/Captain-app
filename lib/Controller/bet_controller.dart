@@ -50,7 +50,7 @@ class BetOptionController extends GetxController {
     try {
       final documentSnapshot = await FirebaseFirestore.instance
           .collection('Roshn bet option ')
-          .doc(match)
+          .doc(match) 
           .get();
 
       if (documentSnapshot.exists) {

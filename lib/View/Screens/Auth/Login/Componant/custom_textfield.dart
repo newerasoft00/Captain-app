@@ -29,22 +29,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Get.isDarkMode
-              ? Colors.black
-              : Colors.white, // Set the background color to white
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Get.isDarkMode
-                  ? const Color.fromARGB(255, 63, 63, 63)
-                  : const Color(0xFFd9d9d9),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: const Offset(0, 3),
-            ),
-          ]),
+    return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(

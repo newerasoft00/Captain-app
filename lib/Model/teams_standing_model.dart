@@ -1,4 +1,4 @@
-class Standings {
+class Standingsbondis {
   int teamid;
   int participantId;
   int sportId;
@@ -11,7 +11,7 @@ class Standings {
   String result;
   int points;
 
-  Standings({
+  Standingsbondis({
     required this.teamid,
     required this.participantId,
     required this.sportId,
@@ -25,8 +25,8 @@ class Standings {
     required this.points,
   });
 
-  factory Standings.fromJson(Map<String, dynamic> json) {
-    return Standings(
+  factory Standingsbondis.fromJson(Map<String, dynamic> json) {
+    return Standingsbondis(
       teamid: json['id'],
       participantId: json['participant_id'],
       sportId: json['sport_id'],

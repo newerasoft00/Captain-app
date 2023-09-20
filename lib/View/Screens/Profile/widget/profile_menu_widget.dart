@@ -16,36 +16,28 @@ class ProfileListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        decoration: BoxDecoration(
-            color: Get.isDarkMode
-                ? Colors.black
-                : Colors.white, // Set the background color to white
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Get.isDarkMode
-                    ? const Color.fromARGB(255, 63, 63, 63)
-                    : const Color(0xFFd9d9d9),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
-              ),
-            ]),
+    return SizedBox(
+      width: Get.width,
+      height: Get.height * 0.1,
+      child: Card(
+        margin: const EdgeInsets.symmetric(
+          vertical: 10,
+        ),
         child: Row(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            10.pw,
             Icon(
               icon,
-              color: tcolor,
             ),
             10.pw,
             Text(
               text,
-              style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.w500, color: tcolor),
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),

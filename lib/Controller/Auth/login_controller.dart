@@ -12,19 +12,22 @@ class AuthController extends GetxController {
   var email = ''.obs;
   var password = ''.obs;
   var phoneNumber = ''.obs;
+  RxBool remmemberme = false.obs;
 
   RxBool securePassword = true.obs;
   // Firebase Login
   signinwithemail() async {
- credentials
+    credentials
         .signInWithEmailAndPassword(
       email: email.value,
       password: password.value,
     )
         .then((value) async {
       await UserPreference.setUserId(phoneNumber.value.toString());
-      await UserPreference.setIsLoggedIn(true);
-      Get.to(() => const HomeScreen());
+      (remmemberme.value == true)
+          ? await UserPreference.setIsLoggedIn(true)
+          : await UserPreference.setIsLoggedIn(false);
+      Get.offAll(() => const HomeScreen());
     });
   }
 
