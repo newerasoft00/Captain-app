@@ -21,7 +21,6 @@ def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
-apply plugin: 'com.google.gms.google-services'
 android {
     namespace "com.example.sportsbet"
     compileSdkVersion flutter.compileSdkVersion
@@ -64,9 +63,12 @@ android {
 flutter {
     source '../..'
 }
+apply plugin: 'com.google.gms.google-services'
 
 dependencies {
     implementation platform("com.google.firebase:firebase-bom:32.2.3")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-auth")
     implementation 'com.android.support:multidex:1.0.3'
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
@@ -47,6 +48,7 @@ class SignUpScreen extends StatelessWidget {
                             backgroundColor: Theme.of(context).cardColor,
                           ),
                           decoration: const InputDecoration(
+                            counterText: '',
                             border: InputBorder.none,
                             hintText: 'Phone Number',
                           ),
@@ -137,7 +139,7 @@ class SignUpScreen extends StatelessWidget {
                     },
                     child: Obx(() {
                       return controller.presssignup.value
-                          ? const CircularProgressIndicator(
+                          ? const CupertinoActivityIndicator(
                               color: Colors.white,
                             ) // Show CircularProgressIndicator
                           : const FittedBox(

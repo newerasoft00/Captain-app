@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/Model/Roshn League/game_weak.dart';
-import 'package:sportsbet/View/Screens/Home/home_screen.dart';
+import 'package:sportsbet/View/Screens/Roshn%20Matches/widget/bet_options_widget.dart';
 import 'package:sportsbet/View/Screens/Roshn%20Matches/widget/roshn_match_card.dart';
 
 import '../../../Controller/bet_controller.dart';
@@ -20,10 +20,9 @@ class MatchDetailsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Match Details'),
         elevation: 0,
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -37,11 +36,11 @@ class MatchDetailsPage extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  if (controller.betOptions.isEmpty) {
+                  /* if (controller.betOptions.isEmpty) {
                     return const Center(
                       child: Text('No Bet available.'),
                     );
-                  }
+                  } */
                   // Ensure that rxBoolList is generated before accessing it
                   if (controller.rxBoolList.isEmpty) {
                     controller.generateBool();
@@ -49,9 +48,9 @@ class MatchDetailsPage extends StatelessWidget {
                 }
                 return SizedBox(
                   width: Get.width,
-                  child: fixture.eventLive != 'half time'
+                  child: fixture.eventLive != 'Half Time'
                       ? controller.betOptions.isEmpty
-                          ? const SizedBox()
+                          ? BetOptionsWidget(fixture: fixture)
                           : Padding(
                               padding: const EdgeInsets.all(16),
                               child: Column(
@@ -123,7 +122,7 @@ class MatchDetailsPage extends StatelessWidget {
                                           ),
                                         ),
                                         onPressed: () async {
-                                           Navigator.pop(context);
+                                          Navigator.pop(context);
                                         },
                                         child: const FittedBox(
                                           child: Text(

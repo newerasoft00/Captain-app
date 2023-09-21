@@ -10,6 +10,10 @@ class BetOptionController extends GetxController {
   RxBool _isLoading = true.obs;
   bool get isLoading => _isLoading.value;
   RxBool userbetted = false.obs;
+  RxString userChoice = ''.obs;
+  RxString userChoicescore1 = ''.obs;
+  RxString userChoicescore2 = ''.obs;
+
   void _startLoadingTimeout() {
     Timer(const Duration(seconds: 10), () {
       _isLoading.value = false;
@@ -25,7 +29,6 @@ class BetOptionController extends GetxController {
 
   @override
   void onInit() async {
-
     // Fetch data from Firestore when the controller is initialized
     super.onInit();
     fetchBetOptions(selectedM.value);
@@ -50,7 +53,7 @@ class BetOptionController extends GetxController {
     try {
       final documentSnapshot = await FirebaseFirestore.instance
           .collection('Roshn bet option ')
-          .doc(match) 
+          .doc(match)
           .get();
 
       if (documentSnapshot.exists) {
@@ -81,6 +84,11 @@ class BetOptionController extends GetxController {
       if (userDoc.exists) {
         // If the document exists, update the 'st_1_bet' array field with new data
         await userDocRef.update({userId: chosenbet});
+      } else if (!userDoc.exists) {
+        await FirebaseFirestore.instance
+            .collection("User'sBet")
+            .doc(homeTeam)
+            .set({userId: chosenbet});
       }
     } catch (e) {
       print('Error adding data to Firestore: $e');
@@ -115,6 +123,20 @@ class BetOptionController extends GetxController {
       generateBool();
       fetchBetOptions(selectedM.value);
       _startLoadingTimeout();
+    }
+  }
+
+   Future<void> addBet(String userId, String matchId, String selectedOption) async {
+    try {
+      await FirebaseFirestore.instance.collection('bets').add({
+        'userId': userId,
+        'matchId': matchId,
+        'selectedOption': selectedOption,
+      });
+      // You can also update your UI or show a confirmation message here.
+    } catch (e) {
+      print('Error adding bet: $e');
+      // Handle error, show error message, or retry logic here.
     }
   }
 }

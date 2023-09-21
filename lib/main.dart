@@ -14,13 +14,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedpref = await SharedPreferences.getInstance();
   await Firebase.initializeApp();
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-    final ThemeController themeController = Get.put(ThemeController());
+  final ThemeController themeController = Get.put(ThemeController());
 
-   MyApp({
+  MyApp({
     Key? key,
   }) : super(key: key);
 
@@ -30,9 +30,8 @@ class MyApp extends StatelessWidget {
       navigatorKey: Get.key,
       theme: light,
       darkTheme: dark,
-      themeMode: themeController.islightMode.value
-          ? ThemeMode.light
-          : ThemeMode.dark,
+      themeMode:
+          themeController.islightMode.value ? ThemeMode.light : ThemeMode.dark,
       defaultTransition: Transition.topLevel,
       transitionDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,

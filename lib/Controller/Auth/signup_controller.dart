@@ -49,14 +49,13 @@ class SignupController extends GetxController {
 
   void signupwithemail() async {
     try {
-      if (
-          name.value != '' &&
+      if (name.value != '' &&
           phoneNumber.value.toString() != '' &&
           password.value != '' &&
           checkpassword.value == password.value) {
         final UserCredential userCredential =
             await auth.createUserWithEmailAndPassword(
-          email: email.value,
+          email: '${phoneNumber.value.toString()}@gmail.com',
           password: password.value,
         );
 
@@ -97,7 +96,6 @@ class SignupController extends GetxController {
         );
       }
     } catch (e) {
-     
       Get.snackbar(
         'Error',
         'Failed to create user: $e',

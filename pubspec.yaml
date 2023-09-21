@@ -38,6 +38,7 @@ dependencies:
   intl: ^0.18.1
   calendar_timeline: ^1.1.2
   flutter_launcher_icons: ^0.13.1
+  pinput: ^2.2.12
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -54,7 +55,9 @@ flutter:
 
   assets:
     - assets/
+    - assets/1584889.png
     - assets/Image/
+    - assets/Image/def_logo.jpg
     - assets/appainter_theme dark.json
     - assets/appainter_theme.json
 

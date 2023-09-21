@@ -13,6 +13,7 @@ class RoshnMatch {
   final String eventHomeFormation;
   final String eventAwayFormation;
   final int hometeamkey;
+  final int awayteamkey;
 
   RoshnMatch( {
     required this.hometeamkey,
@@ -29,6 +30,7 @@ class RoshnMatch {
     required this.awayTeamLogo,
     required this.eventHomeFormation,
     required this.eventAwayFormation,
+    required this.awayteamkey
   });
 
   factory RoshnMatch.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class RoshnMatch {
       eventHomeFormation: json['event_home_formation'] ?? '',
       eventAwayFormation: json['event_away_formation'] ?? '',
       hometeamkey: json['home_team_key']??0,
+      awayteamkey: json['away_team_key']??0,
     );
   }
 }

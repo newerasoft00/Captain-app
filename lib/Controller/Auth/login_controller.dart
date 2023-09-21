@@ -19,7 +19,7 @@ class AuthController extends GetxController {
   signinwithemail() async {
     credentials
         .signInWithEmailAndPassword(
-      email: email.value,
+      email: '${phoneNumber.value}@gmail.com',
       password: password.value,
     )
         .then((value) async {

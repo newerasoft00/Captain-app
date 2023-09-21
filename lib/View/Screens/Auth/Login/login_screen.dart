@@ -47,6 +47,8 @@ class LoginScreen extends StatelessWidget {
                     backgroundColor: Theme.of(context).cardColor,
                   ),
                   decoration: const InputDecoration(
+                            counterText: '',
+
                     border: InputBorder.none,
                     hintText: 'Phone Number',
                   ),
@@ -58,14 +60,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               )),
               30.ph,
-              CustomTextField(
-                  suffixcolor: MyColors.grayhint,
-                  suffixicon: Icons.email_outlined,
-                  hint: 'Email',
-                  onChanged: (val) {
-                    controller.email.value = val;
-                  }),
-              25.ph,
+              /* 123456Aa@ */
               CustomTextField(
                   visible: controller.securePassword.value,
                   onTapSuffix: () {
@@ -106,7 +101,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () async {
-                      if (controller.email.value != '' ||
+                      if (controller.phoneNumber.value != '' ||
                           controller.password.value != '') {
                         await controller.signinwithemail();
                       }

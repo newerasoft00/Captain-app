@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Controller/home_controller.dart';
 import 'package:sportsbet/Core/themes/dark_light_theme_file.dart';
-import 'package:sportsbet/Core/utils/color.dart';
 import 'package:sportsbet/View/Screens/Match%20Day/todays_matches.dart';
 import 'package:sportsbet/View/Screens/Profile/profile_screen.dart';
 import 'package:sportsbet/View/Screens/Roshn%20Matches/roshn_match.dart';
