@@ -47,8 +47,7 @@ class LoginScreen extends StatelessWidget {
                     backgroundColor: Theme.of(context).cardColor,
                   ),
                   decoration: const InputDecoration(
-                            counterText: '',
-
+                    counterText: '',
                     border: InputBorder.none,
                     hintText: 'Phone Number',
                   ),
@@ -93,28 +92,37 @@ class LoginScreen extends StatelessWidget {
                 width: Get.width,
                 height: 45,
                 child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    onPressed: () async {
-                      if (controller.phoneNumber.value != '' ||
-                          controller.password.value != '') {
-                        await controller.signinwithemail();
-                      }
-                    },
-                    child: const FittedBox(
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )),
+                  ),
+                  onPressed: () async {
+                    controller.presssignin.value = true;
+                    if (controller.phoneNumber.value != '' ||
+                        controller.password.value != '') {
+                      await controller.signinwithemail();
+                    }
+                    controller.presssignin.value = false;
+                  },
+                  child: Obx(() {
+                    return controller.presssignin.value
+                        ? const CupertinoActivityIndicator(
+                            color: Colors.white,
+                          ) // Show CircularProgressIndicator
+                        : const FittedBox(
+                            child: Text(
+                              'Sign in',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                          );
+                  }),
+                ),
               ),
               25.ph,
               Row(

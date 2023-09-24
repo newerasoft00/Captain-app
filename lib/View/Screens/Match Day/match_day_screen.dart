@@ -27,8 +27,7 @@ class MatchesScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: controller.liveMatches.length,
               itemBuilder: (context, index) {
-                final livematch = controller.liveMatches[index];
-
+               final livematch = controller.liveMatches[index];
                 return Card(
                   margin: const EdgeInsets.all(10),
                   child: Padding(

@@ -24,7 +24,6 @@ class ProfileListItem extends StatelessWidget {
           vertical: 10,
         ),
         child: Row(
-          mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             10.pw,
@@ -32,11 +31,15 @@ class ProfileListItem extends StatelessWidget {
               icon,
             ),
             10.pw,
-            Text(
-              text,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+            Expanded(
+              child: Text(
+                text,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ],

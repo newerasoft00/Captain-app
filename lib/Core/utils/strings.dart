@@ -11,6 +11,7 @@ const String allsportsapi = 'https://apiv2.allsportsapi.com/football/?met=';
 const String allsportsapiKey =
     '&APIkey=6738c8b7995926e244a52d6287d14172f58a998fd2c0b617411fb000e5749891&';
 const String saudiaCountryID = '&countryId=97';
+const String saudiaLeague = '&leagueId=278';
 
 // End Points
 const String fixturesEndPoint = 'Fixtures';

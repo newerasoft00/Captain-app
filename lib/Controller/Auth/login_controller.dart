@@ -13,22 +13,39 @@ class AuthController extends GetxController {
   var password = ''.obs;
   var phoneNumber = ''.obs;
   RxBool remmemberme = false.obs;
-
+  RxBool presssignin = false.obs;
   RxBool securePassword = true.obs;
+
+  toggleSignup() {
+    presssignin.toggle();
+  }
+
   // Firebase Login
   signinwithemail() async {
-    credentials
-        .signInWithEmailAndPassword(
-      email: '${phoneNumber.value}@gmail.com',
-      password: password.value,
-    )
-        .then((value) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: '${phoneNumber.value}@gmail.com',
+        password: password.value,
+      );
+
       await UserPreference.setUserId(phoneNumber.value.toString());
-      (remmemberme.value == true)
-          ? await UserPreference.setIsLoggedIn(true)
-          : await UserPreference.setIsLoggedIn(false);
+      if (remmemberme.value == true) {
+        await UserPreference.setIsLoggedIn(true);
+      } else {
+        await UserPreference.setIsLoggedIn(false);
+      }
       Get.offAll(() => const HomeScreen());
-    });
+      presssignin.value = false;
+    } catch (e) {
+      // Display the exception in a snackbar
+      Get.snackbar(
+        'error',
+        "error while sign in $e",
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 4),
+      );
+    }
   }
 
   void signout() async {

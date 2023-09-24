@@ -43,13 +43,14 @@ class ProfileScreen extends StatelessWidget {
                     icon: CupertinoIcons.phone,
                     text: user[0].phoneNumber,
                   ),
-                  const ProfileListItem(
+                 /*  const ProfileListItem(
                     icon: CupertinoIcons.settings,
                     text: 'Settings',
-                  ),
+                  ), */
                   GestureDetector(
-                    onTap: () {
-                      themeController.toggleTheme();
+                    onTap: ()async {
+                       themeController.toggleTheme();
+
                     },
                     child: SizedBox(
                       width: Get.width,

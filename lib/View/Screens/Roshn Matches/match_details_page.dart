@@ -20,8 +20,18 @@ class MatchDetailsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-      ),
+          elevation: 0,
+          leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                Navigator.pop(context);
+                controller.userChoice.value = '';
+                controller.userChoicescore1.value = '';
+                controller.userChoicescore2.value = '';
+                controller.awaybetted.value = false;
+                controller.drawbetted.value = false;
+                controller.homebetted.value = false;
+              })),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,20 +45,11 @@ class MatchDetailsPage extends StatelessWidget {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else {
-                  /* if (controller.betOptions.isEmpty) {
-                    return const Center(
-                      child: Text('No Bet available.'),
-                    );
-                  } */
-                  // Ensure that rxBoolList is generated before accessing it
-                  if (controller.rxBoolList.isEmpty) {
-                    controller.generateBool();
-                  }
                 }
                 return SizedBox(
                   width: Get.width,
-                  child: fixture.eventLive != 'Half Time'
+                  child: (fixture.eventLive != 'Half Time' ||
+                          fixture.eventLive != 'Finished')
                       ? controller.betOptions.isEmpty
                           ? BetOptionsWidget(fixture: fixture)
                           : Padding(

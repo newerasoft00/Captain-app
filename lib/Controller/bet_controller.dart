@@ -10,6 +10,9 @@ class BetOptionController extends GetxController {
   RxBool _isLoading = true.obs;
   bool get isLoading => _isLoading.value;
   RxBool userbetted = false.obs;
+  RxBool homebetted = false.obs;
+  RxBool awaybetted = false.obs;
+  RxBool drawbetted = false.obs;
   RxString userChoice = ''.obs;
   RxString userChoicescore1 = ''.obs;
   RxString userChoicescore2 = ''.obs;
@@ -89,31 +92,36 @@ class BetOptionController extends GetxController {
             .collection("User'sBet")
             .doc(homeTeam)
             .set({userId: chosenbet});
+         final CollectionReference checkBetCollection =
+          FirebaseFirestore.instance.collection("checkBet");
+      final DocumentReference checkBetDocRef = checkBetCollection.doc(homeTeam);
+      await checkBetDocRef.set({userId: true});
       }
     } catch (e) {
       print('Error adding data to Firestore: $e');
     }
   }
 
-  Future<bool> doesMapContainKey(String userId, String homeTeam) async {
-    try {
-      final DocumentReference st1DocRef =
-          FirebaseFirestore.instance.collection("User'sBet").doc(homeTeam);
-      final DocumentSnapshot st1Doc = await st1DocRef.get();
-      if (st1Doc.exists) {
-        final Map<String, dynamic> data = st1Doc.data() as Map<String, dynamic>;
-        if (data.containsKey(userId)) {
-          userbetted.value = true;
-          return true;
-        }
+Future<bool> doesCheckBetContainUser(String userId, String homeTeam) async {
+  try {
+    final DocumentReference checkBetDocRef = FirebaseFirestore.instance
+        .collection("checkBet")
+        .doc(homeTeam);
+    final DocumentSnapshot checkBetDoc = await checkBetDocRef.get();
+
+    if (checkBetDoc.exists) {
+      final Map<String, dynamic> data =
+          checkBetDoc.data() as Map<String, dynamic>;
+      if (data.containsKey(userId)) {
+        return true;
       }
-      userbetted.value = true;
-      return false;
-    } catch (e) {
-      Get.snackbar('error', 'error message: {$e.message}');
-      return false;
     }
+    return false;
+  } catch (e) {
+    print('Error checking if "checkBet" contains user: $e');
+    return false;
   }
+}
 
   Future<void> resetOptions() async {
     {

@@ -10,12 +10,12 @@ class RoshnMatchController extends GetxController {
   var roshnFixtures =
       <RoshnMatch>[].obs; // Store the fixtures data as FixtureModel
   final currentDate = DateTime.now().toLocal().toString().split(' ')[0].obs;
-  final newDate = DateTime.now().add(const Duration(days: 3));
+  final newDate = DateTime.now().add(const Duration(days: 7));
 
   // Fetch data from the API
   void fetchData() async {
     final response = await http.get(Uri.parse(
-        '$allsportsapi$fixturesEndPoint$allsportsapiKey&from=$currentDate&to=$newDate&leagueId=278'));
+        '$allsportsapi$fixturesEndPoint$allsportsapiKey&from=$currentDate&to=$newDate$saudiaLeague'));
 
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);

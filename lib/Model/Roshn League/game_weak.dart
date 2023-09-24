@@ -1,5 +1,6 @@
 class RoshnMatch {
   final String eventDate;
+  final int eventKey;
   final String eventLive;
   final String eventHomeTeam;
   final String eventAwayTeam;
@@ -16,6 +17,7 @@ class RoshnMatch {
   final int awayteamkey;
 
   RoshnMatch( {
+    required this.eventKey,
     required this.hometeamkey,
     required this.eventDate,
     required  this.eventLive,
@@ -35,6 +37,7 @@ class RoshnMatch {
 
   factory RoshnMatch.fromJson(Map<String, dynamic> json) {
     return RoshnMatch(
+      eventKey: json['event_key']??0,
       eventLive: json['event_live']??'',
       leagueName: json['league_name'] ?? '',
       eventDate: json['event_date'] ?? '',

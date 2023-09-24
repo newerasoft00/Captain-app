@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sportsbet/Services/live.dart';
 
 import '../../Model/live matches/live_match_model.dart';
+
 class LiveMatchController extends GetxController {
   final liveMatches = <LiveMatch>[].obs;
   final liveMatchesTime = <LiveMatch>[].obs;
@@ -13,7 +14,7 @@ class LiveMatchController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    startTimer(); 
+    startTimer();
     fetchLiveMatches();
   }
 
@@ -32,7 +33,6 @@ class LiveMatchController extends GetxController {
       fetchLiveMatches(); // Fetch and update the eventlivetime
     });
   }
-
 
   @override
   void onClose() {

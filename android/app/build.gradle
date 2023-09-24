@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 android {
     namespace "com.example.sportsbet"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -67,9 +67,10 @@ apply plugin: 'com.google.gms.google-services'
 
 dependencies {
     implementation platform("com.google.firebase:firebase-bom:32.2.3")
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-auth")
+    implementation "com.google.firebase:firebase-auth-ktx"
+    implementation "com.google.firebase:firebase-auth"
     implementation 'com.android.support:multidex:1.0.3'
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation "com.google.android.gms:play-services-auth:20.7.0"
+    implementation "androidx.browser:browser:1.6.0"
 
 }
