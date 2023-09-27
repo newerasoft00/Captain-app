@@ -1,4 +1,5 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -20,7 +21,8 @@ class ToDaysMatchesScreen extends StatelessWidget {
         if (controller.todaysmatchesUCL.isNotEmpty ||
             controller.todaysmatchesPL.isNotEmpty ||
             controller.todaysmatchesRoshn.isNotEmpty ||
-            controller.todaysmatchesUEL.isNotEmpty) {
+            controller.todaysmatchesUEL.isNotEmpty ||
+            controller.todaysmatcheslaLiga.isNotEmpty) {
           return Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -177,7 +179,26 @@ class ToDaysMatchesScreen extends StatelessWidget {
                   ),
                 ),
                 15.ph,
-                const Center(child: Text('No Match aviable')),
+                StreamBuilder(
+                    stream: Connectivity().onConnectivityChanged,
+                    builder: (context, snapshot) {
+                      return Container(
+                        child: snapshot.data == ConnectivityResult.none
+                            ? Center(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                        width: 120,
+                                        height: 120,
+                                        child: Image.asset(
+                                            'assets/Image/bro.png')),
+                                    const Text('Check your internet connection')
+                                  ],
+                                ),
+                              )
+                            : const Center(child: ToDaysMatchCardShimmer()),
+                      );
+                    })
               ],
             ),
           );

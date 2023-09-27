@@ -6,7 +6,10 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/View/Screens/Auth/Login/Componant/custom_textfield.dart';
 import 'package:sportsbet/View/Screens/Auth/Login/login_screen.dart';
+import 'package:sportsbet/View/Screens/Auth/otp.dart';
+import '../../../../Controller/Auth/phone_controller.dart';
 import '../../../../Controller/Auth/signup_controller.dart';
+import '../../../../Core/helper/shared_preference/shared_preference.dart';
 import '../../../../Core/utils/color.dart';
 import '../../../../Core/utils/text_style.dart';
 
@@ -16,6 +19,8 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SignupController controller = Get.put(SignupController());
+    final PhoneController phonecontroller = Get.put(PhoneController());
+
     return Scaffold(
       body: Form(
         key: controller.formKey,
@@ -44,6 +49,7 @@ class SignUpScreen extends StatelessWidget {
                     child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IntlPhoneField(
+                          keyboardType: TextInputType.phone,
                           pickerDialogStyle: PickerDialogStyle(
                             backgroundColor: Theme.of(context).cardColor,
                           ),
@@ -53,6 +59,7 @@ class SignUpScreen extends StatelessWidget {
                             hintText: 'Phone Number',
                           ),
                           initialCountryCode: 'SA',
+                          
                           onChanged: (phone) {
                             controller.phoneNumber.value =
                                 phone.completeNumber.toString();
@@ -125,10 +132,18 @@ class SignUpScreen extends StatelessWidget {
                     onPressed: () async {
                       controller.toggleSignup();
                       controller.presssignup.value = true;
-
+                      print(controller.phoneNumber.toString());
+                       await UserPreference.setUserId(controller.phoneNumber.value);
                       if (controller.formKey.currentState!.validate()) {
                         // Show CircularProgressIndicator
+                      print(UserPreference.getUserid().toString());
+                      print('----------------------------------------------');
 
+                        /* await phonecontroller
+                            .verifyPhone(controller.phoneNumber.value);
+                        Get.to(()=>OtpScreen(
+                          phoneNumber: controller.phoneNumber.value,
+                        )); */
                         controller.signupwithemail();
 
                         // Hide CircularProgressIndicator

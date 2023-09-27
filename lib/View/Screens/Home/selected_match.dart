@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Controller/bet_controller.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
-import '../../../Core/helper/shared_preference/shared_preference.dart';
 import '../../../res/i_font_res.dart';
 
 class SelectedMatch extends StatelessWidget {
@@ -58,49 +57,46 @@ class SelectedMatch extends StatelessWidget {
                   return SizedBox(
                     width: Get.width,
                     child: controller.userbetted.value
-                        ? RefreshIndicator(
-                            onRefresh: () => controller.resetOptions(),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: controller.betOptions.length,
-                              itemBuilder: (context, index) {
-                                final betOption = controller.betOptions[index];
-                                return Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: Obx(
-                                        () => CupertinoCheckbox(
-                                          value: controller
-                                              .rxBoolList[index].value,
-                                          onChanged: (value) async {
-                                            for (int i = 0;
-                                                i <
-                                                    controller
-                                                        .rxBoolList.length;
-                                                i++) {
-                                              if (i != index) {
-                                                controller.rxBoolList[i].value =
-                                                    false;
-                                              }
-                                            }
-                                            controller.rxBoolList[index].value =
-                                                value!;
+                        ? ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: controller.betOptions.length,
+                          itemBuilder: (context, index) {
+                            final betOption = controller.betOptions[index];
+                            return Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Obx(
+                                    () => CupertinoCheckbox(
+                                      value: controller
+                                          .rxBoolList[index].value,
+                                      onChanged: (value) async {
+                                        for (int i = 0;
+                                            i <
+                                                controller
+                                                    .rxBoolList.length;
+                                            i++) {
+                                          if (i != index) {
+                                            controller.rxBoolList[i].value =
+                                                false;
+                                          }
+                                        }
+                                        controller.rxBoolList[index].value =
+                                            value!;
 
-                                            controller.addDataToFirestore(
-                                                UserPreference.getUserid(),
-                                                betOption,
-                                                homeTeam);
-                                          },
-                                        ),
-                                      ),
+                                        /* controller.addBetToFirestore(
+                                            UserPreference.getUserid(),
+                                            betOption,
+                                            homeTeam); */
+                                      },
                                     ),
-                                    Expanded(flex: 4, child: Text(betOption))
-                                  ],
-                                );
-                              },
-                            ),
-                          )
+                                  ),
+                                ),
+                                Expanded(flex: 4, child: Text(betOption))
+                              ],
+                            );
+                          },
+                        )
                         : const Center(
                             child: Text('Your Bet has been submitted'),
                           ),

@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 import '../../../Controller/Auth/login_controller.dart';
+import '../../../Controller/image_picker_controller.dart';
 import '../../../Controller/profile_Controller.dart';
 import '../../../Core/themes/theme_controller.dart';
+import 'widget/bet_history_widget.dart';
 import 'widget/profile_menu_widget.dart';
+import 'widget/user_pic.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -16,6 +19,14 @@ class ProfileScreen extends StatelessWidget {
       ProfileController(),
     );
     final ThemeController themeController = Get.put(ThemeController());
+    final ImagePickerController imageController =
+        Get.put(ImagePickerController());
+
+    Future<void> uploadImage() async {
+      await imageController.pickImage();
+    }
+
+    imageController.initImage();
 
     return Obx(
       () {
@@ -27,30 +38,42 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ProfileListItem(
-                    icon: CupertinoIcons.person,
-                    text: user[0].phoneNumber,
-                  ),
+                  25.ph,
+                  DisplayImage(
+                      imagePath: imageController.imagePath.value,
+                      onPressed: uploadImage),
+                  20.ph,
+                  user[0].phoneNumber.isPhoneNumber
+                      ? ProfileListItem(
+                          icon: CupertinoIcons.person_alt_circle_fill,
+                          text: user[0].phoneNumber,
+                          tcolor: Colors.blue,
+                        )
+                      : const SizedBox(),
                   ProfileListItem(
                     icon: CupertinoIcons.person_crop_circle,
                     text: user[0].name,
+                    tcolor: Colors.blue,
                   ),
                   ProfileListItem(
-                    icon: CupertinoIcons.mail,
+                    icon: CupertinoIcons.mail_solid,
                     text: user[0].email,
+                    tcolor: Colors.blue,
                   ),
-                  ProfileListItem(
-                    icon: CupertinoIcons.phone,
-                    text: user[0].phoneNumber,
-                  ),
-                 /*  const ProfileListItem(
+                  user[0].phoneNumber.isPhoneNumber
+                      ? ProfileListItem(
+                          icon: CupertinoIcons.phone,
+                          text: user[0].phoneNumber,
+                          tcolor: Colors.blue,
+                        )
+                      : const SizedBox(),
+                  /*  const ProfileListItem(
                     icon: CupertinoIcons.settings,
                     text: 'Settings',
                   ), */
                   GestureDetector(
-                    onTap: ()async {
-                       themeController.toggleTheme();
-
+                    onTap: () async {
+                      themeController.toggleTheme();
                     },
                     child: SizedBox(
                       width: Get.width,
@@ -66,6 +89,7 @@ class ProfileScreen extends StatelessWidget {
                             10.pw,
                             const Icon(
                               CupertinoIcons.moon_stars_fill,
+                              color: Colors.blue,
                             ),
                             10.pw,
                             const Text(
@@ -80,6 +104,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(child: BetHistoryWidget()),
                   SizedBox(
                     width: Get.width,
                     height: Get.height * 0.1,
@@ -121,11 +146,13 @@ class ProfileScreen extends StatelessWidget {
             ),
           );
         } else {
-          if (user.isNotEmpty) {
-            return const Center(child: Text('No Data Available'));
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
+          return Center(
+              child: ListView.builder(
+            itemCount: 6,
+            itemBuilder: (context, index) {
+              return const ProfileListItemShimmer();
+            },
+          ));
         }
       },
     );

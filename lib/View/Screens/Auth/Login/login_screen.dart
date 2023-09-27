@@ -5,15 +5,21 @@ import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/Core/utils/color.dart';
+import 'package:sportsbet/Services/google_signin_service.dart';
 import 'package:sportsbet/View/Screens/Auth/Login/Componant/custom_textfield.dart';
 import 'package:sportsbet/View/Screens/Auth/Login/signup_screen.dart';
 import '../../../../Controller/Auth/login_controller.dart';
+import '../../../../Controller/Auth/signup_controller.dart';
+import '../../../../Core/helper/shared_preference/shared_preference.dart';
+import '../otp.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
     final AuthController controller = Get.put(AuthController());
+    final c = Get.put(SignupController());
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
@@ -103,7 +109,15 @@ class LoginScreen extends StatelessWidget {
                     controller.presssignin.value = true;
                     if (controller.phoneNumber.value != '' ||
                         controller.password.value != '') {
-                      await controller.signinwithemail();
+                      UserPreference.setUserId(controller.phoneNumber.value);
+                      controller.signinwithemail();
+                      // c.verifyPhone(controller.phoneNumber.value);
+                      UserPreference.setUserId(
+                          controller.phoneNumber.value.toString());
+                      print(UserPreference.getUserid().toString());
+                      Get.to(OtpScreen(
+                        phoneNumber: controller.phoneNumber.value,
+                      ));
                     }
                     controller.presssignin.value = false;
                   },
@@ -156,6 +170,35 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                 ],
+              ),
+              20.ph,
+              SizedBox(
+                width: Get.width,
+                height: 45,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  onPressed: () async {
+                    await controller.signInWithGoogle();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/Image/google icon_.png'),
+                      10.pw,
+                      const FittedBox(
+                          child: Text(
+                        'Sign in with  Google',
+                        style: TextStyle(color: Colors.white),
+                      )),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

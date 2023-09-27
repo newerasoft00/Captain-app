@@ -11,32 +11,37 @@ class RoshnTopScorersPage extends GetView<TopScorerController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        if (controller.topScorers.isEmpty) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+      ),
+      body: Obx(
+        () {
           if (controller.topScorers.isEmpty) {
-            return const Center(child: CircularProgressIndicator());
+            if (controller.topScorers.isEmpty) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return const Center(child: Text('No data available'));
+            }
           } else {
-            return const Center(child: Text('No data available'));
+            return ListView.builder(
+              itemCount: topScorerController.topScorers.length,
+              itemBuilder: (context, index) {
+                final topScorer = topScorerController.topScorers[index];
+                return Card(
+                  margin: const EdgeInsets.all(8),
+                  child: ListTile(
+                    leading: Text("${topScorer.playerPlace}"),
+                    title: Text(topScorer.playerName),
+                    subtitle: Text(topScorer.teamName),
+                    trailing: Text('Goals: ${topScorer.goals}'),
+                  ),
+                );
+              },
+            );
           }
-        } else {
-          return ListView.builder(
-            itemCount: topScorerController.topScorers.length,
-            itemBuilder: (context, index) {
-              final topScorer = topScorerController.topScorers[index];
-              return Card(
-                margin: const EdgeInsets.all(8),
-                child: ListTile(
-                  leading: Text("${topScorer.playerPlace}"),
-                  title: Text(topScorer.playerName),
-                  subtitle: Text(topScorer.teamName),
-                  trailing: Text('Goals: ${topScorer.goals}'),
-                ),
-              );
-            },
-          );
-        }
-      },
+        },
+      ),
     );
   }
 }

@@ -5,9 +5,7 @@ import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/Model/Roshn League/game_weak.dart';
 import 'package:sportsbet/View/Screens/Roshn%20Matches/widget/bet_options_widget.dart';
 import 'package:sportsbet/View/Screens/Roshn%20Matches/widget/roshn_match_card.dart';
-
 import '../../../Controller/bet_controller.dart';
-import '../../../Core/helper/shared_preference/shared_preference.dart';
 
 class MatchDetailsPage extends StatelessWidget {
   final RoshnMatch fixture;
@@ -48,8 +46,8 @@ class MatchDetailsPage extends StatelessWidget {
                 }
                 return SizedBox(
                   width: Get.width,
-                  child: (fixture.eventLive != 'Half Time' ||
-                          fixture.eventLive != 'Finished')
+                  child: (fixture.eventLive == 'Half Time' ||
+                          fixture.eventLive == '0')
                       ? controller.betOptions.isEmpty
                           ? BetOptionsWidget(fixture: fixture)
                           : Padding(
@@ -58,54 +56,53 @@ class MatchDetailsPage extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  RefreshIndicator(
-                                    onRefresh: () => controller.resetOptions(),
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: controller.betOptions.length,
-                                      itemBuilder: (context, index) {
-                                        final betOption =
-                                            controller.betOptions[index];
-                                        return Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 1,
-                                              child: Obx(
-                                                () => CupertinoCheckbox(
-                                                  value: controller
-                                                      .rxBoolList[index].value,
-                                                  onChanged: (value) async {
-                                                    for (int i = 0;
-                                                        i <
-                                                            controller
-                                                                .rxBoolList
-                                                                .length;
-                                                        i++) {
-                                                      if (i != index) {
-                                                        controller.rxBoolList[i]
-                                                            .value = false;
-                                                      }
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: controller.betOptions.length,
+                                    itemBuilder: (context, index) {
+                                      final betOption =
+                                          controller.betOptions[index];
+                                      return Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Obx(
+                                              () => CupertinoCheckbox(
+                                                value: controller
+                                                    .rxBoolList[index].value,
+                                                onChanged: (value) async {
+                                                  for (int i = 0;
+                                                      i <
+                                                          controller
+                                                              .rxBoolList
+                                                              .length;
+                                                      i++) {
+                                                    if (i != index) {
+                                                      controller.rxBoolList[i]
+                                                          .value = false;
                                                     }
-                                                    controller.rxBoolList[index]
-                                                        .value = value!;
+                                                  }
+                                                  controller.rxBoolList[index]
+                                                      .value = value!;
 
-                                                    controller
-                                                        .addDataToFirestore(
-                                                            UserPreference
-                                                                .getUserid(),
-                                                            betOption,
-                                                            fixture
-                                                                .eventHomeTeam);
-                                                  },
-                                                ),
+                                                  /*  controller
+                                                      .addBetToFirestore( 
+                                                        UserPreference
+                                                              .getUserid(),
+                                                          betOption,
+                                                          fixture
+                                                              .eventHomeTeam
+                                                              );
+ */
+                                                },
                                               ),
                                             ),
-                                            Expanded(
-                                                flex: 4, child: Text(betOption))
-                                          ],
-                                        );
-                                      },
-                                    ),
+                                          ),
+                                          Expanded(
+                                              flex: 4, child: Text(betOption))
+                                        ],
+                                      );
+                                    },
                                   ),
                                   100.ph,
                                   SizedBox(

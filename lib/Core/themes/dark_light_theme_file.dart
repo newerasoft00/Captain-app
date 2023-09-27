@@ -18,12 +18,13 @@ const darktextcolor = Color(0xffE2E2E6);
 ThemeData light = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
+    scaffoldBackgroundColor: Colors.white,
     fontFamily: FontRes.TAJAWAL_MEDIUM,
     primaryColor: primaryColor,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.shifting,
       unselectedItemColor: disabledColor,
-      elevation: 2,
+      elevation: 5,
       showSelectedLabels: true,
       showUnselectedLabels: true,
       selectedItemColor: whitecolor,
@@ -55,6 +56,7 @@ ThemeData light = ThemeData(
     ));
 
 ThemeData dark = ThemeData(
+
     dialogTheme: const DialogTheme(
         backgroundColor: Colors.transparent,
         contentTextStyle: TextField.materialMisspelledTextStyle),

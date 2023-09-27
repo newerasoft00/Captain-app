@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
+import 'package:sportsbet/Services/google_signin_service.dart';
 import 'package:sportsbet/View/Screens/Home/home_screen.dart';
 
 import '../../View/Screens/Auth/Login/login_screen.dart';
@@ -9,6 +13,8 @@ import '../../View/Screens/Auth/Login/login_screen.dart';
 class AuthController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseAuth credentials = FirebaseAuth.instance;
+  final GoogleSignInService googleSignInService = GoogleSignInService();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   var email = ''.obs;
   var password = ''.obs;
   var phoneNumber = ''.obs;
@@ -18,6 +24,68 @@ class AuthController extends GetxController {
 
   toggleSignup() {
     presssignin.toggle();
+  }
+
+  googleSignIn() {
+    try {
+      GoogleSignInService();
+    } catch (e) {
+      Get.snackbar('error', '$e');
+    }
+  }
+
+  changeNumber(String val) {
+    phoneNumber.value = val;
+
+    update();
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
+      final GoogleSignInAuthentication? googleSignInAuthentication =
+          await googleSignInAccount?.authentication;
+      final AuthCredential authCredential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuthentication?.idToken,
+        accessToken: googleSignInAuthentication?.accessToken,
+      );
+      final UserCredential authResult =
+          await auth.signInWithCredential(authCredential);
+      final User user = authResult.user!;
+      if (user.phoneNumber == null) {
+        await changeNumber(user.uid);
+        await UserPreference.setUserId(user.uid);
+        phoneNumber.value = user.uid;
+      } else {
+        phoneNumber.value = user.phoneNumber.toString();
+      }
+      await UserPreference.setUserId(
+        phoneNumber.value,
+      );
+      Map<String, dynamic> userData = {
+        'name': user.displayName,
+        'email': user.email,
+        'phoneNumber': phoneNumber.value,
+        'uid': user.uid,
+        'password': user.uid
+      };
+
+      await FirebaseFirestore.instance
+          .collection("User Information")
+          .doc(phoneNumber.value)
+          .set(userData)
+          .then((value) async {
+
+        await UserPreference.setIsLoggedIn(true);
+        await Get.to(() => const HomeScreen());
+      });
+
+      return authResult;
+    } catch (e) {
+      print('Error signing in with Google --------------- : $e');
+      rethrow;
+    }
   }
 
   // Firebase Login

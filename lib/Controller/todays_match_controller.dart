@@ -1,8 +1,11 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import '../Model/match Day Models/todays_matches.dart';
 import '../Services/Api/todays_match_service.dart';
 
 class ToDaysMatchController extends GetxController {
+
+  
   final matchService = ToDaysMatchService();
   final RxList<ToDaysMatch> todaysmatchesUCL = <ToDaysMatch>[].obs;
   final RxList<ToDaysMatch> todaysmatchesUEL = <ToDaysMatch>[].obs;
@@ -12,13 +15,19 @@ class ToDaysMatchController extends GetxController {
   final currentDate = DateTime.now().toLocal().toString().split(' ')[0].obs;
   DateTime selectedDateTime = DateTime.now();
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await checkConnection();
     fetchMatchesUCL();
     fetchMatchesLaLiga();
     fetchMatchesUEL();
     fetchMatchesRoshn();
     fetchMatchesPL();
+  }
+
+  checkConnection() async {
+    var result = await Connectivity().checkConnectivity();
+    print(result.name);
   }
 
   void fetchMatchesUCL() async {

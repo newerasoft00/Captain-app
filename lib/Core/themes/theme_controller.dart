@@ -21,17 +21,6 @@ class ThemeController extends GetxController {
     }
 
     _saveThemePreference(islightMode.value);
-    showThemeChangeDialog();
-  }
-
-  void showThemeChangeDialog() {
-    Get.defaultDialog(
-      title: "Theme Changed",
-      middleText: "The theme has been changed.",
-    );
-    Future.delayed(const Duration(seconds: 4), () {
-      Get.back(); // Close the dialog
-    });
   }
 
   void _saveThemePreference(bool isLightMode) async {

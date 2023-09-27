@@ -55,7 +55,13 @@ class RoshnMatchCard extends StatelessWidget {
                                   ),
                                 ),
                               )
-                            : const SizedBox(),
+                            : SizedBox(
+                                child: FittedBox(
+                                  child: Text(
+                                    fixture.eventLive,
+                                  ),
+                                ),
+                              ),
                         SizedBox(
                           width: Get.width * 0.1,
                           height: Get.width * 0.1,

@@ -20,11 +20,9 @@ class HomeScreen extends StatelessWidget {
     final HomeController controller = Get.put(HomeController());
 
     final bottomBarItem = [
-      RoshnStandingsPage(),
       MatchesScreen(),
       ToDaysMatchesScreen(),
       const ProfileScreen(),
-      RoshnTopScorersPage(),
       RoshnMatchesPage(),
     ];
 
@@ -41,15 +39,17 @@ class HomeScreen extends StatelessWidget {
           )),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
+          type: BottomNavigationBarType.shifting,
+          unselectedItemColor: disabledColor,
+          elevation: 5,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          selectedItemColor: whitecolor,
           currentIndex: controller.pageindex.value,
           onTap: (value) {
             controller.changePageIndex(value);
           },
           items: const [
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.square_list_fill),
-                label: 'Standings',
-                backgroundColor: darkMaincolor2),
             BottomNavigationBarItem(
               icon: Icon(Icons.sports_basketball),
               label: 'Home',
@@ -62,10 +62,6 @@ class HomeScreen extends StatelessWidget {
               icon: Icon(Icons.person),
               label: 'Profile',
               backgroundColor: darkMaincolor2,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.chart_bar_circle_fill),
-              label: 'Top Scorer',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.star_rounded),

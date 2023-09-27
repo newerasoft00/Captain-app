@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/res/i_font_res.dart';
 import '../../../../Model/match Day Models/todays_matches.dart';
@@ -148,6 +149,104 @@ class ToDaysMatchCard extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+class ToDaysMatchCardShimmer extends StatelessWidget {
+  const ToDaysMatchCardShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: Get.width * 0.5,
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[300]!, // Change to your preferred base color
+        highlightColor: Colors.grey[100]!, // Change to your preferred highlight color
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: 3, // Adjust the number of shimmer items as needed
+          itemBuilder: (context, index) {
+            return SizedBox(
+              width: Get.width * 0.8,
+              height: Get.width * 0.4,
+              child: Card(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            color: Colors.white, // Adjust the background color
+                          ),
+                          6.ph,
+                          Container(
+                            width: 100, // Adjust the width as needed
+                            height: 20, // Adjust the height as needed
+                            color: Colors.white, // Adjust the background color
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 100, // Adjust the width as needed
+                            height: 20, // Adjust the height as needed
+                            color: Colors.white, // Adjust the background color
+                          ),
+                          6.ph,
+                          Container(
+                            width: 100, // Adjust the width as needed
+                            height: 20, // Adjust the height as needed
+                            color: Colors.white, // Adjust the background color
+                          ),
+                          Container(
+                            width: 100, // Adjust the width as needed
+                            height: 20, // Adjust the height as needed
+                            color: Colors.white, // Adjust the background color
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            color: Colors.white, // Adjust the background color
+                          ),
+                          6.ph,
+                          Container(
+                            width: 100, // Adjust the width as needed
+                            height: 20, // Adjust the height as needed
+                            color: Colors.white, // Adjust the background color
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
