@@ -1,0 +1,122 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sportsbet/Core/helper/empty_padding.dart';
+import '../../../../../Model/Roshn League/game_weak.dart';
+
+class RoshnMatchCard extends StatelessWidget {
+  const RoshnMatchCard({super.key, required this.fixture});
+  final RoshnMatch fixture;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CachedNetworkImage(
+                  imageUrl: fixture.homeTeamLogo,
+                  width: Get.width * 0.12,
+                  height: context.isPortrait
+                      ? context.width * 0.12
+                      : context.width * 0.06,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+                5.ph,
+                Text(
+                  fixture.eventHomeTeam,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    fixture.eventLive == '0'
+                        ? SizedBox(
+                            child: FittedBox(
+                              child: Text(
+                                fixture.eventDate,
+                              ),
+                            ),
+                          )
+                        : SizedBox(
+                            child: FittedBox(
+                                child: Obx(
+                              () => Text(
+                                fixture.eventLive,
+                              ),
+                            )),
+                          ),
+                    fixture.eventFinalResult == "-"
+                        ? SizedBox(
+                            width: Get.width * 0.1,
+                            height: context.isPortrait
+                                ? context.width * 0.10
+                                : context.width * 0.06,
+                            child: FittedBox(
+                              child: Text(
+                                fixture.eventTime,
+                              ),
+                            ),
+                          )
+                        : SizedBox(
+                            width: Get.width * 0.1,
+                            height: context.isPortrait
+                                ? context.width * 0.10
+                                : context.width * 0.06,
+                            child: FittedBox(
+                              child: Text(
+                                fixture.eventFinalResult,
+                              ),
+                            ),
+                          ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CachedNetworkImage(
+                  imageUrl: fixture.awayTeamLogo,
+                  width: Get.width * 0.12,
+                  height: context.isPortrait
+                      ? context.width * 0.12
+                      : context.width * 0.06,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+                5.ph,
+                FittedBox(
+                  child: Text(
+                    fixture.eventAwayTeam,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

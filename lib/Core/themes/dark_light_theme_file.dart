@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sportsbet/res/i_font_res.dart';
+import '../../res/i_font_res.dart';
 
 const primaryColor = Color(0xff0061A4);
 const onPrimatyColor = Color(0xffffffff);
@@ -21,14 +21,6 @@ ThemeData light = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     fontFamily: FontRes.TAJAWAL_MEDIUM,
     primaryColor: primaryColor,
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      type: BottomNavigationBarType.shifting,
-      unselectedItemColor: disabledColor,
-      elevation: 5,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
-      selectedItemColor: whitecolor,
-    ),
     secondaryHeaderColor: const Color(0xff535F70),
     primaryColorLight: onPrimatyColor,
     disabledColor: const Color(0xFFA0A4A8),
@@ -56,7 +48,6 @@ ThemeData light = ThemeData(
     ));
 
 ThemeData dark = ThemeData(
-
     dialogTheme: const DialogTheme(
         backgroundColor: Colors.transparent,
         contentTextStyle: TextField.materialMisspelledTextStyle),
