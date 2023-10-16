@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../../../../../Core/utils/color.dart';
-import '../../../../../../../Core/utils/text_style.dart';
+import 'package:get/get.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -28,7 +27,10 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
+      decoration: BoxDecoration(
+          color: Theme.of(context).cardColor.withOpacity(0.18),
+          borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(
@@ -37,14 +39,18 @@ class CustomTextField extends StatelessWidget {
           inputFormatters: inputFormat != null ? [inputFormat!] : null,
           onChanged: onChanged,
           decoration: InputDecoration(
-              suffixIconColor: MyColors.gray,
+              suffixIconColor: Colors.grey,
               suffixIcon: GestureDetector(
                 onTap: onTapSuffix,
                 child: Icon(suffixicon, color: suffixcolor),
               ),
               border: InputBorder.none,
               hintText: hint,
-              hintStyle: hinttext),
+              hintStyle: TextStyle(
+                  fontSize: 16,
+                  color: Get.isDarkMode
+                      ? Theme.of(context).hintColor
+                      : Colors.black38)),
         ),
       ),
     );

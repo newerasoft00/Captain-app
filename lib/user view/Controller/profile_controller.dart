@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
 import 'package:sportsbet/Model/ads/user_information.dart';
 import 'package:sportsbet/user%20view/Controller/Roshn%20Matches/roshn_match_controller.dart';
@@ -18,23 +18,25 @@ class ProfileController extends GetxController {
   RxList<Map<String, dynamic>> betHistory = <Map<String, dynamic>>[].obs;
   RxString selectedLeague = ''.obs;
   Map<String, Map<String, dynamic>> leagues = {
-    'Roshn League': {'assets/Roshn_Saudi_League_Logo.svg.png': '278'},
-    'English Premier League': {
+    'Roshn League'.tr: {'assets/Roshn_Saudi_League_Logo.svg.png': '278'},
+    'English Premier League'.tr: {
       'assets/Image/Premier-League-Logo.png': '152'
     }, // Replace with actual image path
-    'La Liga': {
+    'La Liga'.tr: {
       'assets/Image/la-liga.png': '302'
     }, // Replace with actual image path
-    'Serie A': {
+    'Serie A'.tr: {
       'assets/Image/saria a.png': '207'
     }, // Replace with actual image path
-    'Bundesliga': {
+    'Bundesliga'.tr: {
       'assets/Image/Bundesliga.svg.png': '175'
     }, // Replace with actual image path
-    'Ligue 1': {
+    'Ligue 1'.tr: {
       'assets/Image/Ligue1.svg.png': '168'
     }, // Replace with actual image path
-    'Egypt': {'assets/Image/Nile.png': '141'}, // Replace with actual image path
+    'Egypt'.tr: {
+      'assets/Image/Nile.png': '141'
+    }, // Replace with actual image path
   };
 // Function to fetch bet history data
   Future<void> fetchBetHistoryData() async {
@@ -142,7 +144,7 @@ class ProfileController extends GetxController {
           return SizedBox(
             height: context.height * 0.55,
             child: CupertinoActionSheet(
-              title: const Text('Select your favorite League'),
+              title: Text('Select your favorite League'.tr),
               actions: leagues.keys.map((leagueName) {
                 final subMap = leagues[leagueName]!;
                 final imagePath = subMap.keys.first;
@@ -156,7 +158,7 @@ class ProfileController extends GetxController {
                         child: Image.asset(imagePath),
                       ),
                       const SizedBox(width: 10),
-                      Text(leagueName),
+                      Text(leagueName.tr),
                     ],
                   ),
                   onPressed: () async {
@@ -180,7 +182,7 @@ class ProfileController extends GetxController {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('Cancel'),
+                child: Text('Cancel'.tr),
               ),
             ),
           );
@@ -206,7 +208,7 @@ class ProfileController extends GetxController {
                         height: 40,
                         child: Image.asset(imagePath),
                       ),
-                      title: Text(leagueName),
+                      title: Text(leagueName.tr),
                       onTap: () async {
                         RoshnMatchController c =
                             Get.put(RoshnMatchController());
@@ -220,8 +222,6 @@ class ProfileController extends GetxController {
                             subMap[subMap.keys.first]);
                         c.refresh();
                         c.fetchData();
-                        print(
-                            '$allsportsapi$fixturesEndPoint$allsportsapiKey&from=${currentDate.value}&to=2024-05-27&leagueId=${subMap[subMap.keys.first]}');
                         Navigator.pop(context);
                       },
                     );

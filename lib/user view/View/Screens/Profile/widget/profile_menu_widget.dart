@@ -18,36 +18,30 @@ class ProfileListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: Get.width,
-      height: Get.height * 0.1,
-      child: Card(
-        margin: const EdgeInsets.symmetric(
-          vertical: 10,
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Icon(
-                icon,
-                color: tcolor,
-              ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Icon(
+              icon,
+              color: tcolor,
             ),
-            Expanded(
-              flex: 5,
-              child: Text(
-                text,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+          ),
+          Expanded(
+            flex: 7,
+            child: Text(
+              text,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+   style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w800,
+                                  ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

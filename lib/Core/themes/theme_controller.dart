@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'dark_light_theme_file.dart';
 
 class ThemeController extends GetxController {
   final RxBool islightMode = true.obs;
@@ -13,10 +14,10 @@ class ThemeController extends GetxController {
 
   void toggleTheme() {
     if (islightMode.value) {
-      Get.changeThemeMode(ThemeMode.dark);
+      Get.changeTheme(dark); // Change to the light theme
       islightMode.value = false;
     } else {
-      Get.changeThemeMode(ThemeMode.light);
+      Get.changeTheme(light); // Change to the dark theme
       islightMode.value = true;
     }
 
@@ -34,7 +35,7 @@ class ThemeController extends GetxController {
 
     if (isLightMode != null) {
       islightMode.value = isLightMode;
-      Get.changeThemeMode(isLightMode ? ThemeMode.light : ThemeMode.dark);
+      Get.changeTheme(isLightMode ? light : dark); // Apply the saved theme
     }
   }
 }

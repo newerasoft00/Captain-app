@@ -7,6 +7,7 @@ import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/User%20View/Controller/bet_controller.dart';
 import '../../../../../../Core/helper/shared_preference/shared_preference.dart';
 import '../../../../../Model/Roshn League/game_weak.dart';
+import '../../../../../Model/bet/user_bet.dart';
 import '../../../../Services/bet/get_user_bet.dart';
 
 class BetOptionsWidget extends StatelessWidget {
@@ -18,16 +19,6 @@ class BetOptionsWidget extends StatelessWidget {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final BetOptionController controller = Get.put(BetOptionController());
     final GetUserBetService getUserBetSer = GetUserBetService();
-    int totalUsers = controller.usersChoseHomeTeam.value +
-        controller.usersChoseAwayTeam.value +
-        controller.usersChoseDrawing.value;
-
-    double homeTeamPercentage =
-        ((controller.usersChoseHomeTeam.value / totalUsers) * 100);
-    double awayTeamPercentage =
-        (controller.usersChoseAwayTeam.value / totalUsers) * 100;
-    double drawingPercentage =
-        (controller.usersChoseDrawing.value / totalUsers) * 100;
 
     return Form(
         key: formKey,
@@ -81,24 +72,42 @@ class BetOptionsWidget extends StatelessWidget {
                     20.ph,
                     SizedBox(
                       width: double.infinity,
-                      child: FutureBuilder(
-                        future: getUserBetSer.getUserBetByMatchKey(
-                            fixture.eventKey.toString(),
-                            UserPreference.getUserid()),
+                      child: StreamBuilder<NewBet?>(
+                        stream: getUserBetSer.getUserBetStream(
+                          fixture.eventKey.toString(),
+                          UserPreference.getUserid(),
+                        ),
                         builder: (context, snapshot) {
+                          int totalUsers = controller.usersChoseHomeTeam.value +
+                              controller.usersChoseAwayTeam.value +
+                              controller.usersChoseDrawing.value;
+
+                          double homeTeamPercentage =
+                              ((controller.usersChoseHomeTeam.value /
+                                      totalUsers) *
+                                  100);
+                          double awayTeamPercentage =
+                              (controller.usersChoseAwayTeam.value /
+                                      totalUsers) *
+                                  100;
+                          double drawingPercentage =
+                              (controller.usersChoseDrawing.value /
+                                      totalUsers) *
+                                  100;
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
                             return const Center(
                                 child: CircularProgressIndicator.adaptive());
                           } else if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
-                          } else if (!snapshot.hasData ||
-                              snapshot.data == null) {
-                            return const SizedBox(
-                              height: 1,
-                            );
                           } else {
-                            final userBet = snapshot.data!;
+                            final userBet = snapshot.data;
+
+                            if (userBet == null) {
+                              return const SizedBox(
+                                height: 1,
+                              );
+                            }
 
                             // Display the user's bet data
                             return Column(
@@ -247,7 +256,7 @@ class BetOptionsWidget extends StatelessWidget {
                                 () => Card(
                                   color: !controller.homebetted.value
                                       ? Theme.of(context).cardColor
-                                      : Colors.green,
+                                      : Colors.tealAccent.shade700,
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -277,7 +286,7 @@ class BetOptionsWidget extends StatelessWidget {
                               () => Card(
                                 color: !controller.awaybetted.value
                                     ? Theme.of(context).cardColor
-                                    : Colors.green,
+                                    : Colors.tealAccent.shade700,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -308,7 +317,7 @@ class BetOptionsWidget extends StatelessWidget {
                                 () => Card(
                                   color: !controller.drawbetted.value
                                       ? Theme.of(context).cardColor
-                                      : Colors.green,
+                                      : Colors.tealAccent.shade700,
                                   // ignore: prefer_const_constructors
                                   child: Row(
                                     mainAxisAlignment:
@@ -411,7 +420,7 @@ class BetOptionsWidget extends StatelessWidget {
                       height: 45,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor,
+                            backgroundColor: Theme.of(context).cardColor,
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -451,13 +460,14 @@ class BetOptionsWidget extends StatelessWidget {
                                             fixture.eventDate,
                                             '${fixture.eventHomeTeam} : ${fixture.eventAwayTeam}',
                                             '${controller.userChoicescore1.value} : ${controller.userChoicescore2.value}');
-                                        // Navigator.pop(context);
+
                                         controller.userChoice.value = '';
                                         controller.userChoicescore1.value = '';
                                         controller.userChoicescore2.value = '';
                                         controller.awaybetted.value = false;
                                         controller.drawbetted.value = false;
                                         controller.homebetted.value = false;
+                                        Navigator.pop(context);
                                       }
                                     } else if (controller
                                                 .userChoicescore1.value !=
@@ -477,13 +487,14 @@ class BetOptionsWidget extends StatelessWidget {
                                           fixture.eventDate,
                                           '${fixture.eventHomeTeam} : ${fixture.eventAwayTeam}',
                                           '${controller.userChoicescore1.value} : ${controller.userChoicescore2.value}');
-                                      // Navigator.pop(context);
+
                                       controller.userChoice.value = '';
                                       controller.userChoicescore1.value = '';
                                       controller.userChoicescore2.value = '';
                                       controller.awaybetted.value = false;
                                       controller.drawbetted.value = false;
                                       controller.homebetted.value = false;
+                                      Navigator.pop(context);
                                     }
                                   },
                                 ).show();

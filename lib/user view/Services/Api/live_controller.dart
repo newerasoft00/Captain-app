@@ -5,8 +5,8 @@ import '../live.dart';
 
 class LiveMatchController extends GetxController {
   final liveMatches = <LiveMatch>[].obs;
+  final rliveMatches = <LiveMatch>[].obs;
   final liveMatchesTime = <LiveMatch>[].obs;
-
   Timer? _updateTimer; // Declare a Timer variable
 
   @override
@@ -21,6 +21,15 @@ class LiveMatchController extends GetxController {
     try {
       final matches = await service.getLiveMatches();
       liveMatches.assignAll(matches);
+    } catch (e) {
+      print("Error fetching live matches: $e");
+    }
+  }
+  void fetchRpshnLiveMatches() async {
+    final LiveMatchService service = Get.put(LiveMatchService());
+    try {
+      final matches = await service.getRoshnLiveMatches();
+      rliveMatches.assignAll(matches);
     } catch (e) {
       print("Error fetching live matches: $e");
     }

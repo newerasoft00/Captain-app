@@ -9,6 +9,7 @@ class RoshnMatch {
   final String eventStatus;
   final String leagueRound;
   final String leagueName;
+  final String leagueLogo;
   final String leagueSeason;
   final String homeTeamLogo;
   final String awayTeamLogo;
@@ -18,6 +19,7 @@ class RoshnMatch {
   final int awayteamkey;
 
   RoshnMatch( {
+    required this.leagueLogo,
     required this.eventTime,
     required this.eventKey,
     required this.hometeamkey,
@@ -55,7 +57,8 @@ class RoshnMatch {
       eventHomeFormation: json['event_home_formation'] ?? '',
       eventAwayFormation: json['event_away_formation'] ?? '',
       hometeamkey: json['home_team_key']??0,
-      awayteamkey: json['away_team_key']??0,
+      awayteamkey: json['away_team_key']??0, 
+      leagueLogo: json['league_logo']??'',
     );
   }
 }

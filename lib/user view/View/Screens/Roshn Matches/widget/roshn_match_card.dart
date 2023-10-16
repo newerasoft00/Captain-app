@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
+
 import '../../../../../Model/Roshn League/game_weak.dart';
 
 class RoshnMatchCard extends StatelessWidget {
@@ -21,13 +23,13 @@ class RoshnMatchCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CachedNetworkImage(
-                  imageUrl: fixture.homeTeamLogo,
-                  width: Get.width * 0.12,
+                  imageUrl: Uri.encodeFull(fixture.homeTeamLogo),
+                  width: Get.width * 0.09,
                   height: context.isPortrait
                       ? context.width * 0.12
                       : context.width * 0.06,
                   placeholder: (context, url) =>
-                      const CircularProgressIndicator(),
+                      const Center(child: CircularProgressIndicator.adaptive()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
                 5.ph,
@@ -63,13 +65,14 @@ class RoshnMatchCard extends StatelessWidget {
                           ),
                     fixture.eventFinalResult == "-"
                         ? SizedBox(
-                            width: Get.width * 0.1,
+                            width: Get.width * 0.15,
                             height: context.isPortrait
                                 ? context.width * 0.10
                                 : context.width * 0.06,
                             child: FittedBox(
                               child: Text(
-                                fixture.eventTime,
+                                formatTime(fixture.eventTime),
+                                softWrap: true,
                               ),
                             ),
                           )
@@ -96,13 +99,13 @@ class RoshnMatchCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CachedNetworkImage(
-                  imageUrl: fixture.awayTeamLogo,
-                  width: Get.width * 0.12,
+                  imageUrl: Uri.encodeFull(fixture.awayTeamLogo),
+                  width: Get.width * 0.09,
                   height: context.isPortrait
                       ? context.width * 0.12
                       : context.width * 0.06,
                   placeholder: (context, url) =>
-                      const CircularProgressIndicator(),
+                      const Center(child: CircularProgressIndicator.adaptive()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
                 5.ph,
@@ -110,6 +113,7 @@ class RoshnMatchCard extends StatelessWidget {
                   child: Text(
                     fixture.eventAwayTeam,
                     textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
@@ -119,4 +123,11 @@ class RoshnMatchCard extends StatelessWidget {
       ),
     );
   }
+}
+
+String formatTime(String time24Hour) {
+  final inputFormat = DateFormat('HH:mm');
+  final outputFormat = DateFormat('h:mm a');
+  final time = inputFormat.parse(time24Hour);
+  return outputFormat.format(time);
 }

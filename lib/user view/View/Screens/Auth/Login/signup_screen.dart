@@ -7,9 +7,8 @@ import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/user%20view/Controller/Auth/phone_controller.dart';
 import 'package:sportsbet/user%20view/Controller/Auth/signup_controller.dart';
 import 'package:sportsbet/user%20view/View/Screens/Auth/Login/Componant/custom_textfield.dart';
+
 import '../../../../../../Core/helper/shared_preference/shared_preference.dart';
-import '../../../../../../Core/utils/color.dart';
-import '../../../../../../Core/utils/text_style.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -38,13 +37,15 @@ class SignUpScreen extends StatelessWidget {
                     child:
                         Image.asset('assets/Roshn_Saudi_League_Logo.svg.png')),
                 12.ph,
-                const Text(
-                  'Sign Up now',
+                Text(
+                  'Sign Up now'.tr,
                   textAlign: TextAlign.center,
-                  style: tajawalb22,
                 ),
                 20.ph,
-                Card(
+                Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor.withOpacity(0.18),
+                        borderRadius: BorderRadius.circular(20)),
                     child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IntlPhoneField(
@@ -52,13 +53,12 @@ class SignUpScreen extends StatelessWidget {
                           pickerDialogStyle: PickerDialogStyle(
                             backgroundColor: Theme.of(context).cardColor,
                           ),
-                          decoration: const InputDecoration(
-                            counterText: '',
-                            border: InputBorder.none,
-                            hintText: 'Phone Number',
-                          ),
+                          decoration: InputDecoration(
+                              counterText: '',
+                              border: InputBorder.none,
+                              hintText: 'Phone Number'.tr,
+                              hintStyle: const TextStyle(fontSize: 16)),
                           initialCountryCode: 'SA',
-                          
                           onChanged: (phone) {
                             controller.phoneNumber.value =
                                 phone.completeNumber.toString();
@@ -67,17 +67,17 @@ class SignUpScreen extends StatelessWidget {
                 15.ph,
                 CustomTextField(
                     validator: controller.validateName,
-                    suffixcolor: MyColors.grayhint,
+                    suffixcolor: Theme.of(context).primaryColor,
                     suffixicon: Icons.person,
-                    hint: 'Enter your name',
+                    hint: 'Enter your name'.tr,
                     onChanged: (val) {
                       controller.name.value = val;
                     }),
                 15.ph,
                 CustomTextField(
-                    suffixcolor: MyColors.grayhint,
+                    suffixcolor: Theme.of(context).primaryColor,
                     suffixicon: Icons.email,
-                    hint: 'Enter your email',
+                    hint: 'Enter your email'.tr,
                     onChanged: (val) {
                       controller.email.value = val;
                     }),
@@ -86,8 +86,8 @@ class SignUpScreen extends StatelessWidget {
                   () => CustomTextField(
                       validator: controller.validpassword,
                       suffixcolor: controller.visiblepassword.value
-                          ? MyColors.maincolor
-                          : MyColors.grayhint,
+                          ? Colors.teal.shade700
+                          : Theme.of(context).primaryColor,
                       onTapSuffix: () {
                         controller.togglepasswordEye();
                       },
@@ -95,7 +95,7 @@ class SignUpScreen extends StatelessWidget {
                       suffixicon: !controller.visiblepassword.value
                           ? Icons.visibility_off
                           : Icons.visibility_outlined,
-                      hint: 'Enter your password',
+                      hint: 'Enter your password'.tr,
                       onChanged: (val) {
                         controller.password.value = val;
                       }),
@@ -105,15 +105,15 @@ class SignUpScreen extends StatelessWidget {
                     validator: controller.passwordmatch,
                     visible: !controller.visiblecheckpassword.value,
                     suffixcolor: controller.visiblecheckpassword.value
-                        ? MyColors.maincolor
-                        : MyColors.grayhint,
+                        ? Colors.teal.shade700
+                        : Theme.of(context).primaryColor,
                     onTapSuffix: () {
                       controller.togglecheckpasswordEye();
                     },
                     suffixicon: !controller.visiblecheckpassword.value
                         ? Icons.visibility_off
                         : Icons.visibility_outlined,
-                    hint: 'Re Enter your password',
+                    hint: 'Re Enter your password'.tr,
                     onChanged: (val) {
                       controller.checkpassword.value = val;
                     })),
@@ -122,7 +122,7 @@ class SignUpScreen extends StatelessWidget {
                   width: Get.width,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: Theme.of(context).cardColor,
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -131,7 +131,8 @@ class SignUpScreen extends StatelessWidget {
                     onPressed: () async {
                       controller.toggleSignup();
                       controller.presssignup.value = true;
-                       await UserPreference.setUserId(controller.phoneNumber.value);
+                      await UserPreference.setUserId(
+                          controller.phoneNumber.value);
                       if (controller.formKey.currentState!.validate()) {
                         /* await phonecontroller
                             .verifyPhone(controller.phoneNumber.value);
@@ -151,10 +152,10 @@ class SignUpScreen extends StatelessWidget {
                           ? const CupertinoActivityIndicator(
                               color: Colors.white,
                             ) // Show CircularProgressIndicator
-                          : const FittedBox(
+                          : FittedBox(
                               child: Text(
-                                'Sign up',
-                                style: TextStyle(
+                                'Sign up'.tr,
+                                style: const TextStyle(
                                   fontSize: 18,
                                   color: Colors.white,
                                 ),
@@ -172,22 +173,21 @@ class SignUpScreen extends StatelessWidget {
                         Get.off(() => const LoginScreen());
                       },
                       child: RichText(
-                        text: const TextSpan(
+                        text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "already have account? ",
+                              text: "already have account? ".tr,
                               style: TextStyle(
-                                fontFamily: '',
                                 fontSize: 16,
-                                color: Color(0xff0061A4),
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
                             TextSpan(
-                              text: "Login",
+                              text: "Sign in".tr,
                               style: TextStyle(
                                   fontSize: 16,
-                                  color: Color(0xff0061A4),
-                                  fontWeight: FontWeight.w700),
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.w800),
                             ),
                           ],
                         ),

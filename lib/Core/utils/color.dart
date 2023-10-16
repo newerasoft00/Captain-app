@@ -1,59 +1,41 @@
 import 'package:flutter/material.dart';
 
-class MyColors {
-  // app color
-
-  static const maincolor = Color(0xff0386D0);
-  static const grayBackground = Color.fromARGB(31, 204, 201, 201);
-  static const whitecolor = Color(0xffffffff);
-  static const blackcolor = Color(0xff000000);
-  static const gray = Color(0xff6B5E5E);
-  static const grayhint = Color(0xffCCC9C9);
-
-  //dark theme color
-  static const darkMaincolor = Color(0xff9ECAFF);
-  static const darkMaincolor2 = Color(0xff003258);
-  static const darkbackground = Color(0xff1A1C1E);
-  static const darktextcolor = Color(0xffE2E2E6);
+class ColorTeal {
+  static Color primaryColor = const Color(0xff006A60);
+  static Color onPrimatyColor = const Color(0xFFFFFFFF);
+  static Color primaryContainer = const Color(0xFF92F4E5);
+  static Color onPrimatyContainer = const Color(0xFF00201C);
 }
-class AppColor {
-  static const primary = Color(0xFFf77080);
-  static const secondary = Color(0xFFe96561);
 
-  static const mainColor = Color(0xFF000000);
-  static const darker = Color(0xFF3E4249);
-  static const cardColor = Colors.white;
-  static const appBgColor = Color(0xFFF7F7F7);
-  static const appBarColor = Color(0xFFF7F7F7);
-  static const bottomBarColor = Colors.white;
-  static const inActiveColor = Colors.grey;
-  static const shadowColor = Colors.black87;
-  static const textBoxColor = Colors.white;
-  static const textColor = Color(0xFF333333);
-  static const glassTextColor = Colors.white;
-  static const labelColor = Color(0xFF8A8989);
-  static const glassLabelColor = Colors.white;
-  static const actionColor = Color(0xFFe54140);
+class ColorTealDark {
+  static Color primaryColor = const Color(0xff53DBCA);
+  static Color onPrimaryColor = const Color(0xFF003732);
+  static Color primaryContainer = const Color(0xFF005048);
+  static Color onPrimaryContainer = const Color(0xFF92F4E5);
+  static Color tertiary = const Color(0xFFADCAE6);
+  static Color onTertiary = const Color(0xFF153349);
+  static Color tertiaryContainer = const Color(0xFF2D4961);
+  static Color onTertiaryContainer = const Color(0xFFCCE5FF);
+  static Color error = const Color(0xFFFFB4AB);
+  static Color onError = const Color(0xFF690005);
+  static Color errorContainer = const Color(0xFF93000A);
+}
 
-  static const yellow = Color(0xFFffcb66);
-  static const green = Color(0xFFa2e1a6);
-  static const pink = Color(0xFFf5bde8);
-  static const purple = Color(0xFFcdacf9);
-  static const red = Color(0xFFf77080);
-  static const orange = Color(0xFFf5ba92);
-  static const sky = Color(0xFFABDEE6);
-  static const blue = Color(0xFF509BE4);
-
-  static const listColors = [
-    green,
-    purple,
-    yellow,
-    orange,
-    sky,
-    secondary,
-    red,
-    blue,
-    pink,
-    yellow,
-  ];
+class ColorBlue {
+  static Color primaryColor = const Color(0xff006491);
+  static Color onPrimaryColor = const Color(0xFFFFFFFF);
+  static Color primaryContainer = const Color(0xFFC9E6FF);
+  static Color onPrimaryContainer = const Color(0xFF001E2F);
+  static Color secondaryColor = const Color(0xff4F606E);
+  static Color onSecondaryColor = const Color(0xffFFFFFF);
+  static Color secondaryContainer = const Color(0xffD3E5F5);
+  static Color onSecondaryContainer = const Color(0xff0C1D29);
+  static Color tertiary = const Color(0xff64597C);
+  static Color onTertiary = const Color(0xffFFFFFF);
+  static Color tertiaryContainer = const Color(0xffEADDFF);
+  static Color onTertiaryContainer = const Color(0xff201635);
+  static Color background = const Color(0xffFCFCFF);
+  static Color onBackground = const Color(0xff191C1E);
+  static Color serface = const Color(0xffFCFCFF);
+  static Color onSerface = const Color(0xff191C1E);
 }

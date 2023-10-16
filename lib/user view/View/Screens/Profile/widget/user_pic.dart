@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class DisplayImage extends StatelessWidget {
   final String imagePath;
@@ -23,16 +21,9 @@ class DisplayImage extends StatelessWidget {
       onTap: onPressed,
       child: Center(
           child: SizedBox(
-        width: 120,
-        height: 120,
-        child: Stack(children: [
-          buildImage(color),
-          Positioned(
-            right: 4,
-            bottom: 10,
-            child: buildEditIcon(color),
-          )
-        ]),
+        width: 100,
+        height: 100,
+        child: buildImage(color),
       )),
     );
   }
@@ -62,13 +53,6 @@ class DisplayImage extends StatelessWidget {
   }
 
   // Builds Edit Icon on Profile Picture
-  Widget buildEditIcon(Color color) => buildCircle(
-      all: 8,
-      child: Icon(
-        Icons.edit,
-        color: color,
-        size: 20,
-      ));
 
   // Builds/Makes Circle for Edit Icon on Profile Picture
   Widget buildCircle({

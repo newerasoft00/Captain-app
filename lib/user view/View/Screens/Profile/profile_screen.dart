@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
+import 'package:sportsbet/Local/local_controller.dart';
 import 'package:sportsbet/User%20View/Controller/image_picker_controller.dart';
 import 'package:sportsbet/user%20view/Controller/Auth/login_controller.dart';
 import 'package:sportsbet/user%20view/Controller/profile_controller.dart';
-import '../../../../../Core/themes/theme_controller.dart';
+
+import '../../../../Core/themes/theme_controller.dart';
 import 'widget/bet_history_widget.dart';
 import 'widget/profile_menu_widget.dart';
 import 'widget/user_pic.dart';
@@ -19,6 +20,9 @@ class ProfileScreen extends StatelessWidget {
     final ProfileController controller = Get.put(
       ProfileController(),
     );
+    MyLocalController localController = Get.find();
+    final ThemeController themeController = Get.find<ThemeController>();
+
     // final ThemeController themeController = Get.put(ThemeController());
     final ImagePickerController imageController =
         Get.put(ImagePickerController());
@@ -29,50 +33,89 @@ class ProfileScreen extends StatelessWidget {
 
     imageController.initImage();
 
-    return Obx(
-      () {
-        final user = controller.user;
-        if (user.isNotEmpty) {
-          return Padding(
-            padding: const EdgeInsets.all(16),
-            child: SingleChildScrollView(
-              primary: true,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Account'.tr),
+        centerTitle: true,
+      ),
+      body: Obx(
+        () {
+          final user = controller.user;
+          if (user.isNotEmpty) {
+            return Padding(
+              padding: const EdgeInsets.all(16),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //mainAxisSize: MainAxisSize.min,
                 children: [
-                  20.ph,
-                  DisplayImage(
-                      imagePath: imageController.imagePath.value,
-                      onPressed: uploadImage),
-                  15.ph,
-                  ProfileListItem(
-                    icon: CupertinoIcons.person_crop_circle,
-                    text: user[0].name,
-                    tcolor: Colors.blue,
+                  Row(
+                    children: [
+                      DisplayImage(
+                          imagePath: imageController.imagePath.value,
+                          onPressed: uploadImage),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            user[0].name,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          Text(
+                            user[0].email,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
                   ),
-                  ProfileListItem(
-                    icon: CupertinoIcons.mail_solid,
-                    text: user[0].email,
-                    tcolor: Colors.blue,
+                  const Divider(),
+                  const Spacer(
+                    flex: 1,
                   ),
                   user[0].phoneNumber.isPhoneNumber
                       ? ProfileListItem(
-                          icon: CupertinoIcons.phone,
+                          icon: Icons.phone_android_rounded,
                           text: user[0].phoneNumber,
-                          tcolor: Colors.blue,
+                          tcolor: Colors.amber.shade800,
                         )
                       : const SizedBox(),
+                  const Spacer(
+                    flex: 1,
+                  ),
                   GestureDetector(
                       onTap: () {
                         // Show the bottom sheet when "Settings" is tapped
                         controller.showLeagueBottomSheet(context);
                       },
-                      child: Card(
-                          child: Padding(
+                      child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 15),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            const Expanded(
+                                flex: 1,
+                                child: Icon(
+                                  Icons.dashboard_rounded,
+                                  color: Color(0xffEA1A8E),
+                                )),
+                            Expanded(
+                                flex: 6,
+                                child: Text(
+                                  'Favorite League'.tr,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                )),
                             Expanded(
                                 flex: 1,
                                 child: Obx(
@@ -85,24 +128,21 @@ class ProfileScreen extends StatelessWidget {
                                     height: 30,
                                   ),
                                 )),
-                            const Expanded(
-                                flex: 5, child: Text('Favorite League')),
                           ],
                         ),
-                      ))),
-                  5.ph,
+                      )),
+                  const Spacer(
+                    flex: 1,
+                  ),
                   SizedBox(
                     width: Get.width,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.all(15)),
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         showDialog(
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title:
-                                  const Center(child: Text('Your Bet History')),
+                              title: Center(child: Text('Your Bet History'.tr)),
                               content: SizedBox(
                                 width: context.width * 0.8, // Specify a width
                                 height:
@@ -112,11 +152,10 @@ class ProfileScreen extends StatelessWidget {
                               actions: [
                                 Center(
                                   child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Close'),
-                                  ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('Close'.tr)),
                                 ),
                               ],
                             );
@@ -124,69 +163,146 @@ class ProfileScreen extends StatelessWidget {
                         );
                       },
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Icon(
-                            Icons.receipt_rounded,
-                            color: Colors.greenAccent,
+                          const Expanded(
+                            flex: 1,
+                            child: Icon(
+                              CupertinoIcons.square_list_fill,
+                              color: Color(0xff7153FF),
+                            ),
                           ),
-                          20.pw,
-                          const Text('Show Bet History'),
+                          Expanded(
+                              flex: 7,
+                              child: Text(
+                                'Show Bet History'.tr,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              )),
                         ],
                       ),
                     ),
                   ),
+                  const Spacer(
+                    flex: 1,
+                  ),
+                  Obx(() => GestureDetector(
+                        onTap: themeController.toggleTheme,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Icon(
+                                themeController.islightMode.value
+                                    ? Icons.light_mode
+                                    : Icons.dark_mode,
+                                color: themeController.islightMode.value
+                                    ? Colors.amber.shade900
+                                    : Colors.amberAccent,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 7,
+                              child: Text(
+                                themeController.islightMode.value
+                                    ? 'Light Theme'.tr
+                                    : 'Dark Theme'.tr,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )),
+                  const Spacer(
+                    flex: 1,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      localController.toggleLang();
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                                width: 27,
+                                height: 27,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child:
+                                    Image.asset('assets/Image/language.png'))),
+                        Expanded(
+                          flex: 7,
+                          child: Text(
+                            'Change Language'.tr,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const Spacer(flex: 1),
                   SizedBox(
                     width: Get.width,
-                    height: Get.height * 0.1,
                     child: GestureDetector(
                       onTap: () async {
                         final AuthController authController =
                             Get.put(AuthController());
                         authController.signout();
                       },
-                      child: Card(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 10,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            10.pw,
-                            const Icon(
-                              CupertinoIcons.square_arrow_left,
-                              color: Colors.redAccent,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Expanded(
+                            flex: 1,
+                            child: Icon(
+                              CupertinoIcons.square_arrow_left_fill,
+                              color: Color(0xfff75555),
                             ),
-                            20.pw,
-                            const Text(
-                              'Log out',
-                              style: TextStyle(
-                                color: Colors.redAccent,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                          ),
+                          Expanded(
+                            flex: 7,
+                            child: Text(
+                              'Log out'.tr,
+                              style: const TextStyle(
+                                color: Color(0xfff75555),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  40.ph
+                  const Spacer(
+                    flex: 3,
+                  )
                 ],
               ),
-            ),
-          );
-        } else {
-          return Center(
-              child: ListView.builder(
-            itemCount: 6,
-            itemBuilder: (context, index) {
-              return const ProfileListItemShimmer();
-            },
-          ));
-        }
-      },
+            );
+          } else {
+            return Center(
+                child: ListView.builder(
+              itemCount: 6,
+              itemBuilder: (context, index) {
+                return const ProfileListItemShimmer();
+              },
+            ));
+          }
+        },
+      ),
     );
   }
 }

@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
 import 'package:sportsbet/Core/utils/strings.dart';
 import 'package:sportsbet/Model/Roshn%20League/game_weak.dart';
@@ -11,11 +13,13 @@ class RoshnMatchController extends GetxController {
       <RoshnMatch>[].obs; // Store the fixtures data as FixtureModel
   final currentDate = DateTime.now().toLocal().toString().split(' ')[0].obs;
   final newDate = DateTime.now().add(const Duration(days: 100));
+  final liveMatchesTime = <RoshnMatch>[].obs;
+  Timer? _updateTimer; // Declare a Timer variable
 
   // Fetch data from the API
   void fetchData() async {
     final apiURL =
-      '$allsportsapi$fixturesEndPoint$allsportsapiKey&from=${currentDate.value}&to=2024-05-27&leagueId=${UserPreference.getSelectedLeaguekeys()}';
+        '$allsportsapi$fixturesEndPoint$allsportsapiKey&from=2023-9-25&to=2024-05-27&leagueId=${UserPreference.getSelectedLeaguekeys()}';
     final response = await http.get(Uri.parse(UserPreference.getLeagueUrl()));
 
     if (response.statusCode == 200) {
@@ -31,6 +35,12 @@ class RoshnMatchController extends GetxController {
     }
   }
 
+  void startTimer() {
+    _updateTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
+      fetchData(); // Fetch and update the eventlivetime
+    });
+  }
+
   @override
   void refresh() async {
     super.refresh();
@@ -40,7 +50,14 @@ class RoshnMatchController extends GetxController {
 
   @override
   void onInit() {
-    fetchData();
     super.onInit();
+    fetchData();
+    startTimer();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    _updateTimer?.cancel();
   }
 }

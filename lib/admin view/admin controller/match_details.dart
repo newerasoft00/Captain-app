@@ -7,6 +7,8 @@ import '../../Model/teams/h2h_model.dart';
 class MatchDetailsController extends GetxController {
   RxString homeTeamName = RxString('');
   RxString awayTeamName = RxString('');
+  RxString homeTeamKey = RxString('');
+  RxString awayTeamKey = RxString('');
   RxString eventDate = RxString('');
   RxString eventTime = RxString('');
   RxString homeTeamLogoUrl = RxString('');
@@ -32,6 +34,8 @@ class MatchDetailsController extends GetxController {
           .toList();
       homeTeamName.value = roshnFixtures[0].eventHomeTeam;
       awayTeamName.value = roshnFixtures[0].eventAwayTeam;
+      homeTeamKey.value = roshnFixtures[0].hometeamkey.toString();
+      awayTeamKey.value = roshnFixtures[0].awayteamkey.toString();
       eventDate.value = roshnFixtures[0].eventDate;
       eventTime.value = roshnFixtures[0].eventKey.toString();
       homeTeamLogoUrl.value = roshnFixtures[0].homeTeamLogo;
@@ -45,9 +49,9 @@ class MatchDetailsController extends GetxController {
     }
   }
 
-  Future<void> fetchH2H() async {
-    const url =
-        'https://apiv2.allsportsapi.com/football/?met=H2H&APIkey=4abd38c6287c0bc3f1c18342e3e03a57ff8341da2bf330d7de866fba088fc444&firstTeamId=366&secondTeamId=18903'; // Replace with your API endpoint
+  Future<void> fetchH2H(String t1, String t2) async {
+    String url =
+        'https://apiv2.allsportsapi.com/football/?met=H2H&APIkey=4abd38c6287c0bc3f1c18342e3e03a57ff8341da2bf330d7de866fba088fc444&firstTeamId=$t1&secondTeamId=$t2';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
@@ -58,14 +62,10 @@ class MatchDetailsController extends GetxController {
       }).toList();
 
       matches.assignAll(matchesList);
+      print(matchesList[0].toString());
+      print(url);
     } else {
       throw Exception('Failed to load data from the API');
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    fetchH2H();
   }
 }

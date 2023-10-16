@@ -155,7 +155,7 @@ class BetOptionController extends GetxController {
     }
   }
 
-  Future<void> getUserBetFromFirebase(String userId, String chosenbet,
+/*   Future<void> getUserBetFromFirebase(String userId, String chosenbet,
       String matchKey, String winScore, String loseScore) async {
     try {
       await getUserBetSer.getUserBetByMatchKey(
@@ -163,7 +163,7 @@ class BetOptionController extends GetxController {
     } catch (e) {
       return;
     }
-  }
+  } */
 
   Future<bool> doesCheckBetContainUser(String userId, String homeTeam) async {
     try {

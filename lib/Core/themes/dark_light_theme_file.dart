@@ -1,91 +1,312 @@
 import 'package:flutter/material.dart';
-import '../../res/i_font_res.dart';
 
-const primaryColor = Color(0xff0061A4);
-const onPrimatyColor = Color(0xffffffff);
-const primaryContainer = Color(0xffD1E4FF);
-const whitecolor = Color(0xffffffff);
-const blackcolor = Color(0xff000000);
-const gray = Color(0xff6B5E5E);
-const grayhint = Color(0xffCCC9C9);
-const disabledColor = Color(0xFFA0A4A8);
-//dark theme color
-const darkMaincolor = Color(0xff9ECAFF);
-const darkMaincolor2 = Color(0xff003258);
-const darkbackground = Color(0xff1A1C1E);
-const darktextcolor = Color(0xffE2E2E6);
+import '../../Local/local_controller.dart';
+import '../utils/color.dart';
+import '../utils/text_style.dart';
 
 ThemeData light = ThemeData(
-    useMaterial3: true,
+  useMaterial3: true,
+  brightness: Brightness.light,
+  colorScheme: ColorScheme.light(
+    onPrimary: ColorTeal.onPrimatyColor,
+    primary: ColorTeal.primaryColor,
+    primaryContainer: ColorTeal.primaryContainer,
+    onPrimaryContainer: ColorTeal.onPrimatyContainer,
+    error: const Color(0xffBA1A1A),
+    tertiary: const Color(0xff466179),
+    onTertiary: const Color(0xffFFFFFF),
+    tertiaryContainer: const Color(0xffCCE5FF),
+    onTertiaryContainer: const Color(0xff001D31),
+    background: const Color(0xffFAFDFB),
+    onBackground: const Color(0xff191C1B),
     brightness: Brightness.light,
-    scaffoldBackgroundColor: Colors.white,
-    fontFamily: FontRes.TAJAWAL_MEDIUM,
-    primaryColor: primaryColor,
-    secondaryHeaderColor: const Color(0xff535F70),
-    primaryColorLight: onPrimatyColor,
-    disabledColor: const Color(0xFFA0A4A8),
-    dividerColor: const Color.fromARGB(255, 199, 204, 209),
-    hintColor: const Color(0xFF9F9F9F),
-    textTheme: Typography.blackRedwoodCity,
-    textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: primaryColor)),
-    colorScheme: const ColorScheme.light(
-            primary: Color(0xff0061A4), secondary: Color(0xff0061A4))
-        .copyWith(error: const Color(0xFFE84D4F)),
-    buttonTheme: const ButtonThemeData(
-        padding: EdgeInsets.symmetric(vertical: 10),
-        buttonColor: primaryColor,
-        textTheme: ButtonTextTheme.normal,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),
-    cardColor: primaryContainer,
-    cardTheme: CardTheme(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      elevation: 3,
-    ));
+  ),
+  fontFamilyFallback: [
+    MyLocalController().selectedLang.value == 'en' ? 'Roboto' : 'Tajawal'
+  ],
+  fontFamily:
+      MyLocalController().selectedLang.value == 'en' ? 'Roboto' : 'Tajawal',
+  primaryColor: ColorTeal.primaryColor,
+  scaffoldBackgroundColor: const Color(0xffFAFDFA),
+  secondaryHeaderColor: const Color(0xff605C71),
+  primaryColorLight: ColorTeal.onPrimatyColor,
+  disabledColor: const Color(0xff9D9D9E),
+  dividerColor: const Color.fromARGB(255, 199, 204, 209),
+  hintColor: const Color(0xFF9F9F9F),
+  dividerTheme: const DividerThemeData(
+    color: Color.fromARGB(255, 184, 194, 191),
+    indent: 20,
+    endIndent: 20,
+  ),
+  appBarTheme: AppBarTheme(
+    titleTextStyle: TextStyle(
+        color: ColorTeal.onPrimatyColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600),
+    backgroundColor: ColorTeal.primaryColor,
+    scrolledUnderElevation: 0,
+  ),
+  listTileTheme: ListTileThemeData(
+    iconColor: ColorTeal.onPrimatyContainer,
+    shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    leadingAndTrailingTextStyle: TextStyle(
+      color: ColorTeal.onPrimatyContainer,
+      fontFamily: 'Roboto',
+    ),
+  ),
+  //
+
+  tabBarTheme: TabBarTheme(
+    indicatorColor: ColorTeal.primaryContainer,
+    labelStyle: TextStyle(
+        color: ColorTealDark.primaryColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600),
+  ),
+  //
+  textTheme: CustomTextTheme().getTextTheme(),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    elevation: 8,
+    selectedItemColor: ColorTeal.onPrimatyContainer,
+    unselectedItemColor: const Color(0xff9D9D9E), // Unselected icon color
+    backgroundColor: Colors.white,
+    selectedLabelStyle: const TextStyle(
+      color: Colors.white,
+    ),
+    showUnselectedLabels: true,
+  ),
+  textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(foregroundColor: ColorTeal.primaryColor)),
+  //
+  dialogTheme:
+      DialogTheme(titleTextStyle: CustomTextTheme().getTextTheme().bodyLarge),
+  dropdownMenuTheme: const DropdownMenuThemeData(
+    textStyle: TextStyle(
+      color: Colors.red,
+      fontFamily: 'Roboto_regular',
+      fontFamilyFallback: ['Roboto'],
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 1.5,
+      textBaseline: TextBaseline.alphabetic,
+    ),
+  ),
+  //
+  canvasColor: Colors.white,
+  buttonTheme: ButtonThemeData(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      buttonColor: ColorTeal.primaryColor,
+      textTheme: ButtonTextTheme.normal,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),
+  //
+  cardColor: ColorTeal.primaryColor,
+  cardTheme: CardTheme(
+    color: ColorTeal.onPrimatyColor,
+    elevation: 5,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+  ),
+  //
+);
 
 ThemeData dark = ThemeData(
-    dialogTheme: const DialogTheme(
-        backgroundColor: Colors.transparent,
-        contentTextStyle: TextField.materialMisspelledTextStyle),
-    useMaterial3: false,
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      type: BottomNavigationBarType.shifting,
-      unselectedItemColor: disabledColor,
-      elevation: 2,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
-      selectedItemColor: whitecolor,
+  useMaterial3: true,
+  brightness: Brightness.dark,
+  colorScheme: ColorScheme.dark(
+    onPrimary: ColorTealDark.onPrimaryColor,
+    primary: ColorTealDark.primaryColor,
+    primaryContainer: ColorTealDark.primaryContainer,
+    onPrimaryContainer: ColorTealDark.onPrimaryContainer,
+    error: ColorTealDark.error,
+    onError: ColorTealDark.onError,
+    errorContainer: ColorTealDark.errorContainer,
+    tertiary: ColorTealDark.tertiary,
+    onTertiary: ColorTealDark.onTertiary,
+    tertiaryContainer: ColorTealDark.tertiaryContainer,
+    onTertiaryContainer: ColorTealDark.onTertiaryContainer,
+    background: const Color(0xff191C1B),
+    onBackground: const Color(0xffE0E3E1),
+    brightness: Brightness.dark,
+  ),
+  fontFamilyFallback: [
+    MyLocalController().selectedLang.value == 'en' ? 'Roboto' : 'Tajawal'
+  ],
+  fontFamily:
+      MyLocalController().selectedLang.value == 'en' ? 'Roboto' : 'Tajawal',
+  primaryColor: ColorTealDark.primaryColor,
+  secondaryHeaderColor: const Color(0xff605C71),
+  primaryColorLight: ColorTealDark.onPrimaryColor,
+  disabledColor: const Color(0xff9D9D9E),
+  dividerColor: const Color.fromARGB(255, 199, 204, 209),
+  hintColor: const Color(0xFF9F9F9F),
+  dividerTheme: const DividerThemeData(
+    color: Color(0xff3F4947),
+    indent: 20,
+    endIndent: 20,
+  ),
+  appBarTheme: AppBarTheme(
+    titleTextStyle: TextStyle(
+        color: ColorTealDark.primaryColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600),
+    backgroundColor: const Color(0xff1D2A28),
+    scrolledUnderElevation: 0,
+    surfaceTintColor: const Color(0xff1D2A28),
+    elevation: 0,
+  ),
+  listTileTheme: ListTileThemeData(
+    iconColor: ColorTealDark.onPrimaryContainer,
+    shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    leadingAndTrailingTextStyle: TextStyle(
+      color: ColorTealDark.onPrimaryContainer,
+      fontFamily: 'IBMPlexSans-Medium',
     ),
-    scaffoldBackgroundColor: const Color(0xff1A222D),
-    fontFamily: FontRes.TAJAWAL_MEDIUM,
-    primaryColor: const Color(0xff6585AD),
-    primaryColorLight: onPrimatyColor,
-    secondaryHeaderColor: const Color(0xff003258),
-    disabledColor: const Color(0xFFA0A4A8),
-    hintColor: const Color(0xFF9F9F9F),
-    textTheme: Typography.whiteMountainView,
-    textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: onPrimatyColor)),
-    colorScheme: const ColorScheme.light(
-            primary: Color(0xff0061A4), secondary: Color(0xff0061A4))
-        .copyWith(error: const Color(0xFFE84D4F)),
-    buttonTheme: const ButtonThemeData(
-        height: 45,
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 100),
-        buttonColor: Colors.red,
-        textTheme: ButtonTextTheme.normal,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        materialTapTargetSize: MaterialTapTargetSize.padded),
-    cardColor: const Color(0xff253140),
-    cardTheme: CardTheme(
-      color: const Color(0xff3E4754),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      elevation: 3,
-    ));
+  ),
+  //
+  dialogTheme: DialogTheme(
+      titleTextStyle: CustomTextTheme().getDarkTextTheme().bodyLarge),
+  //
+  dropdownMenuTheme: const DropdownMenuThemeData(
+    textStyle: TextStyle(
+      color: Colors.red,
+      fontFamily: 'Roboto_regular',
+      fontFamilyFallback: ['Roboto'],
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 1.5,
+      textBaseline: TextBaseline.alphabetic,
+    ),
+  ),
+  tabBarTheme: TabBarTheme(
+    labelStyle: TextStyle(
+        color: ColorTealDark.primaryColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600),
+    indicatorColor: ColorTealDark.primaryColor,
+  ),
+  //
+  textTheme: CustomTextTheme().getDarkTextTheme(),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    elevation: 0,
+    selectedItemColor: ColorTealDark.onPrimaryContainer,
+    unselectedItemColor: const Color(0xff9D9D9E), // Unselected icon color
+    backgroundColor: const Color(0xff1D2A28),
+    selectedLabelStyle: const TextStyle(
+      color: Colors.white,
+    ),
+    showUnselectedLabels: true,
+  ),
+
+  textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(foregroundColor: ColorTealDark.primaryColor)),
+  buttonTheme: ButtonThemeData(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      buttonColor: ColorTealDark.primaryColor,
+      textTheme: ButtonTextTheme.normal,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),
+  //
+  cardColor: ColorTealDark.primaryContainer,
+  cardTheme: CardTheme(
+    color: ColorTealDark.onPrimaryColor,
+    elevation: 5,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+  ),
+  //
+);
+
+ThemeData blueTheme = ThemeData(
+  useMaterial3: true,
+  brightness: Brightness.light,
+  colorScheme: ColorScheme.light(
+    onPrimary: ColorBlue.onPrimaryColor,
+    primary: ColorBlue.primaryColor,
+    primaryContainer: ColorBlue.primaryContainer,
+    onPrimaryContainer: ColorBlue.onPrimaryContainer,
+    error: const Color(0xffBA1A1A),
+    onError: Colors.white,
+    errorContainer: const Color(0xffFFDAD6),
+    tertiary: ColorBlue.tertiary,
+    onTertiary: ColorBlue.onTertiary,
+    tertiaryContainer: ColorBlue.tertiaryContainer,
+    onTertiaryContainer: ColorBlue.onTertiaryContainer,
+    background: ColorBlue.background,
+    onBackground: ColorBlue.onBackground,
+    brightness: Brightness.light,
+  ),
+  fontFamily: 'Roboto',
+  primaryColor: ColorBlue.primaryColor,
+  secondaryHeaderColor: const Color(0xff605C71),
+  primaryColorLight: ColorBlue.onPrimaryColor,
+  disabledColor: const Color(0xff9D9D9E),
+  dividerColor: const Color.fromARGB(255, 199, 204, 209),
+  hintColor: const Color(0xFF9F9F9F),
+  dividerTheme: const DividerThemeData(
+    color: Color.fromARGB(255, 184, 194, 191),
+    indent: 20,
+    endIndent: 20,
+  ),
+  appBarTheme: const AppBarTheme(
+    titleTextStyle: TextStyle(
+        color: Color(0xffC3C7CF), fontSize: 20, fontWeight: FontWeight.w600),
+    backgroundColor: Color(0xff24292F),
+    scrolledUnderElevation: 0,
+    surfaceTintColor: Color(0xff24292F),
+    elevation: 0,
+  ),
+  listTileTheme: ListTileThemeData(
+    iconColor: ColorTealDark.onPrimaryContainer,
+    shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    leadingAndTrailingTextStyle: TextStyle(
+      color: ColorTealDark.onPrimaryContainer,
+      fontFamily: 'Roboto',
+    ),
+  ),
+
+  //
+  tabBarTheme: TabBarTheme(
+    labelStyle: TextStyle(
+        color: ColorBlue.primaryColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600),
+    indicatorColor: ColorBlue.onPrimaryColor,
+  ),
+  //
+  textTheme: CustomTextTheme().getTextTheme(),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    elevation: 0,
+    selectedItemColor: ColorBlue.onPrimaryContainer,
+    unselectedItemColor: const Color(0xff9D9D9E), // Unselected icon color
+    backgroundColor: const Color(0xff1D2A28),
+    selectedLabelStyle: const TextStyle(
+      color: Colors.white,
+    ),
+    showUnselectedLabels: true,
+  ),
+
+  textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(foregroundColor: ColorBlue.primaryColor)),
+  buttonTheme: ButtonThemeData(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      buttonColor: ColorBlue.primaryColor,
+      textTheme: ButtonTextTheme.normal,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),
+  //
+  cardColor: ColorBlue.onPrimaryContainer,
+  cardTheme: CardTheme(
+    color: ColorBlue.onPrimaryColor,
+    elevation: 5,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+  ),
+  //
+);

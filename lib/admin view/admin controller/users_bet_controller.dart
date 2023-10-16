@@ -1,15 +1,22 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:get/get.dart';
+
+import '../../Model/ads/user_information.dart';
 import 'match_details.dart';
 
 class UsersBetController extends GetxController {
   final CollectionReference userBetCollection =
       FirebaseFirestore.instance.collection("User'sBet");
+  final firestoreInstance = FirebaseFirestore.instance;
+  User? userinformation;
   final MatchDetailsController matchDetailsController =
       Get.put(MatchDetailsController());
+  RxList<User> user = RxList<User>();
+
   RxList<Map<String, String>> bets = RxList<Map<String, String>>();
   RxInt betsLength = 0.obs;
   RxInt totalDocumentCount = 0.obs;
@@ -18,6 +25,7 @@ class UsersBetController extends GetxController {
   RxInt homeWins = 0.obs;
   RxInt awayWins = 0.obs;
   RxInt drawingUsers = 0.obs;
+  RxInt selectedwinners = 0.obs;
   List<ChartData> scoreData = [];
   RxBool showWheel = true.obs;
   Rx<int> streemcontroller = 0.obs;
@@ -38,6 +46,57 @@ class UsersBetController extends GetxController {
     awayWins = 0.obs;
     drawingUsers = 0.obs;
     streemcontroller.close();
+  }
+
+  changeSelectedwinners(int value) {
+    selectedwinners.value = value;
+  }
+
+  Future<void> getUserData(String winnerUserID) async {
+    try {
+      final userDocument = await firestoreInstance
+          .collection('User Information')
+          .doc(winnerUserID)
+          .get();
+
+      if (userDocument.exists) {
+        final userData = userDocument.data() as Map<String, dynamic>;
+
+        // Check if fields are not null before accessing them
+        final String? email = userData['email'];
+        final String? phoneNumber = userData['phoneNumber'];
+        final String? name = userData['name'];
+        final String? password = userData['password'];
+        final String? uid = userData['uid'];
+
+        if (email != null &&
+            phoneNumber != null &&
+            name != null &&
+            password != null &&
+            uid != null) {
+          User userinfo = User(
+            email: email,
+            phoneNumber: phoneNumber,
+            name: name,
+            password: password,
+            uid: uid,
+          );
+          userinformation = User.fromJson(userData);
+          user.add(userinfo);
+
+          // Do something with the user data
+        } else {
+          // Handle the case where one or more fields are null
+          print('One or more fields in the user data are null');
+        }
+      } else {
+        // Handle the case where the user document doesn't exist
+        print('User document does not exist');
+      }
+    } catch (e) {
+      print('Error getting user document: $e');
+      // Handle errors appropriately
+    }
   }
 
   spinthwheel() {
@@ -74,7 +133,6 @@ class UsersBetController extends GetxController {
                 );
               },
               selected: streemcontroller.stream,
-               
               items: generateFortuneItems(),
             ),
           );

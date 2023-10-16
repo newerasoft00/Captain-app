@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/admin%20view/admin%20controller/match_details.dart';
 import 'package:sportsbet/admin%20view/view/pages/Home/page/users%20bets/match_bet_details.dart';
+
 import '../../../../../admin controller/users_bet_controller.dart';
 
 class UsersBetsPage extends StatelessWidget {
@@ -12,12 +13,17 @@ class UsersBetsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Reverse the documentNames list
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Obx(
           () {
-            if (betController.documentNames.isEmpty) {
+            final reversedDocumentNames =
+                betController.documentNames.reversed.toList();
+
+            if (reversedDocumentNames.isEmpty) {
               return const CircularProgressIndicator.adaptive();
             } else {
               return RefreshIndicator.adaptive(
@@ -33,9 +39,10 @@ class UsersBetsPage extends StatelessWidget {
                             ? 1
                             : 3, // Set the number of columns based on orientation
                       ),
-                      itemCount: betController.documentNames.length,
+                      itemCount: reversedDocumentNames.length,
                       itemBuilder: (context, index) {
-                        final docName = betController.documentNames[index];
+                        final docName = reversedDocumentNames[index];
+
                         return Hero(
                           tag:
                               'eventID_$docName', // Make the tag unique by adding the docName
@@ -50,7 +57,7 @@ class UsersBetsPage extends StatelessWidget {
                                   .then((value) async {
                                 await matchDetailsController
                                     .fetchEventData(docName);
-                                
+
                                 await betController.calculateStatistics();
                                 Get.to(() => MatchBetDetails(
                                       docName: docName,
@@ -62,7 +69,7 @@ class UsersBetsPage extends StatelessWidget {
                                   ? context.width * 0.95
                                   : context.width * 0.45,
                               child: Card(
-                                color: Colors.white,
+                                color: const Color(0xffE9DDFF),
                                 elevation: 3,
                                 surfaceTintColor: Colors.white,
                                 child: ListTile(
@@ -77,7 +84,7 @@ class UsersBetsPage extends StatelessWidget {
                                         TextSpan(
                                             text: docName,
                                             style: const TextStyle(
-                                                color: Color(0xff003258),
+                                                color: Color(0xff6750A4),
                                                 fontWeight: FontWeight.w700)),
                                       ],
                                     ),

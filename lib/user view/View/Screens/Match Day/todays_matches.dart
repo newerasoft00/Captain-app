@@ -35,12 +35,9 @@ class ToDaysMatchesScreen extends StatelessWidget {
                     initialDate: controller.selectedDateTime,
                     firstDate: DateTime(2023, 8, 1),
                     lastDate: DateTime(2024, 6, 30),
-                    activeBackgroundDayColor: MyColors.darkMaincolor2,
                     dayColor: Theme.of(context).disabledColor,
                     monthColor: Theme.of(context).disabledColor,
                     showYears: false,
-                    dotsColor: MyColors.darkMaincolor2,
-
                     selectableDayPredicate: (date) => date.day != 32,
                     onDateSelected: (date) async {
                       final formattedDate =
@@ -158,11 +155,9 @@ class ToDaysMatchesScreen extends StatelessWidget {
                     initialDate: controller.selectedDateTime,
                     firstDate: DateTime(2023, 8, 1),
                     lastDate: DateTime(2024, 6, 30),
-                    activeBackgroundDayColor: MyColors.darkMaincolor2,
                     dayColor: Theme.of(context).disabledColor,
                     monthColor: Theme.of(context).disabledColor,
                     showYears: false,
-                    dotsColor: MyColors.darkMaincolor2,
 
                     selectableDayPredicate: (date) => date.day != 32,
                     onDateSelected: (date) async {
