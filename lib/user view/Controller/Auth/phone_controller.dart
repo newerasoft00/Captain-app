@@ -101,7 +101,7 @@ class PhoneController extends GetxController {
       authState.value = 'Phone number verified successfully';
     } catch (e) {
       // Handle errors during OTP verification here
-      print('Error verifying OTP: $e');
+      // print('Error verifying OTP: $e');
       authState.value = 'Error verifying OTP: $e';
     }
   }

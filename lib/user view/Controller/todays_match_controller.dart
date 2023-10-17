@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Model/match%20Day%20Models/todays_matches.dart';
 import 'package:sportsbet/user%20view/Services/Api/todays_match_service.dart';
@@ -26,7 +25,7 @@ class ToDaysMatchController extends GetxController {
   }
 
   checkConnection() async {
-    var result = await Connectivity().checkConnectivity();
+    // var result = await Connectivity().checkConnectivity();
   }
 
   void fetchMatchesUCL() async {
@@ -35,7 +34,7 @@ class ToDaysMatchController extends GetxController {
           await matchService.fetchToDaysMatches('3', currentDate.value);
       todaysmatchesUCL.assignAll(fetchedTodaysMatches);
     } catch (e) {
-      print("Error fetching matches UCL: $e");
+      // print("Error fetching matches UCL: $e");
     }
   }
 
@@ -45,7 +44,7 @@ class ToDaysMatchController extends GetxController {
           await matchService.fetchToDaysMatches('278', currentDate.value);
       todaysmatchesRoshn.assignAll(fetchedTodaysMatches);
     } catch (e) {
-      print("Error fetching matches Roshn: $e");
+      // print("Error fetching matches Roshn: $e");
     }
   }
 
@@ -55,7 +54,7 @@ class ToDaysMatchController extends GetxController {
           await matchService.fetchToDaysMatches('4', currentDate.value);
       todaysmatchesUEL.assignAll(fetchedTodaysMatches);
     } catch (e) {
-      print("Error fetching matches UEL: $e");
+      // print("Error fetching matches UEL: $e");
     }
   }
 
@@ -65,7 +64,7 @@ class ToDaysMatchController extends GetxController {
           await matchService.fetchToDaysMatches('152', currentDate.value);
       todaysmatchesPL.assignAll(fetchedTodaysMatches);
     } catch (e) {
-      print("Error fetching matches PL : $e");
+      // print("Error fetching matches PL : $e");
     }
   }
 
@@ -75,7 +74,7 @@ class ToDaysMatchController extends GetxController {
           await matchService.fetchToDaysMatches('302', currentDate.value);
       todaysmatcheslaLiga.assignAll(fetchedTodaysMatches);
     } catch (e) {
-      print("Error fetching matches La Liga: $e");
+      // print("Error fetching matches La Liga: $e");
     }
   }
 

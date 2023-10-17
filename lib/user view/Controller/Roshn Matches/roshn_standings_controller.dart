@@ -27,7 +27,7 @@ class RoshnStandingsController extends GetxController {
         throw Exception('Failed to load data');
       }
     } catch (e) {
-      print('Error fetching data: $e');
+      // print('Error fetching data: $e');
     }
   }
 

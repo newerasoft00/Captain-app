@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
-import 'package:sportsbet/admin%20view/view/pages/Home/page/admin_home_page.dart';
 import 'package:sportsbet/user%20view/Services/google_signin_service.dart';
 import 'package:sportsbet/user%20view/View/Screens/Auth/Login/login_screen.dart';
 import 'package:sportsbet/user%20view/View/Screens/Home/home_screen.dart';
@@ -81,7 +80,7 @@ class AuthController extends GetxController {
 
       return authResult;
     } catch (e) {
-      print('Error signing in with Google --------------- : $e');
+      // print('Error signing in with Google --------------- : $e');
       rethrow;
     }
   }
@@ -90,8 +89,8 @@ class AuthController extends GetxController {
   signinwithemail() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        //email: '${phoneNumber.value}@gmail.com',
-        email: email.value,
+        email: '${phoneNumber.value}@gmail.com',
+        //email: email.value,
 
         password: password.value,
       );
@@ -102,9 +101,7 @@ class AuthController extends GetxController {
       } else {
         await UserPreference.setIsLoggedIn(false);
       }
-      (email.value == 'admin@gmail.com')
-          ? Get.offAll(() => const AdminHomePage())
-          : Get.offAll(() => const HomeScreen());
+      Get.offAll(() => const HomeScreen());
       // Get.offAll(() => const HomeScreen());
       presssignin.value = false;
     } catch (e) {

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
-import 'package:sportsbet/user%20view/Controller/Auth/phone_controller.dart';
+// import 'package:sportsbet/user%20view/Controller/Auth/phone_controller.dart';
 import 'package:sportsbet/user%20view/Controller/Auth/signup_controller.dart';
 import 'package:sportsbet/user%20view/View/Screens/Auth/Login/Componant/custom_textfield.dart';
 
@@ -17,7 +17,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SignupController controller = Get.put(SignupController());
-    final PhoneController phonecontroller = Get.put(PhoneController());
+    // final PhoneController phonecontroller = Get.put(PhoneController());
 
     return Scaffold(
       body: Form(

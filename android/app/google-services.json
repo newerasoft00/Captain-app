@@ -7,6 +7,50 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:681994242014:android:1a8fd93741b53398f6bf4f",
+        "android_client_info": {
+          "package_name": "com.example.dashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681994242014-e1ka22f7g7p63fb10dhrim96s45rds1f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dashboard",
+            "certificate_hash": "ba8524d2a04e019a45b26c0f179b246323c0e582"
+          }
+        },
+        {
+          "client_id": "681994242014-v17ktgfs5hlqp1jkki37q3lhp76o1620.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbLmxwr9zkstm94MMQCypgbVAewk9clis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681994242014-jcrsgnc721gor7uj4548hfabi8o18lau.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "681994242014-2dt4pf39hah409o5k17j41cak958kl7c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.dashboard"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:681994242014:android:f6511722055298e1f6bf4f",
         "android_client_info": {
           "package_name": "com.example.sportsbet"
@@ -37,6 +81,13 @@
             {
               "client_id": "681994242014-jcrsgnc721gor7uj4548hfabi8o18lau.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "681994242014-2dt4pf39hah409o5k17j41cak958kl7c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.dashboard"
+              }
             }
           ]
         }

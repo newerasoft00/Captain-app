@@ -63,7 +63,7 @@ class NewBetService {
         });
       }
     } catch (e) {
-      print('Error adding data to Firestore: $e');
+      // print('Error adding data to Firestore: $e');
     }
   }
 }

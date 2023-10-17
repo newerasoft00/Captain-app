@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
-import 'package:sportsbet/Core/utils/strings.dart';
 import 'package:sportsbet/Model/Roshn%20League/game_weak.dart';
 
 class RoshnMatchController extends GetxController {
@@ -18,8 +16,8 @@ class RoshnMatchController extends GetxController {
 
   // Fetch data from the API
   void fetchData() async {
-    final apiURL =
-        '$allsportsapi$fixturesEndPoint$allsportsapiKey&from=2023-9-25&to=2024-05-27&leagueId=${UserPreference.getSelectedLeaguekeys()}';
+    // final apiURL =
+    //     '$allsportsapi$fixturesEndPoint$allsportsapiKey&from=2023-9-25&to=2024-05-27&leagueId=${UserPreference.getSelectedLeaguekeys()}';
     final response = await http.get(Uri.parse(UserPreference.getLeagueUrl()));
 
     if (response.statusCode == 200) {

@@ -6,6 +6,7 @@ import 'package:sportsbet/Local/local.dart';
 import 'package:sportsbet/Local/local_controller.dart';
 import 'package:sportsbet/user%20view/View/Screens/Auth/Login/login_screen.dart';
 
+import '../Core/routes/routes.dart';
 import '../Core/themes/dark_light_theme_file.dart';
 import '../Core/themes/theme_controller.dart';
 import 'View/Screens/Home/home_screen.dart';
@@ -36,6 +37,7 @@ class UserApp extends StatelessWidget {
         supportedLocales: const <Locale>[Locale('en'), Locale('ar')],
         locale: Locale(locaController.selectedLang.value),
         translations: MyLocal(),
+        getPages: Routes.getPages,  
         home: UserPreference.isLoggedIn()
             ? const HomeScreen()
             : const LoginScreen());

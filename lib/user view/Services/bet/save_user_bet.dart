@@ -53,7 +53,7 @@ class SaveUserBet {
         );
       }
     } catch (e) {
-      print('Error sending bet data to Firestore: $e');
+      // print('Error sending bet data to Firestore: $e');
       // Handle error, show error message, or retry logic here.
     }
   }

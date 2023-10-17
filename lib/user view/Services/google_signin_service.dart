@@ -53,7 +53,7 @@ class GoogleSignInService {
         return user;
       }
     } catch (error) {
-      print("Error signing in with Google: $error");
+      // print("Error signing in with Google: $error");
       return null;
     }
 

@@ -2,8 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../Roshn Matches/roshn_match_controller.dart';
-
 class NetworkController extends GetxController {
   final Connectivity _connectivity = Connectivity();
 

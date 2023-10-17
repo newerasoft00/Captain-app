@@ -75,17 +75,17 @@ class ProfileController extends GetxController {
             // Add the bet entry to the list
             fetchedBetHistory.add(betEntry);
           } else {
-            print('One or more fields are null in the bet data');
+            // print('One or more fields are null in the bet data');
           }
         }
 
         // Assign the fetched bet history data to your betHistory property
         betHistory.assignAll(fetchedBetHistory);
       } else {
-        print('User document does not exist');
+        // print('User document does not exist');
       }
     } catch (e) {
-      print('Error fetching bet history data: $e');
+      // print('Error fetching bet history data: $e');
     }
   }
 
@@ -124,14 +124,14 @@ class ProfileController extends GetxController {
           // Do something with the user data
         } else {
           // Handle the case where one or more fields are null
-          print('One or more fields in the user data are null');
+          // print('One or more fields in the user data are null');
         }
       } else {
         // Handle the case where the user document doesn't exist
-        print('User document does not exist');
+        // print('User document does not exist');
       }
     } catch (e) {
-      print('Error getting user document: $e');
+      // print('Error getting user document: $e');
       // Handle errors appropriately
     }
   }
@@ -173,7 +173,7 @@ class ProfileController extends GetxController {
                         subMap[subMap.keys.first]);
                     c.refresh();
                     c.fetchData();
-                    Navigator.pop(context);
+                    if (context.mounted) Navigator.of(context).pop();
                   },
                 );
               }).toList(),
@@ -222,7 +222,8 @@ class ProfileController extends GetxController {
                             subMap[subMap.keys.first]);
                         c.refresh();
                         c.fetchData();
-                        Navigator.pop(context);
+                        if (context.mounted) Navigator.of(context).pop();
+
                       },
                     );
                   }).toList(),

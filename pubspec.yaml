@@ -82,8 +82,6 @@ flutter:
     - assets/Image/
     - assets/Image/loading.png
     - assets/Image/no_internet.png
-    - assets/appainter_theme dark.json
-    - assets/appainter_theme.json
 
   fonts:
     - family: IBMPlexSans-Bold

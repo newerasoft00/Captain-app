@@ -49,7 +49,7 @@ class UserBetHistoryController extends GetxController {
               };
               fetchedBetHistory.add(betEntry);
             } else {
-              print('One or more fields are null in the bet data');
+              // print('One or more fields are null in the bet data');
             }
           }
 
@@ -58,17 +58,17 @@ class UserBetHistoryController extends GetxController {
         } else {
           isLoading.value = false;
           hasError.value = true;
-          print('betHistory field is missing or null in the user document');
+          // print('betHistory field is missing or null in the user document');
         }
       } else {
         isLoading.value = false;
         hasError.value = true;
-        print('User document does not exist');
+        // print('User document does not exist');
       }
     } catch (e) {
       isLoading.value = false;
       hasError.value = true;
-      print('Error fetching bet history data: $e');
+      // print('Error fetching bet history data: $e');
     }
   }
 }

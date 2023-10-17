@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:sportsbet/Model/Roshn%20League/game_weak.dart';
 import 'package:sportsbet/user%20view/Services/bet/new_bet_service.dart';
 import 'package:sportsbet/user%20view/Services/bet/save_user_bet.dart';
-import '../../Core/helper/shared_preference/shared_preference.dart';
 import '../Services/bet/get_user_bet.dart';
 import '../View/Screens/Roshn Matches/match_details_page.dart';
 
@@ -116,10 +115,8 @@ class BetOptionController extends GetxController {
           SetOptions(merge: true), // Merge with existing data
         );
       } else {
-        print('User document does not exist');
       }
     } catch (e) {
-      print('Error sending bet data to Firestore: $e');
       // Handle error, show error message, or retry logic here.
     }
   }
@@ -150,7 +147,6 @@ class BetOptionController extends GetxController {
       await newBetService.addDataToFirestore(
           userId, chosenbet, matchKey, winScore, loseScore);
     } catch (e) {
-      print('Error adding bet to Firestore: $e');
       // Handle error, show error message, or retry logic here.
     }
   }
@@ -180,7 +176,7 @@ class BetOptionController extends GetxController {
       }
       return false;
     } catch (e) {
-      print('Error checking if "checkBet" contains user: $e');
+      // print('Error checking if "checkBet" contains user: $e');
       return false;
     }
   }
@@ -306,10 +302,10 @@ class BetOptionController extends GetxController {
           }
         }
       } else {
-        print('Document does not exist for matchKey: $matchKey');
+        //print('Document does not exist for matchKey: $matchKey');
       }
     } catch (e) {
-      print('Error fetching user bets: $e');
+      //print('Error fetching user bets: $e');
     }
     update();
   }

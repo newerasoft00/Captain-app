@@ -120,16 +120,10 @@ class OtpScreen extends StatelessWidget {
               outlineBorderRadius: Get.width * 0.09,
               onCompleted: (pin) async {
                 c.verficationotp.value = pin;
-                print("Completed: $pin");
-                print("Phone is : ${c.phoneNumber.value.toString()}");
+               
                 await UserPreference.setUserId(c.phoneNumber.value.toString());
                 Get.to(const HomeScreen());
-                print(UserPreference.getUserid().toString());
-                print('+++++++++++++++++++++++++++++++');
-
                 //c.verifyOTP(pin);
-                print(UserPreference.getUserid().toString());
-                print('----------------------------------------------------');
               },
             ),
             Obx(

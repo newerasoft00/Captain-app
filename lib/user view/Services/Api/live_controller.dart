@@ -22,7 +22,7 @@ class LiveMatchController extends GetxController {
       final matches = await service.getLiveMatches();
       liveMatches.assignAll(matches);
     } catch (e) {
-      print("Error fetching live matches: $e");
+      // print("Error fetching live matches: $e");
     }
   }
   void fetchRpshnLiveMatches() async {
@@ -31,7 +31,7 @@ class LiveMatchController extends GetxController {
       final matches = await service.getRoshnLiveMatches();
       rliveMatches.assignAll(matches);
     } catch (e) {
-      print("Error fetching live matches: $e");
+      // print("Error fetching live matches: $e");
     }
   }
 
