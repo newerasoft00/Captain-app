@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
-// import 'package:sportsbet/user%20view/Controller/Auth/phone_controller.dart';
 import 'package:sportsbet/user%20view/Controller/Auth/signup_controller.dart';
-import 'package:sportsbet/user%20view/View/Screens/Auth/Login/Componant/custom_textfield.dart';
+import 'package:sportsbet/user%20view/View/Screens/Auth/Login/Componant/otp.dart';
 
-import '../../../../../../Core/helper/shared_preference/shared_preference.dart';
+import '../../../../../Core/helper/shared_preference/shared_preference.dart';
+import 'Componant/custom_textfield.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -17,7 +16,6 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SignupController controller = Get.put(SignupController());
-    // final PhoneController phonecontroller = Get.put(PhoneController());
 
     return Scaffold(
       body: Form(
@@ -134,24 +132,18 @@ class SignUpScreen extends StatelessWidget {
                       await UserPreference.setUserId(
                           controller.phoneNumber.value);
                       if (controller.formKey.currentState!.validate()) {
-                        /* await phonecontroller
-                            .verifyPhone(controller.phoneNumber.value);
-                        Get.to(()=>OtpScreen(
-                          phoneNumber: controller.phoneNumber.value,
-                        )); */
-                        controller.signupwithemail();
-
-                        // Hide CircularProgressIndicator
+                        controller.verifyPhone(controller.phoneNumber.value);
+                        Get.to(OtpScreen(
+                            phoneNumber: controller.phoneNumber.value));
                         controller.presssignup.value = false;
-                        //Get.to(() => const HomeScreen());
                       }
                       controller.toggleSignup();
                     },
                     child: Obx(() {
                       return controller.presssignup.value
-                          ? const CupertinoActivityIndicator(
-                              color: Colors.white,
-                            ) // Show CircularProgressIndicator
+                          ? const CircularProgressIndicator.adaptive(
+                              backgroundColor: Colors.white,
+                            )
                           : FittedBox(
                               child: Text(
                                 'Sign up'.tr,

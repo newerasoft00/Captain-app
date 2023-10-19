@@ -4,6 +4,7 @@ import 'package:sportsbet/user%20view/View/Screens/Auth/Login/signup_screen.dart
 import 'package:sportsbet/user%20view/View/Screens/Home/home_screen.dart';
 import 'package:sportsbet/user%20view/View/Screens/Profile/profile_screen.dart';
 import 'package:sportsbet/user%20view/View/Screens/standing/standings.dart';
+import 'package:sportsbet/user%20view/View/Screens/user%20feedback/feedback_screen.dart';
 
 class Routes {
   static String loginscreen = '/loginscreen';
@@ -11,28 +12,32 @@ class Routes {
   static String homeScreen = '/homeScreen';
   static String standingsScreen = '/standingsScreen';
   static String profileScreen = '/profileScreen';
+  static String feedbackScreen = '/FeedBackScreen';
 
   static List<GetPage> getPages = [
     GetPage(
       name: Routes.loginscreen,
-      page: () => const LoginScreen(),      
-    ), 
+      page: () => const LoginScreen(),
+    ),
     GetPage(
       name: Routes.signupScreen,
-      page: () => const SignUpScreen(),      
-    ), 
+      page: () => const SignUpScreen(),
+    ),
     GetPage(
       name: Routes.homeScreen,
-      page: () => const HomeScreen(),      
+      page: () => const HomeScreen(),
     ),
-     GetPage(
+    GetPage(
       name: Routes.standingsScreen,
-      page: () => const StandingsScreen(),      
+      page: () => const StandingsScreen(),
     ),
-      GetPage(
+    GetPage(
       name: Routes.profileScreen,
-      page: () => const ProfileScreen(),      
+      page: () => const ProfileScreen(),
     ),
+    GetPage(
+        name: Routes.feedbackScreen,
+        page: () => const FeedBackScreen(),
+        transition: Transition.fadeIn)
   ];
 }
-

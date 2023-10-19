@@ -104,7 +104,7 @@ class ProfileController extends GetxController {
         final String? phoneNumber = userData['phoneNumber'];
         final String? name = userData['name'];
         final String? password = userData['password'];
-        final String? uid = userData['uid'];
+        final String? uid = userData['uid'] ?? 'nn';
 
         if (email != null &&
             phoneNumber != null &&
@@ -223,7 +223,6 @@ class ProfileController extends GetxController {
                         c.refresh();
                         c.fetchData();
                         if (context.mounted) Navigator.of(context).pop();
-
                       },
                     );
                   }).toList(),

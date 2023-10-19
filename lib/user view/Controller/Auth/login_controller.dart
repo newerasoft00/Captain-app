@@ -85,7 +85,6 @@ class AuthController extends GetxController {
     }
   }
 
-  // Firebase Login
   signinwithemail() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -105,7 +104,7 @@ class AuthController extends GetxController {
       // Get.offAll(() => const HomeScreen());
       presssignin.value = false;
     } catch (e) {
-      // Display the exception in a snackbar
+      // Display the exception in a snack-bar
       Get.snackbar(
         'error',
         "error while sign in $e",

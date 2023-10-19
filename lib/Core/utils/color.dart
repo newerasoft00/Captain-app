@@ -5,6 +5,7 @@ class ColorTeal {
   static Color onPrimatyColor = const Color(0xFFFFFFFF);
   static Color primaryContainer = const Color(0xFF92F4E5);
   static Color onPrimatyContainer = const Color(0xFF00201C);
+  static Color secoundaryContainer = const Color(0xffCCE8E2);
 }
 
 class ColorTealDark {
@@ -12,6 +13,7 @@ class ColorTealDark {
   static Color onPrimaryColor = const Color(0xFF003732);
   static Color primaryContainer = const Color(0xFF005048);
   static Color onPrimaryContainer = const Color(0xFF92F4E5);
+  static Color secoundaryContainer = const Color(0xff334B47);
   static Color tertiary = const Color(0xFFADCAE6);
   static Color onTertiary = const Color(0xFF153349);
   static Color tertiaryContainer = const Color(0xFF2D4961);

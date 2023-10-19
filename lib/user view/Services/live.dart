@@ -7,8 +7,7 @@ import 'package:sportsbet/Core/utils/strings.dart';
 import '../../../Model/live matches/live_match_model.dart';
 
 class LiveMatchService extends GetxService {
-  final String apiKey =
-      "4abd38c6287c0bc3f1c18342e3e03a57ff8341da2bf330d7de866fba088fc444";
+  final String apiKey = allsportsapi;
   final String baseUrl =
       "https://apiv2.allsportsapi.com/football/?met=Livescore";
 
@@ -23,9 +22,10 @@ class LiveMatchService extends GetxService {
       throw Exception('Failed to load live matches');
     }
   }
-    Future<List<LiveMatch>> getRoshnLiveMatches() async {
-    final response = await http
-        .get(Uri.parse('$allsportsapi$liveMatchEndPoint$allsportsapiKey&leagueId=278'));
+
+  Future<List<LiveMatch>> getRoshnLiveMatches() async {
+    final response = await http.get(Uri.parse(
+        '$allsportsapi$liveMatchEndPoint$allsportsapiKey&leagueId=278'));
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
       final List<dynamic> matches = data['result'];

@@ -11,13 +11,13 @@ class MyLocal implements Translations {
           'Password': 'كلمة المرور',
           'Remember me': 'حفظ',
           'Sign in': 'تسجيل الدخول',
-          'Sign Up now':'انشاء حساب الأن',
+          'Sign Up now': 'انشاء حساب الأن',
           "don't have an account ? ": "ليس لديك حساب ؟ ",
           " Register": 'إنشاء حساب',
           'Sign in with  Google': 'تسجيل الدخول بواسطة جوجل',
           'Home': 'الصفحة الرئيسية',
           'Live': 'مباشر',
-          'Roshn League': 'دوري روشن',
+          'Roshan League': 'دوري روشن',
           'Profile': 'الصفحة الشخصية',
           'Live Match': 'مباشر',
           'Standings': "الترتيب",
@@ -51,7 +51,14 @@ class MyLocal implements Translations {
           'Enter your password': 'كلمة المرور',
           'Re Enter your password': 'ادخل كلمة المرور مرة اخري',
           'Sign up': "إنشاء حساب",
-          "already have account? ": 'لديك حساب ؟ '
+          "already have account? ": 'لديك حساب ؟ ',
+          'Give a feedback': 'قم بإبداء رأيك',
+          'Subject': 'الموضوع',
+          'Send': 'إرسـال',
+          'Share your FeedBack and Ratings to help Us':
+              'شارك ملاحظاتك وتقييماتك لمساعدتنا',
+          'Thanks for your feedback': 'شكراً',
+          'success': 'تم الحفظ'
         },
         'en': {
           'Welcome': 'Welcome',
@@ -66,7 +73,7 @@ class MyLocal implements Translations {
           'Sign in with  Google': 'Sign in with  Google',
           'Live': 'Live',
           'Home': 'Home',
-          'Roshn League': 'Roshn League',
+          'Roshan League': 'Roshan League',
           'Profile': 'Profile',
           'Live Match': 'Live Match',
           'Standings': 'Standings',
@@ -101,8 +108,14 @@ class MyLocal implements Translations {
           'Re Enter your password': 'Re Enter your password',
           'Sign up': 'Sign up',
           "already have account? ": "already have account? ",
-          'Sign Up now':'Sign Up now',
-
+          'Sign Up now': 'Sign Up now',
+          'Give a feedback': 'Give a feedback',
+          'Subject': 'Subject',
+          'Send': 'Send',
+          'Share your FeedBack and Ratings to help Us':
+              'Share your FeedBack and Ratings to help Us',
+          'Thanks for your feedback': 'Thanks for your feedback',
+          'success': 'success'
         }
       };
 }

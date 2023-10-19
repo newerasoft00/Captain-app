@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,14 +7,14 @@ import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
 import 'package:sportsbet/user%20view/View/Screens/Home/home_screen.dart';
 
-
 class PhoneController extends GetxController {
- 
   var auth = FirebaseAuth.instance;
   final FirebaseAuth credentials = FirebaseAuth.instance;
   Timer? _timer;
 
-   var authState = ''.obs;
+  final PageController pageController = PageController(initialPage: 0);
+
+  var authState = ''.obs;
   String verificationID = '';
   RxString verficationotp = ''.obs;
   RxString phoneNumber = ''.obs;
@@ -23,10 +24,10 @@ class PhoneController extends GetxController {
   RxString checkpassword = ''.obs;
   RxInt countdown = 60.obs;
 
-
   void stopTimer() {
     _timer?.cancel();
   }
+
   //sent code
   verifyPhone(String phone) async {
     auth.verifyPhoneNumber(
@@ -37,13 +38,12 @@ class PhoneController extends GetxController {
           verificationID = id;
           authState.value = 'codeSent successfully';
           _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-          countdown.value = 60 - timer.tick;
-          if (timer.tick >= 60) {
-            authState.value = 'Verification timeout';
-            timer.cancel(); // Cancel the timer
-          }
-        });
-
+            countdown.value = 60 - timer.tick;
+            if (timer.tick >= 60) {
+              authState.value = 'Verification timeout';
+              timer.cancel(); // Cancel the timer
+            }
+          });
         },
         codeAutoRetrievalTimeout: (id) {
           verificationID = id;
@@ -51,10 +51,9 @@ class PhoneController extends GetxController {
         timeout: const Duration(seconds: 60));
   }
 
-  //verifycode
   verifyOTP(String otp) async {
     try {
-       AuthCredential credential = PhoneAuthProvider.credential(
+      AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationID,
         smsCode: otp,
       );
@@ -62,7 +61,6 @@ class PhoneController extends GetxController {
           phoneNumber.value.toString() != '' &&
           password.value != '' &&
           checkpassword.value == password.value) {
-        
         Map<String, dynamic> userData = {
           'name': name.value,
           'email': email.value,
@@ -97,11 +95,10 @@ class PhoneController extends GetxController {
       // Sign in with the credential
       await auth.signInWithCredential(credential);
       Get.to(() => const HomeScreen());
-      // You can perform actions after successful verification here
       authState.value = 'Phone number verified successfully';
     } catch (e) {
       // Handle errors during OTP verification here
-      // print('Error verifying OTP: $e');
+      print('Error verifying OTP: $e');
       authState.value = 'Error verifying OTP: $e';
     }
   }

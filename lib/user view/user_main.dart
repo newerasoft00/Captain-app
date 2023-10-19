@@ -37,7 +37,7 @@ class UserApp extends StatelessWidget {
         supportedLocales: const <Locale>[Locale('en'), Locale('ar')],
         locale: Locale(locaController.selectedLang.value),
         translations: MyLocal(),
-        getPages: Routes.getPages,  
+        getPages: Routes.getPages,
         home: UserPreference.isLoggedIn()
             ? const HomeScreen()
             : const LoginScreen());

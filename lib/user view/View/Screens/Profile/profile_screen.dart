@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:sportsbet/User%20View/Controller/image_picker_controller.dart';
 import 'package:sportsbet/user%20view/Controller/Auth/login_controller.dart';
 import 'package:sportsbet/user%20view/Controller/profile_controller.dart';
 
+import '../../../../Core/routes/routes.dart';
 import '../../../../Core/themes/theme_controller.dart';
 import 'widget/bet_history_widget.dart';
 import 'widget/profile_menu_widget.dart';
@@ -49,6 +51,7 @@ class ProfileScreen extends StatelessWidget {
                 //mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       DisplayImage(
                           imagePath: imageController.imagePath.value,
@@ -177,6 +180,39 @@ class ProfileScreen extends StatelessWidget {
                               flex: 7,
                               child: Text(
                                 'Show Bet History'.tr,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Spacer(
+                    flex: 1,
+                  ),
+                  SizedBox(
+                    width: Get.width,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.feedbackScreen);
+                      },
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Expanded(
+                            flex: 1,
+                            child: Icon(
+                              Icons.feedback_rounded,
+                              color: Color(0xffFFB400),
+                            ),
+                          ),
+                          Expanded(
+                              flex: 7,
+                              child: AutoSizeText(
+                                'Give a feedback'.tr,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,

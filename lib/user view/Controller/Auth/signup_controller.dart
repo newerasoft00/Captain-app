@@ -1,16 +1,18 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
+import 'package:sportsbet/user%20view/View/Screens/Auth/Login/Componant/otp.dart';
 import 'package:sportsbet/user%20view/View/Screens/Home/home_screen.dart';
 
 class SignupController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseAuth credentials = FirebaseAuth.instance;
   Timer? _timer;
-
+  final PageController pageController = PageController(initialPage: 0);
   var authState = ''.obs;
   String verificationID = '';
   RxString verficationotp = ''.obs;
@@ -26,7 +28,6 @@ class SignupController extends GetxController {
   String specialCharacters = r'!@#$%^&*(),.?":{}|<>';
 
   final formKey = GlobalKey<FormState>();
-  //inal buttonformKey = GlobalKey<FormState>();
 
   bool _containsSpecialCharacters(String value) {
     // Define the list of special characters that are not allowed in the name
@@ -41,6 +42,54 @@ class SignupController extends GetxController {
 
   void stopTimer() {
     _timer?.cancel();
+  }
+
+  // Add this method to your SignupController class
+
+  Future<bool> signInWithPhoneNumber(String phone) async {
+    try {
+      final AuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationID,
+        smsCode: verficationotp.value,
+      );
+
+      // Sign in with the credential
+      final UserCredential userCredential =
+          await auth.signInWithCredential(credential);
+
+      if (userCredential.user != null) {
+        final User user = userCredential.user!;
+
+        // Check if the user exists in your Firestore collection
+        final DocumentSnapshot userData = await FirebaseFirestore.instance
+            .collection("User Information")
+            .doc(phone)
+            .get();
+
+        if (userData.exists) {
+          print('doneeeeeeeee');
+          await verifyPhone(phone);
+          Get.to(() => OtpScreen(phoneNumber: phone));
+          return true;
+        } else {
+          return false;
+        }
+      }
+    } catch (e) {
+      print('Error signing in: $e');
+    }
+
+    return false; // Default to returning false if there's an error
+  }
+
+  showSnakBar() {
+    return Get.snackbar(
+            backgroundColor: Colors.red,
+            'error',
+            'Create account first',
+            colorText: Colors.white,
+            duration: const Duration(seconds: 5))
+        .show();
   }
 
   //sent code
@@ -66,59 +115,79 @@ class SignupController extends GetxController {
         timeout: const Duration(seconds: 60));
   }
 
-  //verifycode
+  //verify code
   verifyOTP(String otp) async {
     try {
       AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationID,
         smsCode: otp,
       );
-      String uid = auth.currentUser!.uid;
 
-      if (name.value != '' &&
-          phoneNumber.value.toString() != '' &&
-          password.value != '' &&
-          checkpassword.value == password.value) {
-        Map<String, dynamic> userData = {
-          'name': name.value,
-          'email': email.value,
-          'phoneNumber': phoneNumber.value.toString(),
-          'password': password.value,
-          'uid': uid,
-        };
-        await FirebaseFirestore.instance
-            .collection("User Information")
-            .doc(phoneNumber.value.toString())
-            .set(userData)
-            .then((value) async {
-          await UserPreference.setUserId(phoneNumber.value.toString());
-          Get.to(() => const HomeScreen());
-        });
+      // Sign in with the credential to verify the OTP
+      UserCredential userCredential =
+          await auth.signInWithCredential(credential);
 
-        Get.snackbar(
-          'Success',
-          'Your account has been created',
-          backgroundColor: Colors.greenAccent,
-          duration: const Duration(seconds: 1),
-        );
-      } else if (password.value != checkpassword.value) {
+      if (userCredential.user != null) {
+        if (name.value != '' &&
+            phoneNumber.value.toString() != '' &&
+            password.value != '' &&
+            checkpassword.value == password.value) {
+          Map<String, dynamic> userData = {
+            'name': name.value,
+            'email': email.value,
+            'phoneNumber': phoneNumber.value.toString(),
+            'password': password.value,
+            'uid':
+                userCredential.user!.uid, // Use the UID from the signed-in user
+          };
+
+          await FirebaseFirestore.instance
+              .collection("User Information")
+              .doc(phoneNumber.value.toString())
+              .set(userData)
+              .then((value) async {
+            Get.to(() => const HomeScreen());
+            await UserPreference.setIsLoggedIn(true);
+            await UserPreference.setUserId(phoneNumber.value.toString());
+            print(UserPreference.getUserid());
+            print('#######################################################');
+            print(UserPreference.isLoggedIn().toString());
+          });
+
+          Get.snackbar(
+            'Success',
+            'Your account has been created',
+            backgroundColor: Colors.greenAccent,
+            duration: const Duration(seconds: 1),
+          );
+        } else if (password.value != checkpassword.value) {
+          Get.snackbar(
+            'Error',
+            'Password is too weak',
+            backgroundColor: Colors.redAccent,
+            duration: const Duration(seconds: 3),
+          );
+        }
+
+        // Proceed to the HomeScreen after successful sign-up
+        Get.to(() => const HomeScreen());
+        authState.value = 'Phone number verified successfully';
+      } else {
+        // Handle the case where the OTP is incorrect
         Get.snackbar(
           'Error',
-          'Password is too weak',
+          'Invalid OTP',
           backgroundColor: Colors.redAccent,
           duration: const Duration(seconds: 1),
         );
       }
-
-      // Sign in with the credential
-      await auth.signInWithCredential(credential);
-      Get.to(() => const HomeScreen());
-      // You can perform actions after successful verification here
-      authState.value = 'Phone number verified successfully';
     } catch (e) {
-      // Handle errors during OTP verification here
-      // print('Error verifying OTP: $e');
-      authState.value = 'Error verifying OTP: $e';
+      return Get.snackbar(
+        'Error',
+        'Please check and enter the correct verification code again.',
+        backgroundColor: Colors.redAccent,
+        duration: const Duration(seconds: 5),
+      );
     }
   }
 
@@ -204,6 +273,14 @@ class SignupController extends GetxController {
     return null;
   }
 
+  String? validatePhone(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Phone is required';
+    }
+
+    return null;
+  }
+
   String? validpassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Password is required';
@@ -246,5 +323,17 @@ class SignupController extends GetxController {
       return "Password don't match";
     }
     return null;
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void onClose() {
+    presssignup = false.obs;
+    super.onClose();
   }
 }
