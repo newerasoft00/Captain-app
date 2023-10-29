@@ -28,6 +28,13 @@ ThemeData light = ThemeData(
   fontFamily:
       MyLocalController().selectedLang.value == 'en' ? 'Roboto' : 'Tajawal',
   primaryColor: ColorTeal.primaryColor,
+  expansionTileTheme: ExpansionTileThemeData(
+      childrenPadding: const EdgeInsets.symmetric(horizontal: 10),
+      collapsedShape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      collapsedBackgroundColor: ColorTeal.secoundaryContainer,
+      backgroundColor: ColorTeal.secoundaryContainer,
+      textColor: ColorTeal.onPrimatyContainer),
   scaffoldBackgroundColor: const Color(0xffFAFDFA),
   secondaryHeaderColor: const Color(0xff605C71),
   primaryColorLight: ColorTeal.onPrimatyColor,
@@ -56,7 +63,6 @@ ThemeData light = ThemeData(
     ),
   ),
   //
-
   tabBarTheme: TabBarTheme(
     indicatorColor: ColorTeal.primaryContainer,
     labelStyle: TextStyle(
@@ -140,6 +146,13 @@ ThemeData dark = ThemeData(
   fontFamily:
       MyLocalController().selectedLang.value == 'en' ? 'Roboto' : 'Tajawal',
   primaryColor: ColorTealDark.primaryColor,
+  expansionTileTheme: ExpansionTileThemeData(
+      childrenPadding: const EdgeInsets.symmetric(horizontal: 10),
+      collapsedShape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      collapsedBackgroundColor: ColorTealDark.secoundaryContainer,
+      backgroundColor: ColorTealDark.primaryContainer,
+      textColor: ColorTealDark.onPrimaryContainer),
   secondaryHeaderColor: const Color(0xff605C71),
   primaryColorLight: ColorTealDark.onPrimaryColor,
   disabledColor: const Color(0xff9D9D9E),
@@ -337,41 +350,41 @@ ThemeData redTheme = ThemeData(
     brightness: Brightness.light,
   ),
   fontFamily: 'Roboto',
-  primaryColor: Color(0xFFE84646),
-  scaffoldBackgroundColor: Color(0xFFFFFAF4),
-  secondaryHeaderColor: Color(0xFF6E4D4D),
+  primaryColor: const Color(0xFFE84646),
+  scaffoldBackgroundColor: const Color(0xFFFFFAF4),
+  secondaryHeaderColor: const Color(0xFF6E4D4D),
   primaryColorLight: Colors.white,
-  disabledColor: Color(0xFF9D9D9E),
-  dividerColor: Color.fromARGB(255, 199, 204, 209),
-  hintColor: Color(0xFF9F9F9F),
-  dividerTheme: DividerThemeData(
+  disabledColor: const Color(0xFF9D9D9E),
+  dividerColor: const Color.fromARGB(255, 199, 204, 209),
+  hintColor: const Color(0xFF9F9F9F),
+  dividerTheme: const DividerThemeData(
     color: Color.fromARGB(255, 184, 194, 191),
     indent: 20,
     endIndent: 20,
   ),
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     titleTextStyle: TextStyle(
         color: Color(0xFFE84646), fontSize: 20, fontWeight: FontWeight.w600),
     backgroundColor: Color(0xFFFFA2A2),
     scrolledUnderElevation: 0,
   ),
   listTileTheme: ListTileThemeData(
-    iconColor: Color(0xFF4C0404),
+    iconColor: const Color(0xFF4C0404),
     shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    leadingAndTrailingTextStyle: TextStyle(
+    leadingAndTrailingTextStyle: const TextStyle(
       color: Colors.white,
       fontFamily: 'Roboto',
     ),
   ),
-  tabBarTheme: TabBarTheme(
+  tabBarTheme: const TabBarTheme(
     labelStyle: TextStyle(
         color: Color(0xFFE84646), fontSize: 20, fontWeight: FontWeight.w600),
     indicatorColor: Color(0xFFFFA2A2),
   ),
-  textTheme: TextTheme(
+  textTheme: const TextTheme(
       // Define your custom text styles here
       ),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     elevation: 8,
     selectedItemColor: Colors.white,
     unselectedItemColor: Color(0xFF9D9D9E),
@@ -381,14 +394,14 @@ ThemeData redTheme = ThemeData(
     ),
     showUnselectedLabels: true,
   ),
-  buttonTheme: ButtonThemeData(
+  buttonTheme: const ButtonThemeData(
       padding: EdgeInsets.symmetric(vertical: 10),
       buttonColor: Color(0xFFE84646),
       textTheme: ButtonTextTheme.normal,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),
-  cardColor: Color(0xFFE84646),
+  cardColor: const Color(0xFFE84646),
   cardTheme: CardTheme(
     color: Colors.white,
     elevation: 5,
@@ -418,11 +431,11 @@ class BlueMaterial3Theme {
       onTertiaryContainer: Colors.black,
     ),
     fontFamily: 'Roboto',
-    scaffoldBackgroundColor: Color(0xFFE1F5FE),
+    scaffoldBackgroundColor: const Color(0xFFE1F5FE),
     primaryColor: const Color(0xFF2196F3),
     primaryColorLight: Colors.white,
-    disabledColor: Color(0xFF9D9D9E),
-    hintColor: Color(0xFF9F9F9F),
+    disabledColor: const Color(0xFF9D9D9E),
+    hintColor: const Color(0xFF9F9F9F),
     dividerTheme: const DividerThemeData(
       color: Color(0xFFC5CAE9),
       indent: 20,
@@ -458,7 +471,7 @@ class BlueMaterial3Theme {
         ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       elevation: 8,
-      selectedItemColor: const Color(0xFF2196F3),
+      selectedItemColor: Color(0xFF2196F3),
       unselectedItemColor: Color(0xFF9D9D9E),
       backgroundColor: Colors.white,
       selectedLabelStyle: TextStyle(
@@ -475,7 +488,7 @@ class BlueMaterial3Theme {
       ),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
     ),
-    cardColor: Color(0xFF2196F3),
+    cardColor: const Color(0xFF2196F3),
     cardTheme: CardTheme(
       color: Colors.white,
       elevation: 5,

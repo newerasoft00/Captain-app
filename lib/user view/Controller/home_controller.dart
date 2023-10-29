@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:sportsbet/user%20view/Controller/Round%20Point/user_round_point.dart';
 import 'package:sportsbet/user%20view/Controller/profile_controller.dart';
 
 class HomeController extends GetxController {
@@ -14,9 +15,10 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     pageindex = 0.obs;
     ProfileController().onInit();
+    Get.put(RoundPintController());
   }
 }

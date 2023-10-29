@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/User%20View/Controller/bet_controller.dart';
+
 import '../../../../../../Core/helper/shared_preference/shared_preference.dart';
 import '../../../../../Model/Roshn League/game_weak.dart';
 import '../../../../../Model/bet/user_bet.dart';
@@ -74,6 +75,7 @@ class BetOptionsWidget extends StatelessWidget {
                       width: double.infinity,
                       child: StreamBuilder<NewBet?>(
                         stream: getUserBetSer.getUserBetStream(
+                          fixture.leagueRound,
                           fixture.eventKey.toString(),
                           UserPreference.getUserid(),
                         ),
@@ -99,7 +101,7 @@ class BetOptionsWidget extends StatelessWidget {
                             return const Center(
                                 child: CircularProgressIndicator.adaptive());
                           } else if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
+                            return const Text('');
                           } else {
                             final userBet = snapshot.data;
 
@@ -449,6 +451,7 @@ class BetOptionsWidget extends StatelessWidget {
                                       if (controller.userChoicescore1.value ==
                                           controller.userChoicescore2.value) {
                                         controller.addBetToFirestore(
+                                            fixture.leagueRound,
                                             UserPreference.getUserid(),
                                             controller.userChoice.value,
                                             '${fixture.eventKey}',
@@ -457,9 +460,9 @@ class BetOptionsWidget extends StatelessWidget {
                                         controller.saveUserBetinFireStore(
                                             UserPreference.getUserid(),
                                             '${fixture.eventKey}',
-                                            fixture.eventDate,
-                                            '${fixture.eventHomeTeam} : ${fixture.eventAwayTeam}',
-                                            '${controller.userChoicescore1.value} : ${controller.userChoicescore2.value}');
+                                            '${fixture.eventHomeTeam} - ${fixture.eventAwayTeam}',
+                                            fixture.leagueRound,
+                                            '${controller.userChoicescore1.value} - ${controller.userChoicescore2.value}');
 
                                         controller.userChoice.value = '';
                                         controller.userChoicescore1.value = '';
@@ -476,6 +479,7 @@ class BetOptionsWidget extends StatelessWidget {
                                             '' &&
                                         controller.userChoice.value != '') {
                                       controller.addBetToFirestore(
+                                          fixture.leagueRound,
                                           UserPreference.getUserid(),
                                           controller.userChoice.value,
                                           '${fixture.eventKey}',
@@ -484,9 +488,9 @@ class BetOptionsWidget extends StatelessWidget {
                                       controller.saveUserBetinFireStore(
                                           UserPreference.getUserid(),
                                           '${fixture.eventKey}',
-                                          fixture.eventDate,
-                                          '${fixture.eventHomeTeam} : ${fixture.eventAwayTeam}',
-                                          '${controller.userChoicescore1.value} : ${controller.userChoicescore2.value}');
+                                          '${fixture.eventHomeTeam} - ${fixture.eventAwayTeam}',
+                                          fixture.leagueRound,
+                                          '${controller.userChoicescore1.value} - ${controller.userChoicescore2.value}');
 
                                       controller.userChoice.value = '';
                                       controller.userChoicescore1.value = '';

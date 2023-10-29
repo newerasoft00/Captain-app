@@ -2,15 +2,16 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
 import 'package:sportsbet/Local/local_controller.dart';
 import 'package:sportsbet/User%20View/Controller/image_picker_controller.dart';
 import 'package:sportsbet/user%20view/Controller/Auth/login_controller.dart';
 import 'package:sportsbet/user%20view/Controller/profile_controller.dart';
+import 'package:sportsbet/user%20view/View/Screens/Profile/user_bet_history_screen.dart';
 
 import '../../../../Core/routes/routes.dart';
 import '../../../../Core/themes/theme_controller.dart';
-import 'widget/bet_history_widget.dart';
 import 'widget/profile_menu_widget.dart';
 import 'widget/user_pic.dart';
 
@@ -56,6 +57,7 @@ class ProfileScreen extends StatelessWidget {
                       DisplayImage(
                           imagePath: imageController.imagePath.value,
                           onPressed: uploadImage),
+                      10.pw,
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,29 +143,30 @@ class ProfileScreen extends StatelessWidget {
                     width: Get.width,
                     child: GestureDetector(
                       onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Center(child: Text('Your Bet History'.tr)),
-                              content: SizedBox(
-                                width: context.width * 0.8, // Specify a width
-                                height:
-                                    context.height * 0.3, // Specify a height
-                                child: BetHistoryWidget(),
-                              ),
-                              actions: [
-                                Center(
-                                  child: TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text('Close'.tr)),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                        Get.to(() => UserBetHistoryScreen());
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (context) {
+                        //     return AlertDialog(
+                        //       title: Center(child: Text('Your Bet History'.tr)),
+                        //       content: SizedBox(
+                        //         width: context.width * 0.8, // Specify a width
+                        //         height:
+                        //             context.height * 0.3, // Specify a height
+                        //         child: BetHistoryWidget(),
+                        //       ),
+                        //       actions: [
+                        //         Center(
+                        //           child: TextButton(
+                        //               onPressed: () {
+                        //                 Navigator.of(context).pop();
+                        //               },
+                        //               child: Text('Close'.tr)),
+                        //         ),
+                        //       ],
+                        //     );
+                        //   },
+                        // );
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,

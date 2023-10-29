@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sportsbet/user%20view/View/Screens/Bet%20league/bet_league.dart';
 import 'package:sportsbet/user%20view/View/Screens/Profile/profile_screen.dart';
 import 'package:sportsbet/user%20view/View/Screens/Roshn%20Matches/roshn_match.dart';
 
@@ -22,6 +23,7 @@ class HomeScreen extends StatelessWidget {
       MatchesScreen(),
       //ToDaysMatchesScreen(),
       RoshnStandingsPage(),
+      const BetLeague(),
       const ProfileScreen(),
     ];
 
@@ -47,6 +49,10 @@ class HomeScreen extends StatelessWidget {
                 BottomNavigationBarItem(
                   icon: const Icon(Icons.library_books_rounded),
                   label: 'Roshan League'.tr,
+                ),
+                BottomNavigationBarItem(
+                  icon: const Icon(Icons.star_rounded),
+                  label: 'Bet League'.tr,
                 ),
                 BottomNavigationBarItem(
                   icon: const Icon(CupertinoIcons.person_fill),

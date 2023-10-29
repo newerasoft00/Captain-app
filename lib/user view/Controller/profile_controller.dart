@@ -105,6 +105,7 @@ class ProfileController extends GetxController {
         final String? name = userData['name'];
         final String? password = userData['password'];
         final String? uid = userData['uid'] ?? 'nn';
+        final int? totalBetPoint = userData['total_bet_point'] ?? 0;
 
         if (email != null &&
             phoneNumber != null &&
@@ -112,6 +113,7 @@ class ProfileController extends GetxController {
             password != null &&
             uid != null) {
           User userinfo = User(
+            totalBetPoint: totalBetPoint ?? 0,
             email: email,
             phoneNumber: phoneNumber,
             name: name,

@@ -19,11 +19,13 @@ class RoshnMatchesPage extends StatefulWidget {
 
 class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
   final RoshnMatchController controller = Get.put(RoshnMatchController());
-  String selectedRound = 'Round 10'; // Variable to hold the selected round
+
+  String selectedRound = 'Round 11';
   ThemeController themeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    getUniqueRounds(controller.roshnFixtures);
     return Scaffold(
       appBar: AppBar(
         title: Obx(
@@ -70,7 +72,7 @@ class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
                       enableFeedback: true,
                       onChanged: (String? newValue) {
                         setState(() {
-                          selectedRound = newValue ?? 'Round 10';
+                          selectedRound = newValue ?? 'Round 11';
                         });
                       },
                       items: getUniqueRounds(controller.roshnFixtures)
@@ -129,7 +131,10 @@ class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
                           Get.put(BetOptionController());
                       betcontroller.selectMatch(fixture);
                     },
-                    child: Card(child: RoshnMatchCard(fixture: fixture)),
+                    child: Card(
+                        elevation: 0,
+                        color: Theme.of(context).cardColor.withOpacity(0.1),
+                        child: RoshnMatchCard(fixture: fixture)),
                   );
                 },
               ),

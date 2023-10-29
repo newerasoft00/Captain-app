@@ -21,8 +21,8 @@ class DisplayImage extends StatelessWidget {
       onTap: onPressed,
       child: Center(
           child: SizedBox(
-        width: 100,
-        height: 100,
+        width: 65,
+        height: 65,
         child: buildImage(color),
       )),
     );

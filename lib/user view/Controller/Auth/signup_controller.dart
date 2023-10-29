@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
@@ -58,7 +59,6 @@ class SignupController extends GetxController {
           await auth.signInWithCredential(credential);
 
       if (userCredential.user != null) {
-        final User user = userCredential.user!;
 
         // Check if the user exists in your Firestore collection
         final DocumentSnapshot userData = await FirebaseFirestore.instance
@@ -67,7 +67,6 @@ class SignupController extends GetxController {
             .get();
 
         if (userData.exists) {
-          print('doneeeeeeeee');
           await verifyPhone(phone);
           Get.to(() => OtpScreen(phoneNumber: phone));
           return true;
@@ -76,7 +75,9 @@ class SignupController extends GetxController {
         }
       }
     } catch (e) {
-      print('Error signing in: $e');
+      if (kDebugMode) {
+        print('Error signing in: $e');
+      }
     }
 
     return false; // Default to returning false if there's an error
@@ -149,9 +150,7 @@ class SignupController extends GetxController {
             Get.to(() => const HomeScreen());
             await UserPreference.setIsLoggedIn(true);
             await UserPreference.setUserId(phoneNumber.value.toString());
-            print(UserPreference.getUserid());
-            print('#######################################################');
-            print(UserPreference.isLoggedIn().toString());
+          
           });
 
           Get.snackbar(
@@ -328,6 +327,7 @@ class SignupController extends GetxController {
   @override
   void dispose() {
     pageController.dispose();
+    presssignup = false.obs;
     super.dispose();
   }
 
@@ -335,5 +335,11 @@ class SignupController extends GetxController {
   void onClose() {
     presssignup = false.obs;
     super.onClose();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    presssignup = false.obs;
   }
 }

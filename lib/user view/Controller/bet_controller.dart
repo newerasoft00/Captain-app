@@ -1,9 +1,12 @@
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
 import 'package:sportsbet/Model/Roshn%20League/game_weak.dart';
 import 'package:sportsbet/user%20view/Services/bet/new_bet_service.dart';
 import 'package:sportsbet/user%20view/Services/bet/save_user_bet.dart';
+
 import '../Services/bet/get_user_bet.dart';
 import '../View/Screens/Roshn Matches/match_details_page.dart';
 
@@ -30,6 +33,7 @@ class BetOptionController extends GetxController {
   RxDouble homeTeamPercentage = 0.0.obs;
   RxDouble awayTeamPercentage = 0.0.obs;
   RxDouble drawingPercentage = 0.0.obs;
+
   @override
   void onClose() {
     _isLoading.value = false;
@@ -60,61 +64,74 @@ class BetOptionController extends GetxController {
   Future<void> saveUserBetinFireStore(
     String userId,
     String matchId,
-    String matchDate,
     String teams,
+    String roundId,
     String userBet,
   ) async {
     try {
-      final userDocRef =
-          FirebaseFirestore.instance.collection('User Information').doc(userId);
+      final userDocRef = FirebaseFirestore.instance
+          .collection('User Information')
+          .doc(userId)
+          .collection('round_point')
+          .doc(roundId);
 
       final userDocSnapshot = await userDocRef.get();
 
       if (userDocSnapshot.exists) {
         final userData = userDocSnapshot.data() as Map<String, dynamic>;
-        final betHistory = userData['betHistory'] as List<dynamic>?;
+        final betHistory = userData['round_bet'] as List<dynamic>?;
 
         if (betHistory == null) {
           // If 'betHistory' is null or missing, create an empty list
-          userData['betHistory'] = [];
+          userData['round_bet'] = [];
         }
 
         // Check if the user already has a bet entry with the same match_Id
         final existingBetIndex = betHistory!.indexWhere((betEntry) {
           final betData = betEntry as Map<String, dynamic>;
-          return betData['match_Id'] == matchId;
+          return betData['match_id'] == matchId;
         });
 
         if (existingBetIndex != -1) {
           // If the user already has a bet for the same match_Id, update it
           final updatedBetEntry = {
-            'match_Id': matchId,
-            'match_Date': matchDate,
+            'match_id': matchId,
             'teams': teams,
-            'user_bet': userBet,
+            'match_score': userBet,
           };
 
-          // Update the existing bet entry in the 'betHistory' list
-          userData['betHistory'][existingBetIndex] = updatedBetEntry;
+          // Update the existing bet entry in the 'round_bet' list
+          userData['round_bet'][existingBetIndex] = updatedBetEntry;
         } else {
           // If the user does not have an existing bet for the same match_Id, add a new bet entry
           final betEntry = {
-            'match_Id': matchId,
-            'match_Date': matchDate,
+            'match_id': matchId,
             'teams': teams,
-            'user_bet': userBet,
+            'match_score': userBet,
           };
 
-          // Add the new bet entry to the 'betHistory' list
-          userData['betHistory'].add(betEntry);
+          // Add the new bet entry to the 'round_bet' list
+          userData['round_bet'].add(betEntry);
         }
 
-        // Update the user document with the modified 'betHistory' list
+        // Update the user document with the modified 'round_bet' list
         await userDocRef.set(
           userData,
           SetOptions(merge: true), // Merge with existing data
         );
       } else {
+        // If the user document doesn't exist, create it and add 'round_bet' list
+        final betEntry = {
+          'match_id': matchId,
+          'teams': teams,
+          'match_score': userBet,
+        };
+
+        final userData = {
+          'round_bet': [betEntry],
+        };
+
+        await userDocRef.set(userData);
       }
     } catch (e) {
       // Handle error, show error message, or retry logic here.
@@ -141,25 +158,20 @@ class BetOptionController extends GetxController {
     }
   }
 
-  Future<void> addBetToFirestore(String userId, String chosenbet,
-      String matchKey, String winScore, String loseScore) async {
+  Future<void> addBetToFirestore(
+      String roundID,
+      String userId,
+      String chosenbet,
+      String matchKey,
+      String winScore,
+      String loseScore) async {
     try {
       await newBetService.addDataToFirestore(
-          userId, chosenbet, matchKey, winScore, loseScore);
+          roundID, userId, chosenbet, matchKey, winScore, loseScore);
     } catch (e) {
       // Handle error, show error message, or retry logic here.
     }
   }
-
-/*   Future<void> getUserBetFromFirebase(String userId, String chosenbet,
-      String matchKey, String winScore, String loseScore) async {
-    try {
-      await getUserBetSer.getUserBetByMatchKey(
-          matchKey, UserPreference.getUserid());
-    } catch (e) {
-      return;
-    }
-  } */
 
   Future<bool> doesCheckBetContainUser(String userId, String homeTeam) async {
     try {
@@ -254,59 +266,52 @@ class BetOptionController extends GetxController {
     betOptions.clear();
     changeMatch(fixture.eventKey.toString());
     fetchBetOptions(fixture.hometeamkey.toString());
-    await fetchUserBetsForMatch(fixture.eventKey.toString(),
-        fixture.eventHomeTeam, fixture.eventAwayTeam);
-
+    await fetchUserBetsForMatch(
+        fixture.leagueRound,
+        fixture.eventKey.toString(),
+        fixture.eventHomeTeam,
+        fixture.eventAwayTeam);
     Get.to(() => MatchDetailsPage(fixture: fixture));
   }
 
   Future<void> fetchUserBetsForMatch(
-      String matchKey, String homeTeam, String awayTeam) async {
+      String roundId, String matchKey, String homeTeam, String awayTeam) async {
     try {
-      // Fetch the document corresponding to matchKey
-      final documentSnapshot = await FirebaseFirestore.instance
-          .collection("User'sBet")
-          .doc(matchKey)
-          .get();
+      // Use the GetUserBetService to get the user's bet stream
+      final userBetService = GetUserBetService();
+      final userBetStream = userBetService.getUserBetStream(
+          roundId, matchKey, UserPreference.getUserid());
 
-      // Check if the document exists
-      if (documentSnapshot.exists) {
-        // Get the data from the document as a Map
-        final data = documentSnapshot.data() as Map<String, dynamic>;
-
-        // Access the array within the document (assuming it's named 'bets')
-        final betsArray = data['bets'] as List<dynamic>;
-
-        // Reset statistics
-        usersChoseHomeTeam.value = 0;
-        usersChoseAwayTeam.value = 0;
-        usersChoseDrawing.value = 0;
-        int totalUsers = usersChoseHomeTeam.value +
-            usersChoseAwayTeam.value +
-            usersChoseDrawing.value;
-        // Calculate statistics based on the 'bets' array
-        for (var betData in betsArray) {
-          final winTeam = betData['winTeam'] as String?;
-          if (winTeam == awayTeam) {
+      // Subscribe to the user bet stream
+      userBetStream.listen((userBet) {
+        if (userBet != null) {
+          // Reset statistics
+          usersChoseHomeTeam.value = 0;
+          usersChoseAwayTeam.value = 0;
+          usersChoseDrawing.value = 0;
+          int totalUsers = usersChoseHomeTeam.value +
+              usersChoseAwayTeam.value +
+              usersChoseDrawing.value;
+          // Calculate statistics based on the user's bet
+          if (userBet.winTeam == awayTeam) {
             usersChoseAwayTeam.value++;
             awayTeamPercentage.value =
                 ((usersChoseAwayTeam.value / totalUsers) * 100);
-          } else if (winTeam == homeTeam) {
+          } else if (userBet.winTeam == homeTeam) {
             usersChoseHomeTeam.value++;
             homeTeamPercentage.value =
                 ((homeTeamPercentage.value / totalUsers) * 100);
-          } else if (winTeam == 'Drawing') {
+          } else if (userBet.winTeam == 'Drawing') {
             usersChoseDrawing.value++;
             drawingPercentage.value =
                 ((usersChoseDrawing.value / totalUsers) * 100);
           }
         }
-      } else {
-        //print('Document does not exist for matchKey: $matchKey');
-      }
+      });
     } catch (e) {
       //print('Error fetching user bets: $e');
     }
+    // You may need to update your totalUsers value if it depends on other data
     update();
   }
 }

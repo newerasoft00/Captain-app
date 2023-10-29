@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
@@ -35,7 +36,7 @@ class RoshnMatchController extends GetxController {
 
   void startTimer() {
     _updateTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
-      fetchData(); // Fetch and update the eventlivetime
+      fetchData(); // Fetch and update the event-live-time
     });
   }
 

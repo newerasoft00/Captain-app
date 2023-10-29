@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
@@ -98,7 +99,9 @@ class PhoneController extends GetxController {
       authState.value = 'Phone number verified successfully';
     } catch (e) {
       // Handle errors during OTP verification here
-      print('Error verifying OTP: $e');
+      if (kDebugMode) {
+        print('Error verifying OTP: $e');
+      }
       authState.value = 'Error verifying OTP: $e';
     }
   }

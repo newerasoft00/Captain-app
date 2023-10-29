@@ -42,27 +42,27 @@ class MatchesScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final livematch = controller.liveMatches[index];
                   return Card(
-                    margin: const EdgeInsets.all(10),
+                    elevation: 0,
+                    color: Theme.of(context).cardColor.withOpacity(0.1),
+                    margin: const EdgeInsets.all(5),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 2),
+                      padding: const EdgeInsets.only(
+                          top: 5, bottom: 1, left: 2, right: 2),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          //
-                          //
-                          //
-                          //
-                          //
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               4.pw,
                               Expanded(
                                 flex: 1,
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(50),
                                   child: CachedNetworkImage(
-                                    width: 30,
-                                    height: 30,
+                                    width: 15,
+                                    height: 20,
                                     imageUrl:
                                         Uri.encodeFull(livematch.leagueLogo),
                                     placeholder: (context, url) =>
@@ -85,6 +85,7 @@ class MatchesScreen extends StatelessWidget {
                           ),
                           5.ph,
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
                                 flex: 1,
@@ -98,8 +99,8 @@ class MatchesScreen extends StatelessWidget {
                                       CachedNetworkImage(
                                         imageUrl: Uri.encodeFull(
                                             livematch.homeTeamLogo),
-                                        width: Get.width * 0.170,
-                                        height: Get.width * 0.170,
+                                        width: Get.width * 0.1,
+                                        height: Get.width * 0.1,
                                         placeholder: (context, url) =>
                                             const CircularProgressIndicator(),
                                         errorWidget: (context, url, error) =>
@@ -169,8 +170,8 @@ class MatchesScreen extends StatelessWidget {
                                       CachedNetworkImage(
                                         imageUrl: Uri.encodeFull(
                                             livematch.awayTeamLogo),
-                                        width: Get.width * 0.170,
-                                        height: Get.width * 0.170,
+                                        width: Get.width * 0.1,
+                                        height: Get.width * 0.1,
                                         placeholder: (context, url) =>
                                             const Center(
                                                 child: CircularProgressIndicator
