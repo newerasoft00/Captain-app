@@ -143,30 +143,8 @@ class ProfileScreen extends StatelessWidget {
                     width: Get.width,
                     child: GestureDetector(
                       onTap: () {
+                        controller.getUserData();
                         Get.to(() => UserBetHistoryScreen());
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (context) {
-                        //     return AlertDialog(
-                        //       title: Center(child: Text('Your Bet History'.tr)),
-                        //       content: SizedBox(
-                        //         width: context.width * 0.8, // Specify a width
-                        //         height:
-                        //             context.height * 0.3, // Specify a height
-                        //         child: BetHistoryWidget(),
-                        //       ),
-                        //       actions: [
-                        //         Center(
-                        //           child: TextButton(
-                        //               onPressed: () {
-                        //                 Navigator.of(context).pop();
-                        //               },
-                        //               child: Text('Close'.tr)),
-                        //         ),
-                        //       ],
-                        //     );
-                        //   },
-                        // );
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,

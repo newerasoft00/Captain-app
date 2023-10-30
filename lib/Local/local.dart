@@ -58,9 +58,25 @@ class MyLocal implements Translations {
           'Share your FeedBack and Ratings to help Us':
               'شارك ملاحظاتك وتقييماتك لمساعدتنا',
           'Thanks for your feedback': 'شكراً',
-          'success': 'تم الحفظ'
+          'success': 'تم الحفظ',
+          'Total Point': 'النقاط',
+          'Bet League': 'دوري روشن للتوقعات',
+          'Overall Rank': 'الترتيب العام',
+          'Round Rank': 'ترتيب الجولة',
+          'Name': 'الأسم',
+          "Round Point": 'النقاط',
+          'No bet history available.': 'لا يوجد توقعات سابقة',
+          'Bet History': 'التوقعات السابقة'
         },
         'en': {
+          'Bet History': 'Bet History',
+          'No bet history available.': 'No bet history available.',
+          "Round Point": "Round Point",
+          'Name': 'Name',
+          'Round Rank': 'Round Rank',
+          'Overall Rank': 'Overall Rank',
+          'Bet League': 'Bet League',
+          'Total Point': 'Total Point',
           'Welcome': 'Welcome',
           'By signing in you are agreeing our\nTerm and privacy policy':
               'By signing in you are agreeing our\nTerm and privacy policy',

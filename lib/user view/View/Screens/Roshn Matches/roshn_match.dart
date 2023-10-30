@@ -20,7 +20,7 @@ class RoshnMatchesPage extends StatefulWidget {
 class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
   final RoshnMatchController controller = Get.put(RoshnMatchController());
 
-  String selectedRound = 'Round 11';
+  String selectedRound = 'Round 12';
   ThemeController themeController = Get.find();
 
   @override
@@ -72,7 +72,7 @@ class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
                       enableFeedback: true,
                       onChanged: (String? newValue) {
                         setState(() {
-                          selectedRound = newValue ?? 'Round 11';
+                          selectedRound = newValue ?? 'Round 12';
                         });
                       },
                       items: getUniqueRounds(controller.roshnFixtures)

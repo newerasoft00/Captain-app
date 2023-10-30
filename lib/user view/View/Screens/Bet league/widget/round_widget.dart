@@ -37,10 +37,10 @@ class RoundStandingWidget extends StatelessWidget {
                       Obx(
                         () => Column(
                           children: [
-                            const ListTile(
-                              leading: Text(' '),
-                              title: Text('Name'),
-                              trailing: Text("Round Point"),
+                            ListTile(
+                              leading: const Text(' '),
+                              title: Text('Name'.tr),
+                              trailing: Text("Round Point".tr),
                             ),
                             const Divider(),
                             Column(

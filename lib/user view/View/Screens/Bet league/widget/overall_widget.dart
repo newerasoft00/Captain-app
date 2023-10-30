@@ -18,7 +18,7 @@ class UserAppearanceCountsPage extends GetView<OverallBetPointController> {
                 child: ListTile(
                   leading: const Text(' '),
                   title: Text('Standings'.tr),
-                  trailing: const Text('Total Point'),
+                  trailing: Text('Total Point'.tr),
                 ),
               ),
               Expanded(

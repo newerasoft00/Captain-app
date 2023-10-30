@@ -7,7 +7,7 @@ import 'package:sportsbet/Core/utils/strings.dart';
 import '../../../Model/live matches/live_match_model.dart';
 
 class LiveMatchService extends GetxService {
-  final String apiKey = allsportsapi;
+  final String apiKey = allsportsapiKey;
   final String baseUrl =
       "https://apiv2.allsportsapi.com/football/?met=Livescore";
 

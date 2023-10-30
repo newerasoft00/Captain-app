@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../Controller/profile_controller.dart';
 import '../../../Controller/user_bet_history_controller.dart';
 
@@ -47,28 +48,30 @@ class UserBetHistoryScreen extends StatelessWidget {
                     flex: 8,
                     child: SizedBox(
                       height: context.height * 0.9,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        primary: true,
-                        itemCount: _controller.betHistory.length,
-                        itemBuilder: (context, index) {
-                          // _roshnMatchController.fetchData();
-                          final bets = _controller.betHistory[index];
-                          return Card(
-                            elevation: 0,
-                            color:
-                                Theme.of(context).cardColor.withOpacity(0.17),
-                            child: ListTile(
-                              leading: Text('${index + 1}'),
-                              title: Text(bets['teams'].toString()),
-                              trailing: Column(
-                                children: [
-                                  Text(bets['match_score'].toString()),
-                                ],
-                              ),
-                            ),
-                          );
+                      child: RefreshIndicator(
+                        onRefresh: () async {
+                          pc.getUserData();
+                          pc.fetchBetHistoryData();
                         },
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          primary: true,
+                          itemCount: _controller.betHistory.length,
+                          itemBuilder: (context, index) {
+                            // _roshnMatchController.fetchData();
+                            final bets = _controller.betHistory[index];
+                            return Card(
+                              elevation: 0,
+                              color:
+                                  Theme.of(context).cardColor.withOpacity(0.17),
+                              child: ListTile(
+                                leading: Text('${index + 1}'),
+                                title: Text(bets['teams'].toString()),
+                                trailing: Text(bets['match_score'].toString()),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),

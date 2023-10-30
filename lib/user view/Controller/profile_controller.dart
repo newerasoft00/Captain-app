@@ -104,7 +104,7 @@ class ProfileController extends GetxController {
         final String? phoneNumber = userData['phoneNumber'];
         final String? name = userData['name'];
         final String? password = userData['password'];
-        final String? uid = userData['uid'] ?? 'nn';
+        final String? uid = userData['uid'] ?? ' . ';
         final int? totalBetPoint = userData['total_bet_point'] ?? 0;
 
         if (email != null &&
