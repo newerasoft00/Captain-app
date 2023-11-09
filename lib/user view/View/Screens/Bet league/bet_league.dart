@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/user%20view/View/Screens/Bet%20league/widget/overall_widget.dart';
-import 'package:sportsbet/user%20view/View/Screens/Bet%20league/widget/round_widget.dart';
+
+import 'widget/overall_widget.dart';
+import 'widget/round_widget.dart';
 
 class BetLeague extends StatelessWidget {
   const BetLeague({super.key});

@@ -5,7 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
-import 'package:sportsbet/Model/Roshn%20League/game_weak.dart';
+
+import '../../../Model/Roshn League/game_weak.dart';
+
 
 class RoshnMatchController extends GetxController {
   // Define the variables to store the API data

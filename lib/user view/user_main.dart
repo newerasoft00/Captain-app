@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
-import 'package:sportsbet/user%20view/View/Screens/Auth/Login/login_screen.dart';
-import 'package:sportsbet/user%20view/View/Screens/Home/home_screen.dart';
+import 'package:sportsbet/user%20view/Screens/Auth/Login/login_screen.dart';
+import 'package:sportsbet/user%20view/Screens/Home/home_screen.dart';
 
 import '../Core/routes/routes.dart';
 import '../Core/themes/dark_light_theme_file.dart';

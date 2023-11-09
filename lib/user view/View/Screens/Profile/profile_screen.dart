@@ -8,10 +8,10 @@ import 'package:sportsbet/Local/local_controller.dart';
 import 'package:sportsbet/User%20View/Controller/image_picker_controller.dart';
 import 'package:sportsbet/user%20view/Controller/Auth/login_controller.dart';
 import 'package:sportsbet/user%20view/Controller/profile_controller.dart';
-import 'package:sportsbet/user%20view/View/Screens/Profile/user_bet_history_screen.dart';
 
 import '../../../../Core/routes/routes.dart';
 import '../../../../Core/themes/theme_controller.dart';
+import 'user_bet_history_screen.dart';
 import 'widget/profile_menu_widget.dart';
 import 'widget/user_pic.dart';
 

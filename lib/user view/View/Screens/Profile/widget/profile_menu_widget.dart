@@ -9,11 +9,11 @@ class ProfileListItem extends StatelessWidget {
   final Color? tcolor;
 
   const ProfileListItem({
-    Key? key,
+    super.key,
     required this.icon,
     required this.text,
     this.tcolor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

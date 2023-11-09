@@ -1,7 +1,4 @@
-/// Generated file. Do not edit.
 
-// ignore_for_file: constant_identifier_names
-// ignore_for_file: lines_longer_than_80_chars
 class FontRes {
   static const String IBMPLEXSANS_BOLD = 'IBMPlexSans-Bold';
   static const String IBMPLEXSANS_MEDIUM = 'IBMPlexSans-Medium';

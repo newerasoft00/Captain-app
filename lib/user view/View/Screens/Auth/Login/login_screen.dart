@@ -8,10 +8,10 @@ import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/Core/routes/routes.dart';
 import 'package:sportsbet/user%20view/Controller/Auth/login_controller.dart';
 import 'package:sportsbet/user%20view/View/Screens/Auth/Login/Componant/otp.dart';
-import 'package:sportsbet/user%20view/View/Screens/Auth/Login/Componant/terms_of_use.dart';
 
-import '../../../../../../Core/helper/shared_preference/shared_preference.dart';
+import '../../../../../Core/helper/shared_preference/shared_preference.dart';
 import '../../../../Controller/Auth/signup_controller.dart';
+import 'Componant/terms_of_use.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

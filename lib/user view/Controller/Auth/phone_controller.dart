@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
-import 'package:sportsbet/user%20view/View/Screens/Home/home_screen.dart';
+import 'package:sportsbet/user%20view/Screens/Home/home_screen.dart';
 
 class PhoneController extends GetxController {
   var auth = FirebaseAuth.instance;

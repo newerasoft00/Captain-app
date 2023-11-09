@@ -5,10 +5,10 @@ import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/user%20view/Controller/Auth/signup_controller.dart';
-import 'package:sportsbet/user%20view/View/Screens/Auth/Login/Componant/otp.dart';
 
 import '../../../../../Core/helper/shared_preference/shared_preference.dart';
 import 'Componant/custom_textfield.dart';
+import 'Componant/otp.dart';
 import 'Componant/terms_of_use.dart';
 import 'login_screen.dart';
 

@@ -6,8 +6,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
 import 'package:sportsbet/Core/routes/routes.dart';
 import 'package:sportsbet/user%20view/Services/google_signin_service.dart';
-import 'package:sportsbet/user%20view/View/Screens/Auth/Login/login_screen.dart';
-import 'package:sportsbet/user%20view/View/Screens/Home/home_screen.dart';
+import 'package:sportsbet/user%20view/Screens/Auth/Login/login_screen.dart';
+import 'package:sportsbet/user%20view/Screens/Home/home_screen.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;

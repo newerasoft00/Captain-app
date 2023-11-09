@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/user%20view/View/Screens/Bet%20league/bet_league.dart';
-import 'package:sportsbet/user%20view/View/Screens/Profile/profile_screen.dart';
+import 'package:sportsbet/user%20view/Screens/Bet%20league/bet_league.dart';
+import 'package:sportsbet/user%20view/Screens/Profile/profile_screen.dart';
 import 'package:sportsbet/user%20view/View/Screens/Roshn%20Matches/roshn_match.dart';
-
 import '../../../Controller/home_controller.dart';
 import '../Match Day/match_day_screen.dart';
 import '../Roshn Matches/roshn_standings.dart';

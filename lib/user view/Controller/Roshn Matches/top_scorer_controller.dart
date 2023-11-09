@@ -3,7 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:sportsbet/Core/utils/strings.dart';
 import 'dart:convert';
 
-import 'package:sportsbet/Model/Roshn%20League/roshn_top_scorer.dart';
+import '../../../Model/Roshn League/roshn_top_scorer.dart';
+
+
 
 class TopScorerController extends GetxController {
   final String apiUrl =

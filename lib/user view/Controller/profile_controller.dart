@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
-import 'package:sportsbet/Model/ads/user_information.dart';
 import 'package:sportsbet/user%20view/Controller/Roshn%20Matches/roshn_match_controller.dart';
 
 import '../../Core/utils/strings.dart';
+import '../../Model/ads/user_information.dart';
 
 class ProfileController extends GetxController {
   final currentDate = DateTime.now().toLocal().toString().split(' ')[0].obs;

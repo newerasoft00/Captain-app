@@ -1,9 +1,9 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sportsbet/Core/utils/strings.dart';
-import 'package:sportsbet/Model/Roshn%20League/roshn_standing.dart';
+
+import '../../../Model/Roshn League/roshn_standing.dart';
 
 
 class RoshnStandingsController extends GetxController {

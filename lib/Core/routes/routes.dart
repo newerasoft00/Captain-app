@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
-import 'package:sportsbet/user%20view/View/Screens/Auth/Login/login_screen.dart';
-import 'package:sportsbet/user%20view/View/Screens/Auth/Login/signup_screen.dart';
-import 'package:sportsbet/user%20view/View/Screens/Home/home_screen.dart';
-import 'package:sportsbet/user%20view/View/Screens/Profile/profile_screen.dart';
-import 'package:sportsbet/user%20view/View/Screens/standing/standings.dart';
-import 'package:sportsbet/user%20view/View/Screens/user%20feedback/feedback_screen.dart';
+import 'package:sportsbet/user%20view/Screens/Auth/Login/login_screen.dart';
+import 'package:sportsbet/user%20view/Screens/Auth/Login/signup_screen.dart';
+import 'package:sportsbet/user%20view/Screens/Home/home_screen.dart';
+import 'package:sportsbet/user%20view/Screens/Profile/profile_screen.dart';
+import 'package:sportsbet/user%20view/Screens/on_boarding/on_boarding_screen.dart';
+
+import '../../user view/View/Screens/standing/standings.dart';
+import '../../user view/View/Screens/user feedback/feedback_screen.dart';
 
 class Routes {
   static String loginscreen = '/loginscreen';
@@ -13,8 +15,10 @@ class Routes {
   static String standingsScreen = '/standingsScreen';
   static String profileScreen = '/profileScreen';
   static String feedbackScreen = '/FeedBackScreen';
+  static String onBoarding = '/OnBoardingScreen';
 
   static List<GetPage> getPages = [
+    GetPage(name: Routes.onBoarding, page: () => const OnBoardingScreen()),
     GetPage(
       name: Routes.loginscreen,
       page: () => const LoginScreen(),

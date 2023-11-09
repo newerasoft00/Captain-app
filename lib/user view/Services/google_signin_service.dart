@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../Core/helper/shared_preference/shared_preference.dart';
-import '../View/Screens/Home/home_screen.dart';
+import '../Screens/Home/home_screen.dart';
 
 class GoogleSignInService {
   final FirebaseAuth _auth = FirebaseAuth.instance;

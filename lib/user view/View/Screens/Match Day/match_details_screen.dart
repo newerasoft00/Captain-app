@@ -6,7 +6,7 @@ import 'widget/team_info.dart';
 class MatchDetailsScreen extends StatelessWidget {
   final MatchDay match;
 
-  const MatchDetailsScreen({Key? key, required this.match}) : super(key: key);
+  const MatchDetailsScreen({super.key, required this.match});
 
   @override
   Widget build(BuildContext context) {

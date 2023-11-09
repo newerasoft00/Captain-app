@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
-
 import '../../../../../../Core/helper/shared_preference/shared_preference.dart';
 import '../../../../../Controller/Auth/phone_controller.dart';
 import '../../../../../Controller/Auth/signup_controller.dart';

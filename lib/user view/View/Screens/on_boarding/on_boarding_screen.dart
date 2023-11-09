@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:sportsbet/user%20view/View/Screens/on_boarding/controller/page_indecator_controller.dart';
-import 'package:sportsbet/user%20view/View/Screens/on_boarding/widget/onboarding_screen_widget.dart';
+
+import 'controller/page_indecator_controller.dart';
+import 'widget/onboarding_screen_widget.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});

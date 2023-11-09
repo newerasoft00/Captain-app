@@ -85,7 +85,6 @@ ThemeData light = ThemeData(
   ),
   textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(foregroundColor: ColorTeal.primaryColor)),
-  //
   dialogTheme:
       DialogTheme(titleTextStyle: CustomTextTheme().getTextTheme().bodyLarge),
   dropdownMenuTheme: const DropdownMenuThemeData(
