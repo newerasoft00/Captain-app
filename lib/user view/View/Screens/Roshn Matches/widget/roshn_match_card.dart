@@ -1,8 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:sportsbet/Core/helper/empty_padding.dart';
 
 import '../../../../../Model/Roshn League/game_weak.dart';
 
@@ -13,15 +13,19 @@ class RoshnMatchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(10),
       child: Row(
         children: [
           Expanded(
             flex: 1,
-            child: Column(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                Text(
+                  fixture.eventHomeTeam,
+                  textAlign: TextAlign.center,
+                ),
                 CachedNetworkImage(
                   imageUrl: Uri.encodeFull(fixture.homeTeamLogo),
                   width: Get.width * 0.09,
@@ -31,11 +35,6 @@ class RoshnMatchCard extends StatelessWidget {
                   placeholder: (context, url) =>
                       const Center(child: CircularProgressIndicator.adaptive()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-                5.ph,
-                Text(
-                  fixture.eventHomeTeam,
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),
@@ -48,12 +47,8 @@ class RoshnMatchCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     fixture.eventLive == '0'
-                        ? SizedBox(
-                            child: FittedBox(
-                              child: Text(
-                                fixture.eventDate,
-                              ),
-                            ),
+                        ? AutoSizeText(
+                            fixture.eventDate,
                           )
                         : SizedBox(
                             child: FittedBox(
@@ -64,17 +59,9 @@ class RoshnMatchCard extends StatelessWidget {
                             )),
                           ),
                     fixture.eventFinalResult == "-"
-                        ? SizedBox(
-                            width: Get.width * 0.15,
-                            height: context.isPortrait
-                                ? context.width * 0.10
-                                : context.width * 0.06,
-                            child: FittedBox(
-                              child: Text(
-                                formatTime(fixture.eventTime),
-                                softWrap: true,
-                              ),
-                            ),
+                        ? AutoSizeText(
+                            formatTime(fixture.eventTime),
+                            softWrap: true,
                           )
                         : SizedBox(
                             width: Get.width * 0.1,
@@ -94,9 +81,9 @@ class RoshnMatchCard extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: Column(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CachedNetworkImage(
                   imageUrl: Uri.encodeFull(fixture.awayTeamLogo),
@@ -108,7 +95,6 @@ class RoshnMatchCard extends StatelessWidget {
                       const Center(child: CircularProgressIndicator.adaptive()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-                5.ph,
                 FittedBox(
                   child: Text(
                     fixture.eventAwayTeam,

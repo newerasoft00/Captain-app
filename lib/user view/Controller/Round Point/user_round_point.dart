@@ -28,10 +28,13 @@ class RoundPintController extends GetxController {
     try {
       final querySnapshot = await userBetCollection.get();
       documentNames.assignAll(querySnapshot.docs.map((doc) => doc.id));
-
+      print(documentNames);
       for (var i = 0; i < documentNames.length; i++) {
+        print(documentNames[i]);
+        print(documentNames[0]);
         await fetchMatchesData(documentNames[i]);
-        await fetchBets(matchesData[i].eventKey.toString());
+        await fetchBets(documentNames[i]);
+        print('get it ${bets[i]}');
         int homeScore =
             int.parse(matchesData[i].eventFinalResult.split('-')[0].trim());
         int awayScore =
@@ -46,6 +49,7 @@ class RoundPintController extends GetxController {
               (matchesData[i].eventFinalResult ==
                   '${bet['winScore']} - ${bet['loseScore']}');
         }).toList();
+        print('filtered  ${filteredBets.toList()}');
         for (var bet in filteredBets) {
           String roundID =
               matchesData[i].leagueRound; // Replace with the actual round ID
@@ -53,6 +57,7 @@ class RoundPintController extends GetxController {
           String userID = bet['userID'];
           // Call the saveBetToFirebase method for each user
           saveBetToFirebase(roundID, matchID, userID);
+          print('save it ');
         }
       }
     } catch (e) {
@@ -100,6 +105,7 @@ class RoundPintController extends GetxController {
   }
 
   void saveBetToFirebase(String roundID, String matchID, String userID) async {
+    print('saveBetToFirebase ****** ');
     // Get Firestore instance
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -108,18 +114,22 @@ class RoundPintController extends GetxController {
 
     // Create a reference to the document using roundID
     DocumentReference roundDocument = winnerCollection.doc(roundID);
-
+    print(roundDocument);
     // Get the existing data (if any) from the document
     var existingData = await roundDocument.get();
 
     // Check if the document already exists or not
     if (existingData.exists) {
+      print('Check if the document already exists or not');
       // If the document exists, add the userID to the array
       await roundDocument.update({
         matchID: FieldValue.arrayUnion([userID])
       });
+      getUserAppearanceCounts();
       saveUserAppearanceCountsToFirestore(userID);
     } else {
+      print(
+          'If the document does not exist, create it with the userID in the array');
       // If the document does not exist, create it with the userID in the array
       await roundDocument.set({
         matchID: [userID]
@@ -137,7 +147,6 @@ class RoundPintController extends GetxController {
         // Check if the array field exists
         if (data.containsKey('bets')) {
           final betArray = data['bets'] as List<dynamic>;
-
           // Convert betArray to List<Map<String, String>>
           final betsList = betArray.map((bet) {
             final loseScore = bet['loseScore'] as String?;
@@ -184,12 +193,15 @@ class RoundPintController extends GetxController {
       // Iterate through the fields in the document
       data.forEach((field, value) {
         if (value is List) {
-          // If the field value is a list, iterate through it
           for (var userID in value) {
             if (userAppearanceCounts.containsKey(userID)) {
+              print('contain user ID ______________ ');
               // If the user ID is already in the map, increment the count
               userAppearanceCounts[userID]! + 1;
+              print(
+                  'see it userAppearanceCounts ${userAppearanceCounts[userID]! + 1}');
             } else {
+              print('not ***** contain user ID ______________ ');
               // If the user ID is not in the map, add it with a count of 1
               userAppearanceCounts[userID] = 1;
             }
@@ -197,9 +209,10 @@ class RoundPintController extends GetxController {
         }
       });
     }
-
+    print('now save it in user info ');
     // Now, save the user appearance counts to the 'User Information' collection
     userAppearanceCounts.forEach((userID, count) async {
+      print('begin saving it ****************** ');
       final docRef = firestore.collection('User Information').doc(userID);
       await docRef.update({'total_bet_point': count});
     });
@@ -236,12 +249,13 @@ class RoundPintController extends GetxController {
         }
       });
     }
-
     return userAppearanceCounts;
   }
 
   @override
   void onInit() async {
+    print(
+        'init --------------------------------------------------------------');
     super.onInit();
     await fetchDocumentNames();
   }

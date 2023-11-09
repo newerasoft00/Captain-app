@@ -6,8 +6,6 @@ import 'package:sportsbet/Model/bet/round_standing_model.dart';
 class OverallBetPointController extends GetxController {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   RxList<Map<String, dynamic>> userCounts = <Map<String, dynamic>>[].obs;
-  Map<String, Map<String, int>> result = {};
-  Map<String, Map<String, int>> displayResult = {};
   List<RoundStandingsModel> userAppearanceList = [];
 
   Future<void> retrieveUserAppearanceCounts() async {
@@ -40,64 +38,115 @@ class OverallBetPointController extends GetxController {
     }
   }
 
-  Future<Map<String, Map<String, int>>> getUserAppearanceCounts() async {
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference winnerCollection = firestore.collection('Winner');
+  Future<Map<String, int>> calculateUserAppearanceCounts() async {
+    final CollectionReference winnerCollection = firestore.collection('Winner');
+    final QuerySnapshot querySnapshot = await winnerCollection.get();
+    final Map<String, int> userAppearanceCounts = {};
 
-    // Query all documents in the "Winner" collection
-    QuerySnapshot querySnapshot = await winnerCollection.get();
-
-    // Initialize a map to store the result
-    Map<String, Map<String, int>> result = {};
-
-    // Iterate through the documents
-    for (QueryDocumentSnapshot document in querySnapshot.docs) {
-      // Get the document ID
-      String docId = document.id;
-
-      // Get the data from the document
-      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-
-      // Initialize a map to store user appearance counts in this document
-      Map<String, int> userAppearanceCounts = {};
-
-      // Iterate through the fields in the document
-      data.forEach((field, value) {
-        if (value is List) {
-          // If the field value is a list, iterate through it
-          for (var userID in value) {
-            if (userAppearanceCounts.containsKey(userID)) {
-              // If the user ID is already in the map, increment the count
-              userAppearanceCounts[userID]! + 1;
-            } else {
-              // If the user ID is not in the map, add it with a count of 1
-              userAppearanceCounts[userID] = 1;
-            }
-          }
-        }
-      });
-
-      // Add the user appearance counts to the result map
-      result[docId] = userAppearanceCounts;
+    for (var document in querySnapshot.docs) {
+      final data = document.data() as Map<String, dynamic>;
+      calculateUserAppearanceCountsForDocument(data, userAppearanceCounts);
     }
+    saveUserAppearanceCounts(userAppearanceCounts);
 
-    return result;
+    return userAppearanceCounts;
+  }
+
+  void calculateUserAppearanceCountsForDocument(
+      Map<String, dynamic> data, Map<String, int> userAppearanceCounts) {
+    data.forEach((field, value) {
+      if (value is List) {
+        for (var userID in value) {
+          userAppearanceCounts[userID] =
+              (userAppearanceCounts[userID] ?? 0) + 1;
+        }
+      }
+    });
+  }
+
+  Future<void> saveUserAppearanceCounts(
+      Map<String, int> userAppearanceCounts) async {
+    try {
+      for (final userID in userAppearanceCounts.keys) {
+        final appearanceCount = userAppearanceCounts[userID];
+        await updateTotalBetPoint(userID, appearanceCount!);
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error saving user appearance counts: $e');
+      }
+    }
+  }
+
+  Future<void> updateTotalBetPoint(
+      String userID, int newAppearanceCount) async {
+    try {
+      final userDocRef = firestore.collection('User Information').doc(userID);
+      await userDocRef.update({'total_bet_point': newAppearanceCount});
+      if (kDebugMode) {
+        print('Updated appearance count for user $userID: $newAppearanceCount');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error updating total_bet_point: $e');
+      }
+    }
   }
 
   Future<List<RoundStandingsModel>> displayUserAppearanceCounts() async {
-    Map<String, Map<String, int>> result = await getUserAppearanceCounts();
-    userAppearanceList.clear();
-    result.forEach((docId, userAppearanceCounts) {
-      userAppearanceList.add(RoundStandingsModel(docId, userAppearanceCounts));
+    final CollectionReference winnerCollection = firestore.collection('Winner');
+    final QuerySnapshot querySnapshot = await winnerCollection.get();
+    final List<RoundStandingsModel> rankings = [];
+
+    for (var document in querySnapshot.docs) {
+      final docId = document.id;
+      final data = document.data() as Map<String, dynamic>;
+      final userAppearanceCounts =
+          await calculateUserAppearanceCountsForRound(data);
+      rankings.add(RoundStandingsModel(docId, userAppearanceCounts));
+    }
+
+    for (var round in rankings) {
+      round.userAppearanceCounts = Map.fromEntries(
+          round.userAppearanceCounts.entries.toList()
+            ..sort((a, b) => b.value.compareTo(a.value)));
+    }
+
+    // Sort the list of RoundStandingsModel by the highest appearance count within each round
+    rankings.sort((a, b) {
+      final int countA = a.userAppearanceCounts.isNotEmpty
+          ? a.userAppearanceCounts.values.first
+          : 0;
+      final int countB = b.userAppearanceCounts.isNotEmpty
+          ? b.userAppearanceCounts.values.first
+          : 0;
+      return countB.compareTo(countA);
     });
 
-    return userAppearanceList;
+    return rankings;
+  }
+
+  Future<Map<String, int>> calculateUserAppearanceCountsForRound(
+      Map<String, dynamic> data) async {
+    final Map<String, int> userAppearanceCounts = {};
+
+    data.forEach((field, value) {
+      if (value is List) {
+        for (var userID in value) {
+          userAppearanceCounts[userID] =
+              (userAppearanceCounts[userID] ?? 0) + 1;
+        }
+      }
+    });
+
+    return userAppearanceCounts;
   }
 
   @override
   void onInit() {
     super.onInit();
     retrieveUserAppearanceCounts();
+    calculateUserAppearanceCounts();
     displayUserAppearanceCounts();
   }
 

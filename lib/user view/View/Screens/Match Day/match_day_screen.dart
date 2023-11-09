@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,7 +48,7 @@ class MatchesScreen extends StatelessWidget {
                     margin: const EdgeInsets.all(5),
                     child: Padding(
                       padding: const EdgeInsets.only(
-                          top: 5, bottom: 1, left: 2, right: 2),
+                          top: 5, bottom: 5, left: 2, right: 2),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +63,7 @@ class MatchesScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(50),
                                   child: CachedNetworkImage(
                                     width: 15,
-                                    height: 20,
+                                    height: 15,
                                     imageUrl:
                                         Uri.encodeFull(livematch.leagueLogo),
                                     placeholder: (context, url) =>
@@ -75,45 +76,58 @@ class MatchesScreen extends StatelessWidget {
                               5.pw,
                               Expanded(
                                 flex: 7,
-                                child: Text(
+                                child: AutoSizeText(
                                   livematch.leagueName,
+                                  minFontSize: 10,
+                                  maxFontSize: 12,
                                   maxLines: 1,
+                                  softWrap: true,
+                                  wrapWords: true,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
                           ),
-                          5.ph,
+                          10.ph,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
-                                flex: 1,
+                                flex: 2,
                                 child: Container(
                                   margin: const EdgeInsets.all(5),
-                                  child: Column(
+                                  child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      CachedNetworkImage(
-                                        imageUrl: Uri.encodeFull(
-                                            livematch.homeTeamLogo),
-                                        width: Get.width * 0.1,
-                                        height: Get.width * 0.1,
-                                        placeholder: (context, url) =>
-                                            const CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
+                                      const Spacer(),
+                                      Expanded(
+                                        flex: 5,
+                                        child: AutoSizeText(
+                                          livematch.eventHomeTeam,
+                                          minFontSize: 10,
+                                          maxFontSize: 14,
+                                          maxLines: 2,
+                                          softWrap: true,
+                                          wrapWords: true,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
-                                      5.ph,
-                                      Text(
-                                        livematch.eventHomeTeam,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      5.ph,
-                                      Text(
-                                        livematch.eventHomeFormation,
+                                      5.pw,
+                                      Expanded(
+                                        flex: 2,
+                                        child: CachedNetworkImage(
+                                          imageUrl: Uri.encodeFull(
+                                              livematch.homeTeamLogo),
+                                          width: Get.width * 0.09,
+                                          height: Get.width * 0.09,
+                                          placeholder: (context, url) =>
+                                              const CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -122,23 +136,20 @@ class MatchesScreen extends StatelessWidget {
                               Expanded(
                                 flex: 1,
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    SizedBox(
-                                      width: Get.width * 0.105,
-                                      height: Get.width * 0.105,
-                                      child: FittedBox(
-                                        child: Text(
-                                          livematch.eventFinalResult,
-                                        ),
-                                      ),
+                                    AutoSizeText(
+                                      livematch.eventFinalResult,
+                                      maxFontSize: 20,
+                                      minFontSize: 16,
                                     ),
                                     5.ph,
-                                    SizedBox(
-                                      width: Get.width * 0.1,
-                                      height: Get.width * 0.1,
-                                      child: Column(
-                                        children: [
-                                          (livematch.eventlivetime ==
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          width: Get.width * 0.09,
+                                          child: (livematch.eventlivetime ==
                                                       'Finished' ||
                                                   livematch.eventlivetime ==
                                                       'Half Time')
@@ -147,48 +158,60 @@ class MatchesScreen extends StatelessWidget {
                                                   borderRadius:
                                                       BorderRadius.all(
                                                           Radius.circular(10))),
-                                          3.ph,
-                                          FittedBox(
-                                            child: Text(
-                                              livematch.eventlivetime,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                        3.ph,
+                                        AutoSizeText(
+                                          "${livematch.eventlivetime}'",
+                                          softWrap: true,
+                                          maxFontSize: 12,
+                                          wrapWords: true,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ),
                               Expanded(
-                                flex: 1,
+                                flex: 2,
                                 child: SizedBox(
-                                  child: Column(
+                                  child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      CachedNetworkImage(
-                                        imageUrl: Uri.encodeFull(
-                                            livematch.awayTeamLogo),
-                                        width: Get.width * 0.1,
-                                        height: Get.width * 0.1,
-                                        placeholder: (context, url) =>
-                                            const Center(
-                                                child: CircularProgressIndicator
-                                                    .adaptive()),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
-                                      ),
-                                      5.ph,
-                                      FittedBox(
-                                        child: Text(
-                                          livematch.eventAwayTeam,
-                                          textAlign: TextAlign.center,
+                                      Expanded(
+                                        flex: 2,
+                                        child: CachedNetworkImage(
+                                          imageUrl: Uri.encodeFull(
+                                              livematch.awayTeamLogo),
+                                          width: Get.width * 0.09,
+                                          height: Get.width * 0.09,
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                                  child:
+                                                      CircularProgressIndicator
+                                                          .adaptive()),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
                                         ),
                                       ),
-                                      5.ph,
-                                      Text(
-                                        livematch.eventAwayFormation,
+                                      5.pw,
+                                      Expanded(
+                                        flex: 5,
+                                        child: AutoSizeText(
+                                          livematch.eventAwayTeam,
+                                          minFontSize: 10,
+                                          maxFontSize: 14,
+                                          maxLines: 2,
+                                          softWrap: true,
+                                          wrapWords: true,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      const Spacer(
+                                        flex: 1,
                                       ),
                                     ],
                                   ),

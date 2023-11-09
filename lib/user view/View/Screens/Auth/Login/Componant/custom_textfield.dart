@@ -29,10 +29,12 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).cardColor.withOpacity(0.18),
+          border: Border.all(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.2)),
+          color: Theme.of(context).cardColor.withOpacity(0.05),
           borderRadius: BorderRadius.circular(20)),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: TextFormField(
           validator: validator,
           obscureText: visible ?? false,

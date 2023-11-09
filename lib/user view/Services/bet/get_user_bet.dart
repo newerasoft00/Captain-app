@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../Core/helper/shared_preference/shared_preference.dart';
 import '../../../Model/bet/user_bet.dart';
 
 class GetUserBetService {
@@ -12,14 +13,13 @@ class GetUserBetService {
       if (roundSnapshot.exists) {
         final roundData = roundSnapshot.data() as Map<String, dynamic>;
         final matchData = roundData['bets'] as List<dynamic>;
-
         //final bets = matchData[matchKey] as List<dynamic> ?? [];
 
         final userBetData = matchData
             .where((bet) {
               final Map<String, dynamic> betData =
                   Map<String, dynamic>.from(bet);
-              return betData['userID'] == userId;
+              return betData['userID'] == UserPreference.getUserid();
             })
             .toList()
             .firstOrNull;

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
+import 'package:sportsbet/Core/routes/routes.dart';
 import 'package:sportsbet/user%20view/Services/google_signin_service.dart';
 import 'package:sportsbet/user%20view/View/Screens/Auth/Login/login_screen.dart';
 import 'package:sportsbet/user%20view/View/Screens/Home/home_screen.dart';
@@ -17,6 +18,7 @@ class AuthController extends GetxController {
   var password = ''.obs;
   var phoneNumber = ''.obs;
   RxBool remmemberme = false.obs;
+  RxBool termsAgree = false.obs;
   RxBool presssignin = false.obs;
   RxBool securePassword = true.obs;
 
@@ -75,7 +77,7 @@ class AuthController extends GetxController {
           .set(userData)
           .then((value) async {
         await UserPreference.setIsLoggedIn(true);
-        await Get.offAll(() => const HomeScreen());
+        await Get.offAllNamed(Routes.onBoarding);
       });
 
       return authResult;

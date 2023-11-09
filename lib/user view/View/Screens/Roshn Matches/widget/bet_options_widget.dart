@@ -64,15 +64,13 @@ class BetOptionsWidget extends StatelessWidget {
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
                       'Choose who will win',
                       textAlign: TextAlign.center,
                     ),
-                    20.ph,
+                    10.ph,
                     SizedBox(
-                      width: double.infinity,
                       child: StreamBuilder<NewBet?>(
                         stream: getUserBetSer.getUserBetStream(
                           fixture.leagueRound,
@@ -239,8 +237,8 @@ class BetOptionsWidget extends StatelessWidget {
                         },
                       ),
                     ),
-                    20.ph,
-                    Divider(color: Colors.grey.shade300),
+                    10.ph,
+                    const Divider(),
                     Wrap(
                       alignment: WrapAlignment.spaceEvenly,
                       children: [
@@ -332,7 +330,6 @@ class BetOptionsWidget extends StatelessWidget {
                                 ),
                               )),
                         ),
-                        30.ph,
                         Obx(() => (controller.awaybetted.value != false ||
                                 controller.drawbetted.value != false ||
                                 controller.homebetted.value != false)

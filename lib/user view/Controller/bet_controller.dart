@@ -2,16 +2,17 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
 import 'package:sportsbet/Model/Roshn%20League/game_weak.dart';
 import 'package:sportsbet/user%20view/Services/bet/new_bet_service.dart';
 import 'package:sportsbet/user%20view/Services/bet/save_user_bet.dart';
 
+import '../../Core/helper/shared_preference/shared_preference.dart';
 import '../Services/bet/get_user_bet.dart';
 import '../View/Screens/Roshn Matches/match_details_page.dart';
 
 class BetOptionController extends GetxController {
-  final betOptions = [].obs; // This will hold the data from Firestore
+  final betOptions = [].obs;
+  var bets = <Map<String, dynamic>>[].obs;
   final NewBetService newBetService = NewBetService();
   final GetUserBetService getUserBetSer = GetUserBetService();
   final SaveUserBet saveUserBet = SaveUserBet();
@@ -266,12 +267,49 @@ class BetOptionController extends GetxController {
     betOptions.clear();
     changeMatch(fixture.eventKey.toString());
     fetchBetOptions(fixture.hometeamkey.toString());
-    await fetchUserBetsForMatch(
-        fixture.leagueRound,
-        fixture.eventKey.toString(),
-        fixture.eventHomeTeam,
+    fetchMatchBets(fixture.eventKey.toString(), fixture.eventHomeTeam,
         fixture.eventAwayTeam);
+    // await fetchUserBetsForMatch(
+    //     fixture.leagueRound,
+    //     fixture.eventKey.toString(),
+    //     fixture.eventHomeTeam,
+    //     fixture.eventAwayTeam);
+    // print(fixture.eventKey);
     Get.to(() => MatchDetailsPage(fixture: fixture));
+  }
+
+  Future<void> fetchMatchBets(
+      String matchID, String homeTeam, String awayTeam) async {
+    FirebaseFirestore.instance
+        .collection("User'sBet")
+        .doc(matchID)
+        .snapshots()
+        .listen((document) {
+      if (document.exists) {
+        var betsData =
+            (document['bets'] as List<dynamic>).cast<Map<String, dynamic>>();
+        resetStatistics();
+        int totalUsers = betsData.length;
+
+        for (var bet in betsData) {
+          if (bet['winTeam'] == awayTeam) {
+            usersChoseAwayTeam.value++;
+          } else if (bet['winTeam'] == homeTeam) {
+            usersChoseHomeTeam.value++;
+          } else if (bet['winTeam'] == 'Drawing') {
+            usersChoseDrawing.value++;
+          }
+        }
+        if (totalUsers > 0) {
+          awayTeamPercentage.value =
+              (usersChoseAwayTeam.value / totalUsers) * 100;
+          homeTeamPercentage.value =
+              (usersChoseHomeTeam.value / totalUsers) * 100;
+          drawingPercentage.value =
+              (usersChoseDrawing.value / totalUsers) * 100;
+        }
+      }
+    });
   }
 
   Future<void> fetchUserBetsForMatch(
@@ -284,34 +322,43 @@ class BetOptionController extends GetxController {
 
       // Subscribe to the user bet stream
       userBetStream.listen((userBet) {
-        if (userBet != null) {
-          // Reset statistics
-          usersChoseHomeTeam.value = 0;
-          usersChoseAwayTeam.value = 0;
-          usersChoseDrawing.value = 0;
-          int totalUsers = usersChoseHomeTeam.value +
-              usersChoseAwayTeam.value +
-              usersChoseDrawing.value;
-          // Calculate statistics based on the user's bet
-          if (userBet.winTeam == awayTeam) {
-            usersChoseAwayTeam.value++;
-            awayTeamPercentage.value =
-                ((usersChoseAwayTeam.value / totalUsers) * 100);
-          } else if (userBet.winTeam == homeTeam) {
-            usersChoseHomeTeam.value++;
-            homeTeamPercentage.value =
-                ((homeTeamPercentage.value / totalUsers) * 100);
-          } else if (userBet.winTeam == 'Drawing') {
-            usersChoseDrawing.value++;
-            drawingPercentage.value =
-                ((usersChoseDrawing.value / totalUsers) * 100);
-          }
-        }
+        // if (userBet != null) {
+        //   // Reset statistics
+        //   usersChoseHomeTeam.value = 0;
+        //   usersChoseAwayTeam.value = 0;
+        //   usersChoseDrawing.value = 0;
+        //   int totalUsers = usersChoseHomeTeam.value +
+        //       usersChoseAwayTeam.value +
+        //       usersChoseDrawing.value;
+        //   // Calculate statistics based on the user's bet
+        //   if (userBet.winTeam == awayTeam) {
+        //     usersChoseAwayTeam.value++;
+        //     awayTeamPercentage.value =
+        //         ((usersChoseAwayTeam.value / totalUsers) * 100);
+        //   } else if (userBet.winTeam == homeTeam) {
+        //     usersChoseHomeTeam.value++;
+        //     homeTeamPercentage.value =
+        //         ((homeTeamPercentage.value / totalUsers) * 100);
+        //   } else if (userBet.winTeam == 'Drawing') {
+        //     usersChoseDrawing.value++;
+        //     drawingPercentage.value =
+        //         ((usersChoseDrawing.value / totalUsers) * 100);
+        //   }
+        // }
       });
     } catch (e) {
       //print('Error fetching user bets: $e');
     }
     // You may need to update your totalUsers value if it depends on other data
     update();
+  }
+
+  void resetStatistics() {
+    usersChoseHomeTeam.value = 0;
+    usersChoseAwayTeam.value = 0;
+    usersChoseDrawing.value = 0;
+    awayTeamPercentage.value = 0.0;
+    homeTeamPercentage.value = 0.0;
+    drawingPercentage.value = 0.0;
   }
 }

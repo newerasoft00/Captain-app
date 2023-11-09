@@ -25,6 +25,6 @@ class OnBoardingController extends GetxController {
 
   void goButton() async {
     await UserPreference.setIsFirstTime(true);
-    Get.offAllNamed(Routes.loginscreen);
+    Get.offAllNamed(Routes.homeScreen);
   }
 }

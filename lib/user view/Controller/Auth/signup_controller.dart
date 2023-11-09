@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
 import 'package:sportsbet/user%20view/View/Screens/Auth/Login/Componant/otp.dart';
 import 'package:sportsbet/user%20view/View/Screens/Home/home_screen.dart';
+import 'package:sportsbet/user%20view/View/Screens/on_boarding/on_boarding_screen.dart';
 
 class SignupController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -25,6 +26,7 @@ class SignupController extends GetxController {
   RxBool visiblepassword = false.obs;
   RxBool visiblecheckpassword = false.obs;
   RxBool presssignup = false.obs;
+  RxBool termsAgree = false.obs;
   RxInt countdown = 60.obs;
   String specialCharacters = r'!@#$%^&*(),.?":{}|<>';
 
@@ -59,7 +61,6 @@ class SignupController extends GetxController {
           await auth.signInWithCredential(credential);
 
       if (userCredential.user != null) {
-
         // Check if the user exists in your Firestore collection
         final DocumentSnapshot userData = await FirebaseFirestore.instance
             .collection("User Information")
@@ -147,10 +148,9 @@ class SignupController extends GetxController {
               .doc(phoneNumber.value.toString())
               .set(userData)
               .then((value) async {
-            Get.to(() => const HomeScreen());
+            Get.to(() => const OnBoardingScreen());
             await UserPreference.setIsLoggedIn(true);
             await UserPreference.setUserId(phoneNumber.value.toString());
-          
           });
 
           Get.snackbar(

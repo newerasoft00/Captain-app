@@ -22,8 +22,8 @@ class OnBoardingScreen extends StatelessWidget {
               child: OnBoardingWidget(
                 backImage: 'assets/Image/Fill 1.png',
                 mainImage: 'assets/Image/illustration111.png',
-                title: '  Welcome To Roshan League',
-                body: '    Create account to join us',
+                title: 'Welcome To Roshan League',
+                body: 'Create account with Phone Number or Google account',
               ),
             ),
             SizedBox(
@@ -31,8 +31,9 @@ class OnBoardingScreen extends StatelessWidget {
               child: OnBoardingWidget(
                 backImage: 'assets/Image/Mask21.png',
                 mainImage: 'assets/Image/Group 168onboarding2.png',
-                title: '   Predict the game Score',
-                body: '    Discover roshan league events and fixtures',
+                title: 'Predict the game Score',
+                body:
+                    'Discover roshan league Matches Round by Round and make a prediction in matches to win',
               ),
             ),
             SizedBox(
@@ -40,8 +41,9 @@ class OnBoardingScreen extends StatelessWidget {
               child: OnBoardingWidget(
                 backImage: 'assets/Image/Fill 1.png',
                 mainImage: 'assets/Image/Asset 6@3x.png',
-                title: '  Win the Prize',
-                body: '    Predict the game Score Correct and be the winner',
+                title: 'The Winner',
+                body:
+                    'User With Most Correct prediction will win the Prize . you can get bet point by predict match final score',
               ),
             ),
             SizedBox(
@@ -49,8 +51,8 @@ class OnBoardingScreen extends StatelessWidget {
               child: OnBoardingWidget(
                 backImage: 'assets/Image/Mask21.png',
                 mainImage: 'assets/Image/Group 98roshan get started.png',
-                title: '  Get Started',
-                body: '    Get started and have fun!',
+                title: 'Get Started',
+                body: 'Get started and Discover more Fetcher!',
               ),
             ),
           ],
@@ -58,8 +60,9 @@ class OnBoardingScreen extends StatelessWidget {
       ),
       bottomSheet: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        color: const Color(0xff010723),
-        height: context.height * 0.085,
+        color: const Color(0xFF005048),
+        height: context.height * 0.088,
+        width: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -71,15 +74,14 @@ class OnBoardingScreen extends StatelessWidget {
                           'Back',
                           style: TextStyle(
                             fontSize: 16,
-                            color: Colors.lightBlueAccent,
+                            color: Colors.yellowAccent,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                 )),
             SmoothPageIndicator(
-              effect: WormEffect(
-                  dotColor: Colors.grey.shade800,
-                  activeDotColor: Colors.lightBlueAccent),
+              effect: const WormEffect(
+                  dotColor: Colors.grey, activeDotColor: Colors.yellowAccent),
               controller: c.controller,
               count: 4,
             ),
@@ -91,7 +93,7 @@ class OnBoardingScreen extends StatelessWidget {
                     (c.page.value == 3) ? 'Go' : 'Next',
                     style: const TextStyle(
                         fontSize: 16,
-                        color: Colors.lightBlueAccent,
+                        color: Colors.yellowAccent,
                         fontWeight: FontWeight.w600),
                   )),
             )

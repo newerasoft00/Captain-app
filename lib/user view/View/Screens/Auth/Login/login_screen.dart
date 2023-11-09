@@ -8,6 +8,7 @@ import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/Core/routes/routes.dart';
 import 'package:sportsbet/user%20view/Controller/Auth/login_controller.dart';
 import 'package:sportsbet/user%20view/View/Screens/Auth/Login/Componant/otp.dart';
+import 'package:sportsbet/user%20view/View/Screens/Auth/Login/Componant/terms_of_use.dart';
 
 import '../../../../../../Core/helper/shared_preference/shared_preference.dart';
 import '../../../../Controller/Auth/signup_controller.dart';
@@ -21,41 +22,44 @@ class LoginScreen extends StatelessWidget {
     final SignupController signupController = Get.put(SignupController());
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        reverse: true,
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              25.ph,
-              SizedBox(
-                  width: Get.width * 0.2,
-                  height: Get.width * 0.2,
-                  child: Image.asset('assets/Roshn_Saudi_League_Logo.svg.png')),
-              Text(
-                'Welcome'.tr,
-                textAlign: TextAlign.center,
-              ),
-              20.ph,
-              Text(
-                'By signing in you are agreeing our\nTerm and privacy policy'
-                    .tr,
-                textAlign: TextAlign.center,
-              ),
-              30.ph,
-              Container(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor.withOpacity(0.18),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: ListView(shrinkWrap: true, children: [
+          SizedBox(
+            height: context.height - 100,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Spacer(),
+                (context.height < 400)
+                    ? const SizedBox()
+                    : SizedBox(
+                        width: Get.width * 0.2,
+                        height: Get.width * 0.2,
+                        child: Image.asset(
+                            'assets/Roshn_Saudi_League_Logo.svg.png')),
+                AutoSizeText(
+                  'Welcome'.tr,
+                  textAlign: TextAlign.center,
+                  maxFontSize: 42,
+                  minFontSize: 36,
+                  wrapWords: true,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+                20.ph,
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(
+                          color: Theme.of(context).colorScheme.primary)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
                     child: IntlPhoneField(
                       pickerDialogStyle: PickerDialogStyle(
-                        backgroundColor: Theme.of(context).cardColor,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
                       ),
                       decoration: InputDecoration(
                           counterText: '',
@@ -74,173 +78,183 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              30.ph,
-              // CustomTextField(
-              //     visible: controller.securePassword.value,
-              //     onTapSuffix: () {
-              //       controller.securePassword.value = false;
-              //     },
-              //     suffixcolor: Colors.grey,
-              //     suffixicon: Icons.lock_outline,
-              //     hint: 'Password'.tr,
-              //     onChanged: (val) {
-              //       controller.password.value = val;
-              //     }),
-              //10.ph,
-              Row(
-                children: [
-                  Obx(
-                    () => CupertinoCheckbox(
-                        activeColor: Theme.of(context).primaryColor,
-                        value: controller.remmemberme.value,
-                        onChanged: (val) {
-                          controller.remmemberme.value = val!;
+                30.ph,
+                SizedBox(
+                  width: Get.width,
+                  height: 45,
+                  child: Obx(() => FilledButton(
+                        style: FilledButton.styleFrom(
+                            disabledBackgroundColor: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.5)),
+                        onPressed: controller.termsAgree.value == true
+                            ? () async {
+                                controller.presssignin.value = true;
+                                if (signupController.phoneNumber.value != '') {
+                                  UserPreference.setUserId(
+                                      controller.phoneNumber.value);
+                                  final bool isExistingUser =
+                                      await signupController
+                                          .signInWithPhoneNumber(
+                                              controller.phoneNumber.value);
+                                  if (isExistingUser) {
+                                    Get.to(() => OtpScreen(
+                                          phoneNumber: signupController
+                                              .phoneNumber.value,
+                                        ));
+                                    controller.presssignin.value = false;
+                                  } else {
+                                    signupController.showSnakBar();
+                                    controller.presssignin.value = false;
+                                  }
+                                }
+                                controller.presssignin.value = false;
+                              }
+                            : null,
+                        child: Obx(() {
+                          return controller.presssignin.value
+                              ? const CircularProgressIndicator
+                                  .adaptive() // Show CircularProgressIndicator
+                              : AutoSizeText(
+                                  'Log in'.tr,
+                                  maxFontSize: 22,
+                                  minFontSize: 18,
+                                  wrapWords: true,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
+                                );
                         }),
-                  ),
-                  3.pw,
-                  Text(
-                    'Remember me'.tr,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ],
-              ),
-              20.ph,
-              SizedBox(
-                width: Get.width,
-                height: 45,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).cardColor,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      )),
+                ),
+                10.ph,
+                const Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        endIndent: 5,
+                        indent: 5,
+                      ),
                     ),
-                  ),
-                  onPressed: () async {
-                    controller.presssignin.value = true;
-                    if (signupController.phoneNumber.value != '') {
-                      UserPreference.setUserId(controller.phoneNumber.value);
-
-                      // Call the signInWithPhoneNumber method to check if the user has signed up before
-                      final bool isExistingUser = await signupController
-                          .signInWithPhoneNumber(controller.phoneNumber.value);
-
-                      if (isExistingUser) {
-                        // User has signed up before, navigate to the OTP screen
-                        Get.to(() => OtpScreen(
-                              phoneNumber: signupController.phoneNumber.value,
-                            ));
-                        controller.presssignin.value = false;
-                      } else {
-                        // User is signing in for the first time, you can handle it accordingly
-                        // For example, show a message or take some other action
-                        signupController.showSnakBar();
-                        controller.presssignin.value = false;
-                      }
-                    }
-                    controller.presssignin.value = false;
-                  },
-                  child: Obx(() {
-                    return controller.presssignin.value
-                        ? const CircularProgressIndicator
-                            .adaptive() // Show CircularProgressIndicator
-                        : FittedBox(
-                            child: Text(
-                              'Sign in'.tr,
+                    AutoSizeText(' OR '),
+                    Expanded(
+                      child: Divider(
+                        endIndent: 5,
+                        indent: 5,
+                      ),
+                    ),
+                  ],
+                ),
+                10.ph,
+                SizedBox(
+                  width: Get.width,
+                  height: 45,
+                  child: Obx(() => FilledButton(
+                        style: FilledButton.styleFrom(
+                            disabledBackgroundColor: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.5)),
+                        onPressed: controller.termsAgree.value == true
+                            ? () async {
+                                await controller.signInWithGoogle();
+                              }
+                            : null,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: CircleAvatar(
+                                  backgroundColor:
+                                      controller.termsAgree.value == true
+                                          ? Colors.white
+                                          : Colors.white54,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Image.asset(
+                                        'assets/Image/google icon_.png'),
+                                  )),
+                            ),
+                            10.pw,
+                            AutoSizeText(
+                              'Sign in with  Google'.tr,
+                              minFontSize: 18,
+                              maxFontSize: 22,
+                              wrapWords: true,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.white,
                               ),
                             ),
-                          );
-                  }),
+                          ],
+                        ),
+                      )),
                 ),
-              ),
-              25.ph,
-              Row(
-                children: [
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.signupScreen);
-                    },
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "don't have an account ? ".tr,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                          TextSpan(
-                            text: " Register".tr,
-                            style: TextStyle(
+                20.ph,
+                Row(
+                  children: [
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.signupScreen);
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "don't have an account ? ".tr,
+                              style: TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                fontWeight: FontWeight.w400,
                                 fontSize: 16,
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.w800),
-                          ),
-                        ],
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withOpacity(0.8),
+                              ),
+                            ),
+                            TextSpan(
+                              text: " Register".tr,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.w800),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                ],
-              ),
-              10.ph,
-              const Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: Divider(
-                      endIndent: 5,
-                      indent: 5,
-                    ),
-                  ),
-                  AutoSizeText(' OR '),
-                  Expanded(
-                    child: Divider(
-                      endIndent: 5,
-                      indent: 5,
-                    ),
-                  ),
-                ],
-              ),
-              10.ph,
-              SizedBox(
-                width: Get.width,
-                height: 45,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).cardColor,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  onPressed: () async {
-                    await controller.signInWithGoogle();
-                  },
+                    const Spacer(),
+                  ],
+                ),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset('assets/Image/google icon_.png'),
-                      10.pw,
-                      FittedBox(
-                          child: Text(
-                        'Sign in with  Google'.tr,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 16),
-                      )),
+                      Obx(
+                        () => CupertinoCheckbox(
+                            activeColor: Theme.of(context).primaryColor,
+                            value: controller.termsAgree.value,
+                            onChanged: (val) {
+                              controller.termsAgree.value = val!;
+                            }),
+                      ),
+                      3.pw,
+                      const TermsOfUse()
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+        ]),
       ),
     );
   }

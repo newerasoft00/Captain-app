@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
@@ -14,11 +15,10 @@ class RoshnMatchController extends GetxController {
   final newDate = DateTime.now().add(const Duration(days: 100));
   final liveMatchesTime = <RoshnMatch>[].obs;
   Timer? _updateTimer; // Declare a Timer variable
+  RxString selectedRound = ''.obs;
 
   // Fetch data from the API
   void fetchData() async {
-    // final apiURL =
-    //     '$allsportsapi$fixturesEndPoint$allsportsapiKey&from=2023-9-25&to=2024-05-27&leagueId=${UserPreference.getSelectedLeaguekeys()}';
     final response = await http.get(Uri.parse(UserPreference.getLeagueUrl()));
 
     if (response.statusCode == 200) {
@@ -29,9 +29,32 @@ class RoshnMatchController extends GetxController {
       roshnFixtures.value = resultData
           .map((fixtureJson) => RoshnMatch.fromJson(fixtureJson))
           .toList();
+
+      // Sort the fixtures by round
+      sortFixturesByRound();
+
+      // Find the initial round that hasn't been played yet
+      selectedRound.value = findInitialRound();
+      if (kDebugMode) {
+        print('Initial Round: $selectedRound');
+      }
     } else {
       throw Exception('Failed to load data from the API');
     }
+  }
+
+  void sortFixturesByRound() {
+    roshnFixtures.sort((a, b) => a.leagueRound.compareTo(b.leagueRound));
+  }
+
+// Find the initial round that hasn't been played yet
+  String findInitialRound() {
+    for (final fixture in roshnFixtures) {
+      if (fixture.eventFinalResult == '-') {
+        return fixture.leagueRound;
+      }
+    }
+    return ''; // Return an empty string if all rounds have been played.
   }
 
   void startTimer() {
@@ -48,7 +71,7 @@ class RoshnMatchController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     fetchData();
     startTimer();

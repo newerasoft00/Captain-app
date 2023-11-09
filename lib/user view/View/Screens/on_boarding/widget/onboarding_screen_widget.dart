@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,7 @@ class OnBoardingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xff010723),
+      color: const Color(0xFF005048),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -31,23 +32,37 @@ class OnBoardingWidget extends StatelessWidget {
                   right: 0,
                   top: 0,
                   bottom: 0,
-                  child: Image.asset(mainImage)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Image.asset(
+                      mainImage,
+                    ),
+                  )),
             ],
           ),
-          Text(
-            title,
-            softWrap: true,
-            maxLines: 1,
-            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w700,color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            child: AutoSizeText(
+              title,
+              softWrap: true,
+              maxLines: 2,
+              maxFontSize: 30,
+              minFontSize: 22,
+              wrapWords: true,
+              style: const TextStyle(
+                  fontWeight: FontWeight.w700, color: Colors.white),
+            ),
           ),
-          Text(
-            body,
-            softWrap: true,
-            maxLines: 1,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey.shade600),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: AutoSizeText(
+              body,
+              softWrap: true,
+              maxFontSize: 18,
+              minFontSize: 16,
+              wrapWords: true,
+              style: const TextStyle(color: Colors.white70),
+            ),
           ),
         ],
       ),

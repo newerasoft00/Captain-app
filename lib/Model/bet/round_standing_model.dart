@@ -1,6 +1,6 @@
 class RoundStandingsModel {
-  final String docId;
-  final Map<String, int> userAppearanceCounts;
+  final String roundId; // You can use round dates or IDs here
+  Map<String, int> userAppearanceCounts;
 
-  RoundStandingsModel(this.docId, this.userAppearanceCounts);
+  RoundStandingsModel(this.roundId, this.userAppearanceCounts);
 }

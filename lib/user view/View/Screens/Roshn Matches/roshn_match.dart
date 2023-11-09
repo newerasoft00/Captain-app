@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/empty_padding.dart';
 import 'package:sportsbet/User%20View/Controller/bet_controller.dart';
+import 'package:sportsbet/user%20view/Controller/Animation%20Controller/animation_controller.dart';
 import 'package:sportsbet/user%20view/Controller/Roshn%20Matches/roshn_match_controller.dart';
 import 'package:sportsbet/user%20view/View/Screens/Roshn%20Matches/widget/roshn_match_card.dart';
+import 'package:sportsbet/user%20view/View/Screens/Vote/best_goals_screen.dart';
+import 'package:sportsbet/user%20view/View/Screens/Vote/widget/animated_icon_button.dart';
 
 import '../../../../Core/themes/theme_controller.dart';
 import '../../../../Core/utils/text_style.dart';
 import '../../../../Model/Roshn League/game_weak.dart';
+import '../Vote/widget/banner_widget.dart';
 
 class RoshnMatchesPage extends StatefulWidget {
   const RoshnMatchesPage({super.key});
@@ -20,8 +24,8 @@ class RoshnMatchesPage extends StatefulWidget {
 class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
   final RoshnMatchController controller = Get.put(RoshnMatchController());
 
-  String selectedRound = 'Round 12';
   ThemeController themeController = Get.find();
+  MyAnimationController ac = Get.put(MyAnimationController());
 
   @override
   Widget build(BuildContext context) {
@@ -66,13 +70,14 @@ class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
                       borderRadius: BorderRadius.circular(20),
                       underline: const SizedBox(),
                       icon: const Icon(
-                        Icons.arrow_drop_down_rounded,
+                        Icons.arrow_drop_down_circle,
+                        color: Colors.white,
                       ),
-                      value: selectedRound,
+                      // value:controller. selectedRound.value,
                       enableFeedback: true,
                       onChanged: (String? newValue) {
                         setState(() {
-                          selectedRound = newValue ?? 'Round 12';
+                          controller.selectedRound.value = newValue!;
                         });
                       },
                       items: getUniqueRounds(controller.roshnFixtures)
@@ -108,36 +113,63 @@ class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
                 ));
           } else {
             List<RoshnMatch> filteredFixtures = controller.roshnFixtures;
-            if (selectedRound.isNotEmpty) {
+            if (controller.selectedRound.value.isNotEmpty) {
               // Filter fixtures based on the selected round
               filteredFixtures = controller.roshnFixtures
-                  .where((fixture) => fixture.leagueRound == selectedRound)
+                  .where((fixture) =>
+                      fixture.leagueRound == controller.selectedRound.value)
                   .toList();
               filteredFixtures.reversed;
             }
-
-            return RefreshIndicator(
-              onRefresh: () async {
-                controller.roshnFixtures.clear();
-                controller.fetchData();
-              },
-              child: ListView.builder(
-                itemCount: filteredFixtures.length,
-                itemBuilder: (context, index) {
-                  final fixture = filteredFixtures[index];
-                  return GestureDetector(
-                    onTap: () async {
-                      final BetOptionController betcontroller =
-                          Get.put(BetOptionController());
-                      betcontroller.selectMatch(fixture);
+            return Column(
+              children: [
+                SizedBox(
+                  width: context.width,
+                  height: context.height * 0.1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const BannerWidget(),
+                      CustomCardButton(
+                        onTap: () => Get.to(() => const VideoScreen()),
+                        width: context.width * 0.3,
+                        height: Get.height * 0.06,
+                      )
+                      //const BannerWidget(),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      controller.roshnFixtures.clear();
+                      controller.fetchData();
                     },
-                    child: Card(
-                        elevation: 0,
-                        color: Theme.of(context).cardColor.withOpacity(0.1),
-                        child: RoshnMatchCard(fixture: fixture)),
-                  );
-                },
-              ),
+                    child: SizedBox(
+                      //height: context.height * 0.6,
+                      child: ListView.builder(
+                        itemCount: filteredFixtures.length,
+                        itemBuilder: (context, index) {
+                          final fixture = filteredFixtures[index];
+                          return GestureDetector(
+                            onTap: () async {
+                              final BetOptionController betcontroller =
+                                  Get.put(BetOptionController());
+                              betcontroller.selectMatch(fixture);
+                            },
+                            child: Card(
+                                elevation: 0,
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(0.1),
+                                child: RoshnMatchCard(fixture: fixture)),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             );
           }
         },

@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
-import 'package:sportsbet/Local/local.dart';
-import 'package:sportsbet/Local/local_controller.dart';
 import 'package:sportsbet/user%20view/View/Screens/Auth/Login/login_screen.dart';
+import 'package:sportsbet/user%20view/View/Screens/Home/home_screen.dart';
 
 import '../Core/routes/routes.dart';
 import '../Core/themes/dark_light_theme_file.dart';
 import '../Core/themes/theme_controller.dart';
-import 'View/Screens/Home/home_screen.dart';
-import 'View/Screens/on_boarding/on_boarding_screen.dart';
+import '../Local/local.dart';
+import '../Local/local_controller.dart';
 
 class UserApp extends StatelessWidget {
   final ThemeController themeController = Get.put(ThemeController());
 
   UserApp({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +45,7 @@ class UserApp extends StatelessWidget {
       getPages: Routes.getPages,
       home: UserPreference.isLoggedIn()
           ? const HomeScreen()
-          : UserPreference.isFirstTime()
-              ? const OnBoardingScreen()
-              : const LoginScreen(),
+          : const LoginScreen(),
     );
   }
 }

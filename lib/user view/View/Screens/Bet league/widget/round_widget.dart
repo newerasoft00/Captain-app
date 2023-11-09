@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 import 'package:sportsbet/Model/bet/round_standing_model.dart';
 
 import '../../../../Controller/Round Point/overall_bet_point_controller.dart';
+import '../../../../Controller/Round Point/user_round_point.dart';
 
 class RoundStandingWidget extends StatelessWidget {
   const RoundStandingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(RoundPintController());
     final controller = Get.put(OverallBetPointController());
     return FutureBuilder<List<RoundStandingsModel>>(
       future: controller.displayUserAppearanceCounts(),
@@ -32,7 +34,7 @@ class RoundStandingWidget extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(6.0),
                   child: ExpansionTile(
-                    title: Text(item.docId),
+                    title: Text(item.roundId),
                     children: [
                       Obx(
                         () => Column(
