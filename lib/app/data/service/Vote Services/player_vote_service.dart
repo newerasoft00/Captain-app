@@ -22,40 +22,38 @@ class VoteService {
         final bestPlayerMap = voteData['best_player'] as List<dynamic>;
         final votes = voteData['user_vote'] as List<dynamic>;
 
-        if (bestPlayerMap != null) {
-          controller.bestPlayers.assignAll(bestPlayerMap.map((entry) {
-            final player = entry['player'] as String;
-            final voteCount = entry['vote_count'];
-            if (voteCount is int) {
-              return MapEntry<String, int>(player, voteCount);
-            } else if (voteCount is String) {
-              final parsedVoteCount = int.tryParse(voteCount);
-              if (parsedVoteCount != null) {
-                return MapEntry<String, int>(player, parsedVoteCount);
-              }
+        controller.bestPlayers.assignAll(bestPlayerMap.map((entry) {
+          final player = entry['player'] as String;
+          final voteCount = entry['vote_count'];
+          if (voteCount is int) {
+            return MapEntry<String, int>(player, voteCount);
+          } else if (voteCount is String) {
+            final parsedVoteCount = int.tryParse(voteCount);
+            if (parsedVoteCount != null) {
+              return MapEntry<String, int>(player, parsedVoteCount);
             }
+          }
 
-            return MapEntry<String, int>(player, 0);
-          }));
+          return MapEntry<String, int>(player, 0);
+        }));
 
-          controller.pollOptions = controller.bestPlayers.map((entry) {
-            final player = entry.key;
-            final voteCount = entry.value;
-            return PollOption(
-              id: player,
-              title: AutoSizeText(
-                player,
-                wrapWords: true,
-                minFontSize: 18,
-                maxFontSize: 22,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-              votes: voteCount,
-            );
-          }).toList();
-        }
-
+        controller.pollOptions = controller.bestPlayers.map((entry) {
+          final player = entry.key;
+          final voteCount = entry.value;
+          return PollOption(
+            id: player,
+            title: AutoSizeText(
+              player,
+              wrapWords: true,
+              minFontSize: 18,
+              maxFontSize: 22,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+            votes: voteCount,
+          );
+        }).toList();
+      
         if (votes.isNotEmpty) {
           controller.userVote.assignAll(votes);
           final userId = UserPreference.getUserid();

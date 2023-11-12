@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'modules/auth/login_screen.dart';
-import 'modules/home/home_screen.dart';
 import 'translations/local.dart';
 import 'translations/local_controller.dart';
 import 'utils/Core/helper/shared_preference/shared_preference.dart';

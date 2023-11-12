@@ -23,38 +23,36 @@ class GoalsVoteService {
             voteData['best_goals'] as List<dynamic>; // Changed to 'best_goals'
         final votes = voteData['user_vote'] as List<dynamic>;
 
-        if (bestGoalsMap != null) {
-          controller.bestGoals.assignAll(bestGoalsMap.map((entry) {
-            final goal = entry['goal'] as String; // Changed to 'goal'
-            final voteCount = entry['vote_count'] as int;
-            final url = entry['url'] as String; // Added 'url' as a string
+        controller.bestGoals.assignAll(bestGoalsMap.map((entry) {
+          final goal = entry['goal'] as String; // Changed to 'goal'
+          final voteCount = entry['vote_count'] as int;
+          final url = entry['url'] as String; // Added 'url' as a string
 
-            return MapEntry<String, dynamic>(goal, {
-              'vote_count': voteCount,
-              'url': url,
-            });
-          }));
+          return MapEntry<String, dynamic>(goal, {
+            'vote_count': voteCount,
+            'url': url,
+          });
+        }));
 
-          controller.pollOptions = controller.bestGoals.map((entry) {
-            final goal = entry.key;
-            final voteCount = entry.value['vote_count'] as int;
-            final url = entry.value['url'] as String; // 'url' as a string
+        controller.pollOptions = controller.bestGoals.map((entry) {
+          final goal = entry.key;
+          final voteCount = entry.value['vote_count'] as int;
+// 'url' as a string
 
-            return PollOption(
-              id: goal,
-              title: AutoSizeText(
-                goal,
-                wrapWords: true,
-                minFontSize: 18,
-                maxFontSize: 22,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-              votes: voteCount,
-            );
-          }).toList();
-        }
-
+          return PollOption(
+            id: goal,
+            title: AutoSizeText(
+              goal,
+              wrapWords: true,
+              minFontSize: 18,
+              maxFontSize: 22,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+            votes: voteCount,
+          );
+        }).toList();
+      
         if (votes.isNotEmpty) {
           controller.userVote.assignAll(votes);
           final userId = UserPreference.getUserid();
