@@ -41,7 +41,8 @@ class VideoController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await fetchVoteData().then((value) => youtubePlayerController);
+    await fetchVoteData();
+    youtubePlayerController;
   }
 
   @override

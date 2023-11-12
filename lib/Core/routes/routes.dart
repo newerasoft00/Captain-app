@@ -9,6 +9,7 @@ import '../../user view/View/Screens/standing/standings.dart';
 import '../../user view/View/Screens/user feedback/feedback_screen.dart';
 
 class Routes {
+
   static String loginscreen = '/loginscreen';
   static String signupScreen = '/signupScreen';
   static String homeScreen = '/homeScreen';
@@ -30,14 +31,17 @@ class Routes {
     GetPage(
       name: Routes.homeScreen,
       page: () => const HomeScreen(),
+
     ),
     GetPage(
       name: Routes.standingsScreen,
       page: () => const StandingsScreen(),
+        transition: Transition.fadeIn
     ),
     GetPage(
       name: Routes.profileScreen,
       page: () => const ProfileScreen(),
+        transition: Transition.fadeIn,
     ),
     GetPage(
         name: Routes.feedbackScreen,
