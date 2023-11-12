@@ -1,0 +1,52 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
+import 'modules/auth/login_screen.dart';
+import 'modules/home/home_screen.dart';
+import 'translations/local.dart';
+import 'translations/local_controller.dart';
+import 'utils/Core/helper/shared_preference/shared_preference.dart';
+import 'routes/routes.dart';
+import 'utils/Core/themes/dark_light_theme_file.dart';
+import 'utils/Core/themes/theme_controller.dart';
+
+
+class UserApp extends StatelessWidget {
+  final ThemeController themeController = Get.put(ThemeController());
+
+  UserApp({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final locaController = Get.put(MyLocalController());
+    final localeValue = locaController.selectedLang.value;
+    final locale = (localeValue == 'en' || localeValue == 'ar')
+        ? Locale(localeValue)
+        : const Locale('en');
+
+    return GetMaterialApp(
+      navigatorKey: Get.key,
+      theme: light,
+      darkTheme: dark,
+      defaultTransition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 500),
+      debugShowCheckedModeBanner: false,
+      title: 'Roshan Bet',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const <Locale>[Locale('en'), Locale('ar')],
+      locale: locale,
+      translations: MyLocal(),
+      getPages: Routes.getPages,
+      initialRoute: UserPreference.isLoggedIn()
+          ? Routes.homeScreen
+          : Routes.loginscreen,
+
+    );
+  }
+}
