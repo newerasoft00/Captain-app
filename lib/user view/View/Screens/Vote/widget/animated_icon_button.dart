@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomCardButton extends StatelessWidget {
   const CustomCardButton({
@@ -22,16 +23,16 @@ class CustomCardButton extends StatelessWidget {
           width: width,
           height: height,
           duration: const Duration(milliseconds: 500),
-          child: const Center(
+          child:  Center(
               child: AutoSizeText(
-            'GOALS',
+            'GOALS'.tr,
             wrapWords: true,
             maxLines: 1,
             minFontSize: 16,
             maxFontSize: 18,
             overflow: TextOverflow.ellipsis,
             softWrap: true,
-            style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 2),
+            style: const TextStyle(fontWeight: FontWeight.w700, letterSpacing: 2),
           )),
         ),
       ),

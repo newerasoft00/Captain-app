@@ -80,8 +80,8 @@ class VideoScreen extends StatelessWidget {
                   onPressed: () {
                     showPollBottomSheet(context, controller);
                   },
-                  child: const AutoSizeText(
-                    'Choose Now',
+                  child:  AutoSizeText(
+                    'Choose Now'.tr,
                     wrapWords: true,
                     maxFontSize: 18,
                     minFontSize: 16,

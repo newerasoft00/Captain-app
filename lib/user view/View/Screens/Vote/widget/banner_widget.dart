@@ -79,8 +79,8 @@ class _BannerWidgetState extends State<BannerWidget> {
                     onTap: () => Get.to(() => VotePage()),
                     repeatForever: true,
                     animatedTexts: [
-                      FlickerAnimatedText('Choose'),
-                      FlickerAnimatedText('Best Player in the Round'),
+                      FlickerAnimatedText('Choose'.tr),
+                      FlickerAnimatedText('Best Player in the Round'.tr),
                     ],
                   ),
                 ),

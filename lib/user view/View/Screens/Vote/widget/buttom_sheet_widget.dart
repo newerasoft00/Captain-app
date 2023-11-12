@@ -60,9 +60,9 @@ void showPollBottomSheet(
                   color: Colors.black,
                   size: 20,
                 ),
-                pollTitle: const Center(
+                pollTitle:  Center(
                   child: AutoSizeText(
-                    'Choose the best Goal', // Your poll title here
+                    'Choose the best Goal'.tr, // Your poll title here
                     wrapWords: true,
                     maxLines: 2,
                     minFontSize: 20,
@@ -87,8 +87,8 @@ void showPollBottomSheet(
                           5.pw,
                           AutoSizeText(
                             videoController.isVoteOpen.value
-                                ? 'open'
-                                : 'Closed',
+                                ? 'open'.tr
+                                : 'Closed'.tr,
                             wrapWords: true,
                             minFontSize: 16,
                             maxLines: 1,

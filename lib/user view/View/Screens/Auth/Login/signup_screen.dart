@@ -133,7 +133,7 @@ class SignUpScreen extends StatelessWidget {
                             disabledBackgroundColor: Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(0.5),
+                                .withOpacity(0.3),
                             backgroundColor: Theme.of(context).cardColor,
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             shape: RoundedRectangleBorder(

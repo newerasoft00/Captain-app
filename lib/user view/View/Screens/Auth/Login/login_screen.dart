@@ -82,12 +82,18 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   width: Get.width,
                   height: 45,
-                  child: Obx(() => FilledButton(
-                        style: FilledButton.styleFrom(
-                            disabledBackgroundColor: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.5)),
+                  child: Obx(() => ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          disabledBackgroundColor: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.3),
+                          backgroundColor: Theme.of(context).cardColor,
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
                         onPressed: controller.termsAgree.value == true
                             ? () async {
                                 controller.presssignin.value = true;
@@ -152,12 +158,18 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   width: Get.width,
                   height: 45,
-                  child: Obx(() => FilledButton(
-                        style: FilledButton.styleFrom(
+                  child: Obx(() => ElevatedButton(
+                        style: ElevatedButton.styleFrom(
                             disabledBackgroundColor: Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(0.5)),
+                                .withOpacity(0.3),
+                            backgroundColor: Theme.of(context).cardColor,
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
                         onPressed: controller.termsAgree.value == true
                             ? () async {
                                 await controller.signInWithGoogle();

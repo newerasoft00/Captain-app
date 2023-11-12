@@ -101,10 +101,7 @@ class VideoListWidget extends StatelessWidget {
                   onReady: () {
                     controller.isPlayerReady.value = true;
                   },
-                  onEnded: (data) {
-                    controller.loadNextVideo();
-                    Get.snackbar('Next Video Started!', '');
-                  },
+                 
                 ),
                 builder: (context, player) {
                   return YoutubePlayer(controller: playerController);

@@ -5,70 +5,51 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sportsbet/Core/helper/shared_preference/shared_preference.dart';
 import 'package:sportsbet/Core/routes/routes.dart';
-import 'package:sportsbet/user%20view/Services/google_signin_service.dart';
 import 'package:sportsbet/user%20view/Screens/Auth/Login/login_screen.dart';
 import 'package:sportsbet/user%20view/Screens/Home/home_screen.dart';
 
 class AuthController extends GetxController {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseAuth credentials = FirebaseAuth.instance;
-  final GoogleSignInService googleSignInService = GoogleSignInService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  var email = ''.obs;
-  var password = ''.obs;
-  var phoneNumber = ''.obs;
-  RxBool remmemberme = false.obs;
-  RxBool termsAgree = false.obs;
-  RxBool presssignin = false.obs;
-  RxBool securePassword = true.obs;
+  final RxString email = ''.obs;
+  final RxString password = ''.obs;
+  final RxString phoneNumber = ''.obs;
+  final RxBool remmemberme = false.obs;
+  final RxBool termsAgree = false.obs;
+  final RxBool presssignin = false.obs;
+  final RxBool securePassword = true.obs;
 
-  toggleSignup() {
-    presssignin.toggle();
-  }
-
-  googleSignIn() {
-    try {
-      GoogleSignInService();
-    } catch (e) {
-      Get.snackbar('error', '$e');
-    }
-  }
-
-  changeNumber(String val) {
-    phoneNumber.value = val;
-
-    update();
-  }
+  bool get isSignedIn => _auth.currentUser != null;
 
   Future<UserCredential> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
       final GoogleSignInAuthentication? googleSignInAuthentication =
           await googleSignInAccount?.authentication;
       final AuthCredential authCredential = GoogleAuthProvider.credential(
         idToken: googleSignInAuthentication?.idToken,
         accessToken: googleSignInAuthentication?.accessToken,
       );
-      final UserCredential authResult =
-          await auth.signInWithCredential(authCredential);
+
+      final UserCredential authResult = await _auth.signInWithCredential(authCredential);
       final User user = authResult.user!;
+
       if (user.phoneNumber == null) {
-        await changeNumber(user.uid);
+        changeNumber(user.uid);
         await UserPreference.setUserId(user.uid);
         phoneNumber.value = user.uid;
       } else {
         phoneNumber.value = user.phoneNumber.toString();
       }
-      await UserPreference.setUserId(
-        phoneNumber.value,
-      );
+
+      await UserPreference.setUserId(phoneNumber.value);
+
       Map<String, dynamic> userData = {
         'name': user.displayName,
         'email': user.email,
         'phoneNumber': phoneNumber.value,
         'uid': user.uid,
-        'password': user.uid
+        'password': user.uid,
       };
 
       await FirebaseFirestore.instance
@@ -82,34 +63,26 @@ class AuthController extends GetxController {
 
       return authResult;
     } catch (e) {
-      // print('Error signing in with Google --------------- : $e');
       rethrow;
     }
   }
 
-  signinwithemail() async {
+  Future<void> signInWithEmailAndPassword() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await _auth.signInWithEmailAndPassword(
         email: '${phoneNumber.value}@gmail.com',
-        //email: email.value,
-
         password: password.value,
       );
 
       await UserPreference.setUserId(phoneNumber.value.toString());
-      if (remmemberme.value == true) {
-        await UserPreference.setIsLoggedIn(true);
-      } else {
-        await UserPreference.setIsLoggedIn(false);
-      }
+      await UserPreference.setIsLoggedIn(remmemberme.value);
+
       Get.offAll(() => const HomeScreen());
-      // Get.offAll(() => const HomeScreen());
       presssignin.value = false;
     } catch (e) {
-      // Display the exception in a snack-bar
       Get.snackbar(
-        'error',
-        "error while sign in $e",
+        'Error',
+        "Error while signing in: $e",
         colorText: Colors.white,
         backgroundColor: Colors.red,
         duration: const Duration(seconds: 4),
@@ -117,9 +90,9 @@ class AuthController extends GetxController {
     }
   }
 
-  void signout() async {
+  Future<void> signout() async {
     try {
-      await FirebaseAuth.instance.signOut();
+      await _auth.signOut();
       UserPreference.setIsLoggedIn(false);
       UserPreference.setUserId('');
       Get.snackbar(
@@ -139,11 +112,20 @@ class AuthController extends GetxController {
     }
   }
 
+  void changeNumber(String val) {
+    phoneNumber.value = val;
+    update();
+  }
+
+  void toggleSignup() {
+    presssignin.toggle();
+  }
+
   @override
   void onClose() {
-    phoneNumber = ''.obs;
-    password = ''.obs;
-    email = ''.obs;
+    phoneNumber.value = '';
+    password.value = '';
+    email.value = '';
     super.onClose();
   }
 }

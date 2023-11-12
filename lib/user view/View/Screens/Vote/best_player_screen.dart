@@ -14,9 +14,7 @@ class VotePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Vote Page'),
-      ),
+      appBar: AppBar(),
       body: Obx(() {
         if (voteController.bestPlayers.isEmpty) {
           return const Center(
@@ -61,10 +59,10 @@ class VotePage extends StatelessWidget {
                     color: Colors.black,
                     size: 20,
                   ),
-                  pollTitle: const Align(
+                  pollTitle: Align(
                     alignment: Alignment.centerLeft,
                     child: AutoSizeText(
-                      'Choose the best player', // Your poll title here
+                      'Choose the best player'.tr, // Your poll title here
                       wrapWords: true,
                       maxLines: 2,
                       minFontSize: 20,
@@ -89,8 +87,8 @@ class VotePage extends StatelessWidget {
                             5.pw,
                             AutoSizeText(
                               voteController.isVoteOpen.value
-                                  ? 'open'
-                                  : 'Closed',
+                                  ? 'open'.tr
+                                  : 'Closed'.tr,
                               wrapWords: true,
                               minFontSize: 16,
                               maxLines: 1,
