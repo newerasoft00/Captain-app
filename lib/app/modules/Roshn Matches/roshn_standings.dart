@@ -9,7 +9,7 @@ import 'roshn_topscorer_screen.dart';
 
 class RoshnStandingsPage extends StatelessWidget {
   final RoshnStandingsController sportsController =
-      Get.put(RoshnStandingsController());
+      Get.find();
   final ThemeController themeController = Get.find();
 
   RoshnStandingsPage({super.key});

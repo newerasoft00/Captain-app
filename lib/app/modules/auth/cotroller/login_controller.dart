@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../routes/routes.dart';
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
-import '../../home/home_screen.dart';
 import '../login_screen.dart';
 
 class AuthController extends GetxController {
@@ -23,7 +22,8 @@ class AuthController extends GetxController {
 
   Future<UserCredential> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
       final GoogleSignInAuthentication? googleSignInAuthentication =
           await googleSignInAccount?.authentication;
       final AuthCredential authCredential = GoogleAuthProvider.credential(
@@ -31,7 +31,8 @@ class AuthController extends GetxController {
         accessToken: googleSignInAuthentication?.accessToken,
       );
 
-      final UserCredential authResult = await _auth.signInWithCredential(authCredential);
+      final UserCredential authResult =
+          await _auth.signInWithCredential(authCredential);
       final User user = authResult.user!;
 
       if (user.phoneNumber == null) {
@@ -77,7 +78,7 @@ class AuthController extends GetxController {
       await UserPreference.setUserId(phoneNumber.value.toString());
       await UserPreference.setIsLoggedIn(remmemberme.value);
 
-      Get.offAll(() => const HomeScreen());
+      Get.offAll(Routes.homeScreen);
       presssignin.value = false;
     } catch (e) {
       Get.snackbar(
@@ -120,6 +121,8 @@ class AuthController extends GetxController {
   void toggleSignup() {
     presssignin.toggle();
   }
+
+
 
   @override
   void onClose() {

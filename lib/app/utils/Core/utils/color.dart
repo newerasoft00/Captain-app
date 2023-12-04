@@ -7,7 +7,7 @@ class ColorTeal {
   static Color onPrimatyContainer = const Color(0xFF00201C);
   static Color secoundaryContainer = const Color(0xffCCE8E2);
 }
-
+ 
 class ColorTealDark {
   static Color primaryColor = const Color(0xff53DBCA);
   static Color onPrimaryColor = const Color(0xFF003732);

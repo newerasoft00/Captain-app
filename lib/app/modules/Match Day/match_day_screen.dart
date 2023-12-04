@@ -6,7 +6,7 @@ import 'widget/live_match_widget.dart';
 
 class MatchesScreen extends StatelessWidget {
   MatchesScreen({super.key});
-  final LiveMatchController controller = Get.put(LiveMatchController());
+  final LiveMatchController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {

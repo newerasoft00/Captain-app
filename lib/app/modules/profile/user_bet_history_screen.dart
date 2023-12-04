@@ -7,7 +7,7 @@ import 'controller/user_bet_history_controller.dart';
 
 class UserBetHistoryScreen extends StatelessWidget {
   final UserBetHistoryController _controller =
-      Get.put(UserBetHistoryController());
+      Get.find();
   final ProfileController pc = Get.find();
   UserBetHistoryScreen({super.key});
 

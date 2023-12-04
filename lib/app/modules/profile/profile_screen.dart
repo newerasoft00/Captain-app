@@ -2,33 +2,26 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sportsbet/app/modules/profile/controller/profile_controller.dart';
+import 'package:sportsbet/app/modules/profile/controller/image_picker_controller.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
-
 import '../../routes/routes.dart';
 import '../../translations/local_controller.dart';
 import '../../utils/Core/helper/shared_preference/shared_preference.dart';
 import '../../utils/Core/themes/theme_controller.dart';
 import '../auth/cotroller/login_controller.dart';
-import 'controller/image_picker_controller.dart';
-import 'controller/profile_controller.dart';
-import 'user_bet_history_screen.dart';
 import 'widget/profile_menu_widget.dart';
 import 'widget/user_pic.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  ProfileScreen({super.key});
+  final controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
-    final ProfileController controller = Get.put(
-      ProfileController(),
-    );
     MyLocalController localController = Get.find();
     final ThemeController themeController = Get.find<ThemeController>();
-
-    // final ThemeController themeController = Get.put(ThemeController());
-    final ImagePickerController imageController =
-        Get.put(ImagePickerController());
+    final ImagePickerController imageController = Get.find();
 
     Future<void> uploadImage() async {
       await imageController.pickImage();
@@ -142,9 +135,9 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(
                     width: Get.width,
                     child: GestureDetector(
-                      onTap: () {
-                        controller.getUserData();
-                        Get.to(() => UserBetHistoryScreen());
+                      onTap: () async {
+                        await controller.getUserData();
+                        Get.toNamed(Routes.betHistory);
                       },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,

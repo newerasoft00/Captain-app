@@ -6,7 +6,7 @@ class UserAppearanceCountsPage extends GetView<OverallBetPointController> {
   const UserAppearanceCountsPage({super.key});
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(OverallBetPointController());
+    OverallBetPointController controller = Get.find();
     return Obx(() => RefreshIndicator(
           onRefresh: () async {
             controller.onReady();

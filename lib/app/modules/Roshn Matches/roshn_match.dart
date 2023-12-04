@@ -6,7 +6,6 @@ import 'package:sportsbet/app/modules/Roshn%20Matches/controller/roshn_match_con
 import 'package:sportsbet/app/modules/Vote/best_goals_screen.dart';
 import 'package:sportsbet/app/modules/Vote/widget/animated_icon_button.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
-
 import '../../../../app/modules/Vote/widget/banner_widget.dart';
 import '../../utils/Core/themes/theme_controller.dart';
 import '../../utils/Core/utils/text_style.dart';
@@ -22,10 +21,9 @@ class RoshnMatchesPage extends StatefulWidget {
 }
 
 class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
-  final RoshnMatchController controller = Get.put(RoshnMatchController());
-
+  RoshnMatchController controller = Get.find();
   ThemeController themeController = Get.find();
-  MyAnimationController ac = Get.put(MyAnimationController());
+  MyAnimationController ac = Get.find();
 
   @override
   Widget build(BuildContext context) {

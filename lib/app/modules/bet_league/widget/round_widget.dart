@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/overall_bet_point_controller.dart';
-import '../controller/user_round_point.dart';
 import '../model/round_standing_model.dart';
 
-class RoundStandingWidget extends StatelessWidget {
+class RoundStandingWidget extends GetView<OverallBetPointController> {
   const RoundStandingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(RoundPintController());
-    final controller = Get.put(OverallBetPointController());
     return FutureBuilder<List<RoundStandingsModel>>(
       future: controller.displayUserAppearanceCounts(),
       builder: (context, snapshot) {

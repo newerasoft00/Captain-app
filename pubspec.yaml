@@ -49,6 +49,7 @@ dependencies:
   flutter_polls: ^0.1.5
   youtube_player_flutter: ^8.1.2
   video_player: ^2.8.1
+  sign_in_button: ^3.2.0
 dev_dependencies:
   flutter_native_splash: ^2.3.2
   flutter_test:

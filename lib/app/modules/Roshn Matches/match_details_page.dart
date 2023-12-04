@@ -13,7 +13,7 @@ class MatchDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BetOptionController controller = Get.put(BetOptionController());
+    final BetOptionController controller = Get.find();
 
     return Scaffold(
       appBar: AppBar(

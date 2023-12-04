@@ -9,7 +9,7 @@ const String standingEndPoint = 'standings?';
 //
 const String allsportsapi = 'https://apiv2.allsportsapi.com/football/?met=';
 const String allsportsapiKey =
-    '&APIkey=6e7ced070587451817c2a76b192351fddec0d214158e7ec75da6fd8b3e9506ac&';
+    '&APIkey=b199624582b0faf8621e558af8c7384045043d9d800968d89e4f7821b647bfbd&';
 const String saudiaCountryID = '&countryId=97';
 const String saudiaLeague = '&leagueId=278';
 const String englishLeague = '&leagueId=152';

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 
 import '../../utils/Core/helper/shared_preference/shared_preference.dart';
 import '../../routes/routes.dart';
@@ -158,54 +159,54 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   width: Get.width,
                   height: 45,
-                  child: Obx(() => ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            disabledBackgroundColor: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.3),
-                            backgroundColor: Theme.of(context).cardColor,
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                        onPressed: controller.termsAgree.value == true
-                            ? () async {
-                                await controller.signInWithGoogle();
-                              }
-                            : null,
-                        child: Row(
+                  child: Obx(() => GetPlatform.isIOS
+                      ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: CircleAvatar(
-                                  backgroundColor:
-                                      controller.termsAgree.value == true
-                                          ? Colors.white
-                                          : Colors.white54,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Image.asset(
-                                        'assets/Image/google icon_.png'),
-                                  )),
+                            SignInButton(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              elevation: 5,
+                              mini: true,
+                              Buttons.email,
+                              onPressed: controller.termsAgree.value == true
+                                  ? () async {
+                                      await _handleGoogleSignIn(controller);
+                                    }
+                                  : () {},
                             ),
                             10.pw,
-                            AutoSizeText(
-                              'Sign in with  Google'.tr,
-                              minFontSize: 18,
-                              maxFontSize: 22,
-                              wrapWords: true,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                            ),
+                            SignInButton(
+                              elevation: 5,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              mini: true,
+                              Buttons.apple,
+                              onPressed: () {},
+                            )
                           ],
-                        ),
-                      )),
+                        )
+                      : controller.presssignin.value
+                          ? const CircleAvatar(
+                              radius: 35,
+                              child: CircularProgressIndicator(),
+                            ) // Replace with a circular progress indicator
+                          : SignInButtonBuilder(
+                              text: 'Sign in with Email',
+                              icon: Icons.email,
+                              onPressed: controller.termsAgree.value == true
+                                  ? () async {
+                                      await _handleGoogleSignIn(controller);
+                                    }
+                                  : () {},
+                              backgroundColor:
+                                  controller.termsAgree.value == true
+                                      ? Theme.of(context).cardColor
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .withOpacity(0.3),
+                            )),
                 ),
                 20.ph,
                 Row(
@@ -269,5 +270,17 @@ class LoginScreen extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  Future<void> _handleGoogleSignIn(AuthController controller) async {
+    controller.toggleSignup();
+    try {
+      await controller.signInWithGoogle();
+    } catch (e) {
+      Get.snackbar('Erorr', 'Error during Google Sign In',
+          backgroundColor: Colors.red);
+    } finally {
+      controller.toggleSignup();
+    }
   }
 }

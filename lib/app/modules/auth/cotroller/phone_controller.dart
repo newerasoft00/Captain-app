@@ -5,9 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:sportsbet/app/routes/routes.dart';
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
-import '../../home/home_screen.dart';
 
 
 class PhoneController extends GetxController {
@@ -77,7 +76,7 @@ class PhoneController extends GetxController {
             .set(userData)
             .then((value) {
           UserPreference.setUserId(phoneNumber.value.toString());
-          Get.to(() => const HomeScreen());
+          Get.to(Routes.homeScreen);
         });
 
         Get.snackbar(
@@ -97,7 +96,7 @@ class PhoneController extends GetxController {
 
       // Sign in with the credential
       await auth.signInWithCredential(credential);
-      Get.to(() => const HomeScreen());
+          Get.to(Routes.homeScreen);
       authState.value = 'Phone number verified successfully';
     } catch (e) {
       // Handle errors during OTP verification here

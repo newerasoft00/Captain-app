@@ -9,13 +9,14 @@ import '../bet_league/bet_league.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({
+   HomeScreen({
     super.key,
   });
+    final HomeController controller = Get.find();
+
 
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.put(HomeController());
     controller.changePageIndex(0);
     final bottomBarItem = [
       const RoshnMatchesPage(),
@@ -23,7 +24,7 @@ class HomeScreen extends StatelessWidget {
       //ToDaysMatchesScreen(),
       RoshnStandingsPage(),
       const BetLeague(),
-      const ProfileScreen(),
+       ProfileScreen(),
     ];
 
     return Scaffold(

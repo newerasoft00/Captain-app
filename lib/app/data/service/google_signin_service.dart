@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import '../../modules/home/home_screen.dart';
+import '../../routes/routes.dart';
 import '../../utils/Core/helper/shared_preference/shared_preference.dart';
 
 
@@ -49,7 +48,7 @@ class GoogleSignInService {
             .set(userData)
             .then((value) {
           UserPreference.setUserId(phoneNumber!);
-          Get.to(() => const HomeScreen());
+          Get.to(Routes.homeScreen);
         });
         return user;
       }

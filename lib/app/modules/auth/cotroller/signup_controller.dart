@@ -1,13 +1,11 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../../routes/routes.dart';
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
-import '../../home/home_screen.dart';
 import '../../on_boarding/on_boarding_screen.dart';
 import '../Componant/otp.dart';
 
@@ -171,7 +169,7 @@ class SignupController extends GetxController {
         }
 
         // Proceed to the HomeScreen after successful sign-up
-        Get.to(() => const HomeScreen());
+        Get.to(Routes.homeScreen);
         authState.value = 'Phone number verified successfully';
       } else {
         // Handle the case where the OTP is incorrect
@@ -237,7 +235,7 @@ class SignupController extends GetxController {
             .set(userData)
             .then((value) {
           UserPreference.setUserId(phoneNumber.value.toString());
-          Get.offAll(() => const HomeScreen());
+          Get.offAll(Routes.homeScreen);
         });
 
         Get.snackbar(
