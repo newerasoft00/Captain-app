@@ -46,7 +46,10 @@ void showPollBottomSheet(
                 pollOptionsFillColor:
                     Theme.of(context).primaryColor.withOpacity(0.09),
                 pollOptionsSplashColor: Colors.white,
-                votedProgressColor: Colors.teal.withOpacity(0.4),
+                votedProgressColor: Theme.of(context)
+                    .colorScheme
+                    .primaryContainer
+                    .withOpacity(0.7),
                 heightBetweenOptions: context.height * 0.02,
                 votedBackgroundColor: Colors.grey.withOpacity(0.2),
                 votesTextStyle: const TextStyle(fontSize: 16),
@@ -60,7 +63,7 @@ void showPollBottomSheet(
                   color: Colors.black,
                   size: 20,
                 ),
-                pollTitle:  Center(
+                pollTitle: Center(
                   child: AutoSizeText(
                     'Choose the best Goal'.tr, // Your poll title here
                     wrapWords: true,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/custom_appbar.dart';
 import 'controller/bet_controller.dart';
 import 'model/game_weak.dart';
 import 'widget/bet_options_widget.dart';
@@ -16,20 +17,17 @@ class MatchDetailsPage extends StatelessWidget {
     final BetOptionController controller = Get.find();
 
     return Scaffold(
-      appBar: AppBar(
-          scrolledUnderElevation: 0,
-          elevation: 0,
-          leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                Navigator.pop(context);
-                controller.userChoice.value = '';
-                controller.userChoicescore1.value = '';
-                controller.userChoicescore2.value = '';
-                controller.awaybetted.value = false;
-                controller.drawbetted.value = false;
-                controller.homebetted.value = false;
-              })),
+      appBar: CustomAppBar(
+        onTap: () {
+          Navigator.pop(context);
+          controller.userChoice.value = '';
+          controller.userChoicescore1.value = '';
+          controller.userChoicescore2.value = '';
+          controller.awaybetted.value = false;
+          controller.drawbetted.value = false;
+          controller.homebetted.value = false;
+        },
+      ),
       body: SingleChildScrollView(
         primary: true,
         child: Column(

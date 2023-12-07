@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/modules/Roshn%20Matches/controller/top_scorer_controller.dart';
+import 'package:sportsbet/app/widgets/custom_text.dart';
 
 class RoshnTopScorersPage extends GetView<TopScorerController> {
   final TopScorerController topScorerController =
@@ -26,10 +27,16 @@ class RoshnTopScorersPage extends GetView<TopScorerController> {
               return Column(
                 children: [
                   ListTile(
-                    leading: Text("${topScorer.playerPlace}"),
+                    leading: CustomText(
+                      title: "${topScorer.playerPlace}",
+                      textColor: Theme.of(Get.context!).colorScheme.onSurface,
+                    ),
                     title: Text(topScorer.playerName),
                     subtitle: Text(topScorer.teamName),
-                    trailing: Text('Goals: ${topScorer.goals}'),
+                    trailing: CustomText(
+                      title: 'Goals: ${topScorer.goals}',
+                      textColor: Theme.of(Get.context!).colorScheme.onSurface,
+                    ),
                   ),
                   const Divider(
                     indent: 20,

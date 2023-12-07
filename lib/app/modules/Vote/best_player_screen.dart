@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polls/flutter_polls.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:sportsbet/app/widgets/custom_appbar.dart';
 
 import 'controller/vote_controller.dart';
 
@@ -14,7 +15,7 @@ class VotePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const CustomAppBar(),
       body: Obx(() {
         if (voteController.bestPlayers.isEmpty) {
           return const Center(
@@ -45,7 +46,8 @@ class VotePage extends StatelessWidget {
                   pollOptionsFillColor:
                       Theme.of(context).primaryColor.withOpacity(0.09),
                   pollOptionsSplashColor: Colors.white,
-                  votedProgressColor: Colors.teal.withOpacity(0.4),
+                  votedProgressColor:
+                      Theme.of(context).primaryColor.withOpacity(0.75),
                   heightBetweenOptions: context.height * 0.02,
                   votedBackgroundColor: Colors.grey.withOpacity(0.2),
                   votesTextStyle: const TextStyle(fontSize: 16),

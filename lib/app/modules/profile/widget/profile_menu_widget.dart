@@ -3,45 +3,55 @@ import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
 
-class ProfileListItem extends StatelessWidget {
+class ProfileMenuItem extends StatelessWidget {
   final IconData icon;
+  final Color iconColor;
   final String text;
-  final Color? tcolor;
+  final VoidCallback onTap;
+  final Widget? trailing;
 
-  const ProfileListItem({
+  const ProfileMenuItem({
     super.key,
+    required this.iconColor,
     required this.icon,
     required this.text,
-    this.tcolor,
+    required this.onTap,
+    this.trailing,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 1,
-            child: Icon(
-              icon,
-              color: tcolor,
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Icon(
+                icon,
+                color: iconColor,
+              ),
             ),
-          ),
-          Expanded(
-            flex: 7,
-            child: Text(
-              text,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-   style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w800,
-                                  ),
+            Expanded(
+              flex: 6,
+              child: Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 1,
+              child: trailing ?? Container(),
+            ),
+          ],
+        ),
       ),
     );
   }

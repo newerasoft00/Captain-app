@@ -1,21 +1,21 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sportsbet/app/widgets/custom_appbar.dart';
 
 import 'controller/profile_controller.dart';
 import 'controller/user_bet_history_controller.dart';
 
 class UserBetHistoryScreen extends StatelessWidget {
-  final UserBetHistoryController _controller =
-      Get.find();
+  final UserBetHistoryController _controller = Get.find();
   final ProfileController pc = Get.find();
   UserBetHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bet History'),
+      appBar: const CustomAppBar(
+        title: 'Bet History',
       ),
       body: Obx(
         () => _controller.betHistory.isEmpty

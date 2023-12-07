@@ -17,7 +17,7 @@ class ThemeController extends GetxController {
       Get.changeTheme(dark); // Change to the light theme
       islightMode.value = false;
     } else {
-      Get.changeTheme(light); // Change to the dark theme
+      Get.changeTheme(blueTheme); // Change to the dark theme
       islightMode.value = true;
     }
 
@@ -35,7 +35,7 @@ class ThemeController extends GetxController {
 
     if (isLightMode != null) {
       islightMode.value = isLightMode;
-      Get.changeTheme(isLightMode ? light : dark); // Apply the saved theme
+      Get.changeTheme(isLightMode ? blueTheme : dark); // Apply the saved theme
     }
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/modules/Roshn%20Matches/model/game_weak.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:sportsbet/app/widgets/custom_text.dart';
 
 import '../../../data/service/bet/get_user_bet.dart';
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
@@ -112,7 +113,12 @@ class BetOptionsWidget extends StatelessWidget {
                             // Display the user's bet data
                             return Column(
                               children: [
-                                Card(
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Theme.of(context)
+                                          .primaryColor
+                                          .withOpacity(0.2)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(12),
                                     child: Row(
@@ -152,7 +158,9 @@ class BetOptionsWidget extends StatelessWidget {
                                                             awayTeamPercentage &&
                                                         homeTeamPercentage >
                                                             drawingPercentage)
-                                                    ? Colors.blue.shade700
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .primaryContainer
                                                     : Colors.grey.shade400),
                                               ),
                                               const SizedBox(
@@ -176,12 +184,15 @@ class BetOptionsWidget extends StatelessWidget {
                                               LinearProgressIndicator(
                                                 value: 100,
                                                 valueColor: AlwaysStoppedAnimation<
-                                                    Color>((drawingPercentage >
-                                                            awayTeamPercentage &&
-                                                        drawingPercentage >
-                                                            homeTeamPercentage)
-                                                    ? Colors.blue.shade700
-                                                    : Colors.grey.shade400),
+                                                        Color>(
+                                                    (drawingPercentage >
+                                                                awayTeamPercentage &&
+                                                            drawingPercentage >
+                                                                homeTeamPercentage)
+                                                        ? Theme.of(context)
+                                                            .colorScheme
+                                                            .primaryContainer
+                                                        : Colors.grey.shade400),
                                               ),
                                               const SizedBox(
                                                 height: 10,
@@ -203,16 +214,15 @@ class BetOptionsWidget extends StatelessWidget {
                                             children: [
                                               LinearProgressIndicator(
                                                 value: 100,
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<
-                                                        Color>(
-                                                  (awayTeamPercentage >
-                                                              homeTeamPercentage &&
-                                                          awayTeamPercentage >
-                                                              drawingPercentage)
-                                                      ? Colors.blue.shade700
-                                                      : Colors.grey.shade400,
-                                                ),
+                                                valueColor: AlwaysStoppedAnimation<
+                                                    Color>((awayTeamPercentage >
+                                                            homeTeamPercentage &&
+                                                        awayTeamPercentage >
+                                                            drawingPercentage)
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .primaryContainer
+                                                    : Colors.grey.shade400),
                                               ),
                                               const SizedBox(
                                                 height: 10,
@@ -255,16 +265,17 @@ class BetOptionsWidget extends StatelessWidget {
                               child: Obx(
                                 () => Card(
                                   color: !controller.homebetted.value
-                                      ? Theme.of(context).cardColor
-                                      : Colors.tealAccent.shade700,
+                                      ? Theme.of(context).colorScheme.secondary
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer,
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text(
-                                        fixture.eventHomeTeam,
-
+                                      CustomText(
+                                        title: fixture.eventHomeTeam,
                                         //fit: BoxFit.cover,
                                       ),
                                     ],
@@ -285,16 +296,17 @@ class BetOptionsWidget extends StatelessWidget {
                             child: Obx(
                               () => Card(
                                 color: !controller.awaybetted.value
-                                    ? Theme.of(context).cardColor
-                                    : Colors.tealAccent.shade700,
+                                    ? Theme.of(context).colorScheme.secondary
+                                    : Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text(
-                                      fixture.eventAwayTeam,
-
+                                    CustomText(
+                                      title: fixture.eventAwayTeam,
                                       //fit: BoxFit.cover,
                                     ),
                                   ],
@@ -316,15 +328,16 @@ class BetOptionsWidget extends StatelessWidget {
                               child: Obx(
                                 () => Card(
                                   color: !controller.drawbetted.value
-                                      ? Theme.of(context).cardColor
-                                      : Colors.tealAccent.shade700,
-                                  // ignore: prefer_const_constructors
-                                  child: Row(
+                                      ? Theme.of(context).colorScheme.secondary
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer,
+                                  child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     mainAxisSize: MainAxisSize.min,
-                                    children: const [
-                                      Text('Drawing'),
+                                    children: [
+                                      CustomText(title: 'Drawing'),
                                     ],
                                   ),
                                 ),
@@ -419,7 +432,8 @@ class BetOptionsWidget extends StatelessWidget {
                       height: 45,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).cardColor,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -437,6 +451,8 @@ class BetOptionsWidget extends StatelessWidget {
                               } else {
                                 AwesomeDialog(
                                   context: context,
+                                  dialogBackgroundColor:
+                                      Theme.of(context).canvasColor,
                                   dialogType: DialogType.question,
                                   animType: AnimType.rightSlide,
                                   title:

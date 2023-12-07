@@ -92,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                           backgroundColor: Theme.of(context).cardColor,
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(5),
                           ),
                         ),
                         onPressed: controller.termsAgree.value == true
@@ -189,7 +189,8 @@ class LoginScreen extends StatelessWidget {
                       : controller.presssignin.value
                           ? const CircleAvatar(
                               radius: 35,
-                              child: CircularProgressIndicator(),
+                              child: CircularProgressIndicator.adaptive(
+                                  backgroundColor: Colors.white),
                             ) // Replace with a circular progress indicator
                           : SignInButtonBuilder(
                               text: 'Sign in with Email',
@@ -199,6 +200,9 @@ class LoginScreen extends StatelessWidget {
                                       await _handleGoogleSignIn(controller);
                                     }
                                   : () {},
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
                               backgroundColor:
                                   controller.termsAgree.value == true
                                       ? Theme.of(context).cardColor
@@ -235,7 +239,8 @@ class LoginScreen extends StatelessWidget {
                               text: " Register".tr,
                               style: TextStyle(
                                   fontSize: 18,
-                                  color: Theme.of(context).primaryColor,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   fontWeight: FontWeight.w800),
                             ),
                           ],
@@ -273,14 +278,14 @@ class LoginScreen extends StatelessWidget {
   }
 
   Future<void> _handleGoogleSignIn(AuthController controller) async {
-    controller.toggleSignup();
+    controller.toggleGmail();
     try {
       await controller.signInWithGoogle();
     } catch (e) {
       Get.snackbar('Erorr', 'Error during Google Sign In',
           backgroundColor: Colors.red);
     } finally {
-      controller.toggleSignup();
+      controller.toggleGmail();
     }
   }
 }

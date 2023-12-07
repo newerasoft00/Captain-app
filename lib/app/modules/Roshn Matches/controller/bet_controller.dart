@@ -269,12 +269,7 @@ class BetOptionController extends GetxController {
     fetchBetOptions(fixture.hometeamkey.toString());
     fetchMatchBets(fixture.eventKey.toString(), fixture.eventHomeTeam,
         fixture.eventAwayTeam);
-    // await fetchUserBetsForMatch(
-    //     fixture.leagueRound,
-    //     fixture.eventKey.toString(),
-    //     fixture.eventHomeTeam,
-    //     fixture.eventAwayTeam);
-    // print(fixture.eventKey);
+
     Get.to(() => MatchDetailsPage(fixture: fixture));
   }
 

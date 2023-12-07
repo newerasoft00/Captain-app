@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/modules/user%20feedback/widget/rating_bar.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:sportsbet/app/widgets/custom_appbar.dart';
 
 import 'controller/feedback_controller.dart';
 
@@ -13,8 +14,8 @@ class FeedBackScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final feedbackController = Get.put(FeedbackController());
     return Scaffold(
-      appBar: AppBar(
-        title: AutoSizeText('Roshan League'.tr),
+      appBar: CustomAppBar(
+        title: 'Roshan League'.tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

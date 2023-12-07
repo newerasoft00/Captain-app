@@ -28,7 +28,6 @@ class _BannerWidgetState extends State<BannerWidget> {
         child: Obx(
           () => GestureDetector(
             onTap: () {
-              //c.startBannerAnimation();
               Get.to(() => VotePage());
             },
             child: AnimatedContainer(

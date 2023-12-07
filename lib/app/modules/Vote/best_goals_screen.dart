@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/modules/Vote/widget/buttom_sheet_widget.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:sportsbet/app/widgets/custom_appbar.dart';
+import 'package:sportsbet/app/widgets/custom_text.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'controller/best_goals_controller.dart';
@@ -68,7 +70,7 @@ class VideoScreen extends StatelessWidget {
         },
       ),
       builder: (context, player) => Scaffold(
-        appBar: AppBar(),
+        appBar: const CustomAppBar(),
         body: ListView(
           children: [
             player,
@@ -80,8 +82,8 @@ class VideoScreen extends StatelessWidget {
                   onPressed: () {
                     showPollBottomSheet(context, controller);
                   },
-                  child:  AutoSizeText(
-                    'Choose Now'.tr,
+                  child: CustomText(
+                    title: 'Choose Now'.tr,
                     wrapWords: true,
                     maxFontSize: 18,
                     minFontSize: 16,

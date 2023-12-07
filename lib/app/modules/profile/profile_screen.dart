@@ -1,10 +1,9 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/modules/profile/controller/profile_controller.dart';
 import 'package:sportsbet/app/modules/profile/controller/image_picker_controller.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:sportsbet/app/widgets/custom_appbar.dart';
 import '../../routes/routes.dart';
 import '../../translations/local_controller.dart';
 import '../../utils/Core/helper/shared_preference/shared_preference.dart';
@@ -15,11 +14,12 @@ import 'widget/user_pic.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
+
   final controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
-    MyLocalController localController = Get.find();
+  MyLocalController localController = Get.find();
     final ThemeController themeController = Get.find<ThemeController>();
     final ImagePickerController imageController = Get.find();
 
@@ -30,287 +30,127 @@ class ProfileScreen extends StatelessWidget {
     imageController.initImage();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Account'.tr),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        isBackButtonExist: false,
+        title: 'Account'.tr,
       ),
       body: Obx(
         () {
           final user = controller.user;
-          if (user.isNotEmpty) {
-            return Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
+
+          return user.isNotEmpty
+              ? Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      DisplayImage(
-                          imagePath: imageController.imagePath.value,
-                          onPressed: uploadImage),
-                      10.pw,
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            user[0].name,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800,
+                          DisplayImage(
+                            imagePath: imageController.imagePath.value,
+                            onPressed: uploadImage,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  user[0].name,
+                                  style: const TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  user[0].email,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            user[0].email,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          )
                         ],
-                      )
+                      ),
+                      const Divider(),
+                      ProfileMenuItem(
+                        icon: Icons.dashboard_rounded,
+                        text: 'Favorite League'.tr,
+                        iconColor: Colors.deepOrangeAccent,
+                        onTap: () {
+                          controller.showLeagueBottomSheet(context);
+                        },
+                        trailing: Obx(
+                          () => Image.asset(
+                            controller.selectedLeague.isNotEmpty
+                                ? controller.selectedLeague.value
+                                : UserPreference.getSelectedLeaguelogo(),
+                            width: 30,
+                            height: 30,
+                          ),
+                        ),
+                      ),
+                      ProfileMenuItem(
+                        icon: CupertinoIcons.square_list_fill,
+                        text: 'Show Bet History'.tr,
+                        iconColor: Colors.deepPurple,
+                        onTap: () async {
+                          await controller.getUserData();
+                          Get.toNamed(Routes.betHistory);
+                        },
+                      ),
+                      ProfileMenuItem(
+                        icon: Icons.feedback_rounded,
+                        text: 'Give Feedback'.tr,
+                        iconColor: Colors.greenAccent.shade700,
+                        onTap: () {
+                          Get.toNamed(Routes.feedbackScreen);
+                        },
+                      ),
+                      ProfileMenuItem(
+                        icon: themeController.islightMode.value
+                            ? Icons.light_mode
+                            : Icons.dark_mode,
+                        text: themeController.islightMode.value
+                            ? 'Light Theme'.tr
+                            : 'Dark Theme'.tr,
+                        iconColor: themeController.islightMode.value
+                            ? Colors.amber
+                            : Colors.blue,
+                        onTap: themeController.toggleTheme,
+                      ),
+                      ProfileMenuItem(
+                        icon: Icons.language_rounded,
+                        text: 'Change Language'.tr,
+                        iconColor: Colors.pinkAccent,
+                        onTap: () {
+                          localController.toggleLang();
+                        },
+                      ),
+                      ProfileMenuItem(
+                        icon: CupertinoIcons.square_arrow_left_fill,
+                        text: 'Log Out'.tr,
+                        iconColor: Colors.red,
+                        onTap: () {
+                          final AuthController authController =
+                              Get.put(AuthController());
+                          authController.signout();
+                        },
+                      ),
                     ],
                   ),
-                  const Divider(),
-                  const Spacer(
-                    flex: 1,
-                  ),
-                  user[0].phoneNumber.isPhoneNumber
-                      ? ProfileListItem(
-                          icon: Icons.phone_android_rounded,
-                          text: user[0].phoneNumber,
-                          tcolor: Colors.amber.shade800,
-                        )
-                      : const SizedBox(),
-                  const Spacer(
-                    flex: 1,
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        // Show the bottom sheet when "Settings" is tapped
-                        controller.showLeagueBottomSheet(context);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Expanded(
-                                flex: 1,
-                                child: Icon(
-                                  Icons.dashboard_rounded,
-                                  color: Color(0xffEA1A8E),
-                                )),
-                            Expanded(
-                                flex: 6,
-                                child: Text(
-                                  'Favorite League'.tr,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                )),
-                            Expanded(
-                                flex: 1,
-                                child: Obx(
-                                  () => Image.asset(
-                                    controller.selectedLeague.isNotEmpty
-                                        ? controller.selectedLeague.value
-                                        : UserPreference
-                                            .getSelectedLeaguelogo(),
-                                    width: 30,
-                                    height: 30,
-                                  ),
-                                )),
-                          ],
-                        ),
-                      )),
-                  const Spacer(
-                    flex: 1,
-                  ),
-                  SizedBox(
-                    width: Get.width,
-                    child: GestureDetector(
-                      onTap: () async {
-                        await controller.getUserData();
-                        Get.toNamed(Routes.betHistory);
-                      },
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Icon(
-                              CupertinoIcons.square_list_fill,
-                              color: Color(0xff7153FF),
-                            ),
-                          ),
-                          Expanded(
-                              flex: 7,
-                              child: Text(
-                                'Show Bet History'.tr,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Spacer(
-                    flex: 1,
-                  ),
-                  SizedBox(
-                    width: Get.width,
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.feedbackScreen);
-                      },
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Icon(
-                              Icons.feedback_rounded,
-                              color: Color(0xffFFB400),
-                            ),
-                          ),
-                          Expanded(
-                              flex: 7,
-                              child: AutoSizeText(
-                                'Give a feedback'.tr,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Spacer(
-                    flex: 1,
-                  ),
-                  Obx(() => GestureDetector(
-                        onTap: themeController.toggleTheme,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Icon(
-                                themeController.islightMode.value
-                                    ? Icons.light_mode
-                                    : Icons.dark_mode,
-                                color: themeController.islightMode.value
-                                    ? Colors.amber.shade900
-                                    : Colors.amberAccent,
-                              ),
-                            ),
-                            Expanded(
-                              flex: 7,
-                              child: Text(
-                                themeController.islightMode.value
-                                    ? 'Light Theme'.tr
-                                    : 'Dark Theme'.tr,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      )),
-                  const Spacer(
-                    flex: 1,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      localController.toggleLang();
+                )
+              : Center(
+                  child: ListView.builder(
+                    itemCount: 6,
+                    itemBuilder: (context, index) {
+                      return const ProfileListItemShimmer();
                     },
-                    child: Row(
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: Container(
-                                width: 27,
-                                height: 27,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child:
-                                    Image.asset('assets/Image/language.png'))),
-                        Expanded(
-                          flex: 7,
-                          child: Text(
-                            'Change Language'.tr,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
                   ),
-                  const Spacer(flex: 1),
-                  SizedBox(
-                    width: Get.width,
-                    child: GestureDetector(
-                      onTap: () async {
-                        final AuthController authController =
-                            Get.put(AuthController());
-                        authController.signout();
-                      },
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Expanded(
-                            flex: 1,
-                            child: Icon(
-                              CupertinoIcons.square_arrow_left_fill,
-                              color: Color(0xfff75555),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Text(
-                              'Log out'.tr,
-                              style: const TextStyle(
-                                color: Color(0xfff75555),
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Spacer(
-                    flex: 3,
-                  )
-                ],
-              ),
-            );
-          } else {
-            return Center(
-                child: ListView.builder(
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return const ProfileListItemShimmer();
-              },
-            ));
-          }
+                );
         },
       ),
     );

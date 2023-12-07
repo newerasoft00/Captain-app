@@ -61,7 +61,7 @@ class OnBoardingScreen extends StatelessWidget {
       ),
       bottomSheet: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        color: const Color(0xFF005048),
+        color: Theme.of(context).colorScheme.primary,
         height: context.height * 0.088,
         width: double.infinity,
         child: Row(

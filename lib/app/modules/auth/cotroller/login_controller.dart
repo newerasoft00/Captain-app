@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../routes/routes.dart';
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
-import '../login_screen.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -16,6 +15,7 @@ class AuthController extends GetxController {
   final RxBool remmemberme = false.obs;
   final RxBool termsAgree = false.obs;
   final RxBool presssignin = false.obs;
+  final RxBool presssingGmail = false.obs;
   final RxBool securePassword = true.obs;
 
   bool get isSignedIn => _auth.currentUser != null;
@@ -102,7 +102,7 @@ class AuthController extends GetxController {
         backgroundColor: Colors.green,
         duration: const Duration(seconds: 1),
       );
-      Get.offAll(() => const LoginScreen());
+      Get.offAllNamed(Routes.loginscreen);
     } catch (e) {
       Get.snackbar(
         'Error',
@@ -121,8 +121,30 @@ class AuthController extends GetxController {
   void toggleSignup() {
     presssignin.toggle();
   }
-
-
+  void toggleGmail() {
+    presssingGmail.toggle();
+  }
+  Future<void> handleGoogleSignIn(AuthController controller) async {
+    controller.toggleGmail();
+    try {
+      await controller.signInWithGoogle();
+    } catch (e) {
+      Get.snackbar('Erorr', 'Error during Google Sign In',
+          backgroundColor: Colors.red);
+    } finally {
+      controller.toggleGmail();
+    }
+  }  Future<void> handlePhoneSignIn(AuthController controller) async {
+    controller.toggleSignup();
+    try {
+      await controller.signInWithGoogle();
+    } catch (e) {
+      Get.snackbar('Erorr', 'Error during Google Sign In',
+          backgroundColor: Colors.red);
+    } finally {
+      controller.toggleSignup();
+    }
+  }
 
   @override
   void onClose() {

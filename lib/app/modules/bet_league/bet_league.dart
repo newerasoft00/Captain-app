@@ -21,6 +21,9 @@ class BetLeague extends StatelessWidget {
                 pinned: true,
                 floating: true,
                 bottom: TabBar(
+                  indicatorColor:
+                      Theme.of(context).primaryColor.withOpacity(0.95),
+                  dividerColor: Theme.of(context).colorScheme.secondary,
                   tabs: [
                     Tab(
                       child: Text(

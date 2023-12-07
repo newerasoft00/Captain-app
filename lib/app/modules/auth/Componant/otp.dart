@@ -18,6 +18,7 @@ class OtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.put(SignupController());
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -28,50 +29,53 @@ class OtpScreen extends StatelessWidget {
             SizedBox(
               width: Get.width,
               height: Get.height * 0.35,
-              child: Stack(children: [
-                Opacity(
-                  opacity: 0.20,
-                  child: Container(
-                    width: Get.width,
-                    height: Get.height * 0.4,
-                    decoration: ShapeDecoration(
-                      color: Theme.of(context).cardColor.withOpacity(0.18),
-                      shape: const RoundedRectangleBorder(
+              child: Stack(
+                children: [
+                  Opacity(
+                    opacity: 0.20,
+                    child: Container(
+                      width: Get.width,
+                      height: Get.height * 0.4,
+                      decoration: ShapeDecoration(
+                        color: Theme.of(context).cardColor.withOpacity(0.18),
+                        shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(250),
-                        bottomLeft: Radius.circular(250),
-                      )),
+                            bottomRight: Radius.circular(250),
+                            bottomLeft: Radius.circular(250),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Image.asset(
-                      'assets/Image/pana.png',
-                      width: Get.width * 0.75,
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Image.asset(
+                        'assets/Image/pana.png',
+                        width: Get.width * 0.75,
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  top: 30,
-                  left: 10,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back_ios),
-                    onPressed: () {
-                      c.presssignup.value = false;
-                      c.stopTimer();
-                      Get.back();
-                    },
+                  Positioned(
+                    top: 30,
+                    left: 10,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back_ios),
+                      onPressed: () {
+                        c.presssignup.value = false;
+                        c.stopTimer();
+                        Get.back();
+                      },
+                    ),
                   ),
-                ),
-              ]),
+                ],
+              ),
             ),
             20.ph,
-            const AutoSizeText(
-              'OTP Verification',
+            AutoSizeText(
+              'OTP Verification'.tr,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
                 height: 0,
@@ -79,23 +83,26 @@ class OtpScreen extends StatelessWidget {
             ),
             20.ph,
             Text.rich(
-              TextSpan(children: [
-                const TextSpan(
-                  text: 'We Will send you a one time password on\n\n this  ',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    height: 0,
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text:
+                        'We Will send you a one time password on\n\n this '.tr,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: phoneNumber,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
+                  TextSpan(
+                    text: phoneNumber,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-              ]),
+                ],
+              ),
               textAlign: TextAlign.center,
             ),
             20.ph,
@@ -111,10 +118,10 @@ class OtpScreen extends StatelessWidget {
               ],
               onChanged: (value) {},
               otpFieldStyle: OtpFieldStyle(
-                  focusBorderColor:
-                      Theme.of(context).colorScheme.primaryContainer,
-                  backgroundColor:
-                      Theme.of(context).cardColor.withOpacity(0.18)),
+                focusBorderColor:
+                    Theme.of(context).colorScheme.primaryContainer,
+                backgroundColor: Theme.of(context).cardColor.withOpacity(0.18),
+              ),
               keyboardType: TextInputType.number,
               outlineBorderRadius: Get.width * 0.09,
               onCompleted: (pin) async {
@@ -135,10 +142,10 @@ class OtpScreen extends StatelessWidget {
               onPressed: () {
                 c.verifyPhone(c.phoneNumber.value);
               },
-              child: const AutoSizeText(
-                'Send OTP again',
+              child: AutoSizeText(
+                'Send OTP again'.tr,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   height: 0,

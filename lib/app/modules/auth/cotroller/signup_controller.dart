@@ -9,7 +9,6 @@ import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
 import '../../on_boarding/on_boarding_screen.dart';
 import '../Componant/otp.dart';
 
-
 class SignupController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseAuth credentials = FirebaseAuth.instance;
@@ -55,7 +54,6 @@ class SignupController extends GetxController {
         verificationId: verificationID,
         smsCode: verficationotp.value,
       );
-
       // Sign in with the credential
       final UserCredential userCredential =
           await auth.signInWithCredential(credential);
@@ -66,7 +64,6 @@ class SignupController extends GetxController {
             .collection("User Information")
             .doc(phone)
             .get();
-
         if (userData.exists) {
           await verifyPhone(phone);
           Get.to(() => OtpScreen(phoneNumber: phone));
@@ -125,10 +122,8 @@ class SignupController extends GetxController {
         smsCode: otp,
       );
 
-      // Sign in with the credential to verify the OTP
       UserCredential userCredential =
           await auth.signInWithCredential(credential);
-
       if (userCredential.user != null) {
         if (name.value != '' &&
             phoneNumber.value.toString() != '' &&
@@ -139,8 +134,7 @@ class SignupController extends GetxController {
             'email': email.value,
             'phoneNumber': phoneNumber.value.toString(),
             'password': password.value,
-            'uid':
-                userCredential.user!.uid, // Use the UID from the signed-in user
+            'uid': userCredential.user!.uid,
           };
 
           await FirebaseFirestore.instance
@@ -151,14 +145,16 @@ class SignupController extends GetxController {
             Get.to(() => const OnBoardingScreen());
             await UserPreference.setIsLoggedIn(true);
             await UserPreference.setUserId(phoneNumber.value.toString());
+          }).then((value) {
+            Get.snackbar(
+              'Success',
+              'Your account has been created',
+              backgroundColor: Colors.greenAccent,
+              duration: const Duration(seconds: 1),
+            );
+            Get.to(Routes.homeScreen);
+            authState.value = 'Phone number verified successfully';
           });
-
-          Get.snackbar(
-            'Success',
-            'Your account has been created',
-            backgroundColor: Colors.greenAccent,
-            duration: const Duration(seconds: 1),
-          );
         } else if (password.value != checkpassword.value) {
           Get.snackbar(
             'Error',
@@ -167,10 +163,6 @@ class SignupController extends GetxController {
             duration: const Duration(seconds: 3),
           );
         }
-
-        // Proceed to the HomeScreen after successful sign-up
-        Get.to(Routes.homeScreen);
-        authState.value = 'Phone number verified successfully';
       } else {
         // Handle the case where the OTP is incorrect
         Get.snackbar(
