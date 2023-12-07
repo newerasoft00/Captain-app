@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/modules/profile/controller/profile_controller.dart';
 import 'package:sportsbet/app/modules/profile/controller/image_picker_controller.dart';
-import 'package:sportsbet/app/widgets/custom_appbar.dart';
 import '../../routes/routes.dart';
 import '../../translations/local_controller.dart';
 import '../../utils/Core/helper/shared_preference/shared_preference.dart';
@@ -19,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  MyLocalController localController = Get.find();
+    MyLocalController localController = Get.find();
     final ThemeController themeController = Get.find<ThemeController>();
     final ImagePickerController imageController = Get.find();
 
@@ -30,9 +29,9 @@ class ProfileScreen extends StatelessWidget {
     imageController.initImage();
 
     return Scaffold(
-      appBar: CustomAppBar(
-        isBackButtonExist: false,
-        title: 'Account'.tr,
+      appBar: AppBar(
+        title: Text('Account'.tr),
+        centerTitle: true,
       ),
       body: Obx(
         () {

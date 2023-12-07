@@ -9,11 +9,11 @@ class ColorTeal {
 }
  
 class ColorTealDark {
-  static Color primaryColor = const Color(0xff53DBCA);
-  static Color onPrimaryColor = const Color(0xFF003732);
-  static Color primaryContainer = const Color(0xFF005048);
+  static Color primaryColor = const Color(0xFF8ACEFF);
+  static Color onPrimaryColor = const Color(0xFF00344D);
+  static Color primaryContainer = const Color(0xFF000A46);
   static Color onPrimaryContainer = const Color(0xFF92F4E5);
-  static Color secoundaryContainer = const Color(0xff334B47);
+  static Color secoundaryContainer = const Color(0xFF004C6E);
   static Color tertiary = const Color(0xFFADCAE6);
   static Color onTertiary = const Color(0xFF153349);
   static Color tertiaryContainer = const Color(0xFF2D4961);

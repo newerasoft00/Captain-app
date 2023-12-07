@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../utils/Core/themes/app_text_theme.dart';
 
@@ -36,7 +37,8 @@ class CustomText extends StatelessWidget {
       style: style?.copyWith(color: textColor) ??
           poppinsMedium.copyWith(
             fontWeight: FontWeight.w500,
-            color: textColor ?? Colors.white,
+            color:
+                context.isDarkMode ? textColor ?? Colors.white : Colors.black,
           ),
     );
   }

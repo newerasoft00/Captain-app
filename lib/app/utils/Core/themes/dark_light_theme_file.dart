@@ -134,7 +134,7 @@ ThemeData dark = ThemeData(
     onTertiary: ColorTealDark.onTertiary,
     tertiaryContainer: ColorTealDark.tertiaryContainer,
     onTertiaryContainer: ColorTealDark.onTertiaryContainer,
-    background: const Color(0xff191C1B),
+    background: const Color(0xFF191C1E),
     onBackground: const Color(0xffE0E3E1),
     brightness: Brightness.dark,
   ),
@@ -166,9 +166,9 @@ ThemeData dark = ThemeData(
         color: ColorTealDark.primaryColor,
         fontSize: 20,
         fontWeight: FontWeight.w600),
-    backgroundColor: const Color(0xff1D2A28),
+    backgroundColor: const Color(0xFF191C1E),
     scrolledUnderElevation: 0,
-    surfaceTintColor: const Color(0xff1D2A28),
+    surfaceTintColor: const Color(0xFF191C1E),
     elevation: 0,
   ),
   listTileTheme: ListTileThemeData(
@@ -208,7 +208,7 @@ ThemeData dark = ThemeData(
     selectedItemColor: ColorTealDark.onPrimaryContainer,
     unselectedItemColor: const Color(0xff9D9D9E),
     // Unselected icon color
-    backgroundColor: const Color(0xff1D2A28),
+    backgroundColor: const Color(0xFF191C1E),
     selectedLabelStyle: const TextStyle(
       color: Colors.white,
     ),

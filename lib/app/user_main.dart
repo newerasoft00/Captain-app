@@ -8,7 +8,6 @@ import 'routes/routes.dart';
 import 'utils/Core/themes/dark_light_theme_file.dart';
 import 'utils/Core/themes/theme_controller.dart';
 
-
 class UserApp extends StatelessWidget {
   final ThemeController themeController = Get.put(ThemeController());
 
@@ -41,10 +40,8 @@ class UserApp extends StatelessWidget {
       locale: locale,
       translations: MyLocal(),
       getPages: Routes.getPages,
-      initialRoute: UserPreference.isLoggedIn()
-          ? Routes.homeScreen
-          : Routes.loginscreen,
-
+      initialRoute:
+          UserPreference.isLoggedIn() ? Routes.homeScreen : Routes.loginscreen,
     );
   }
 }

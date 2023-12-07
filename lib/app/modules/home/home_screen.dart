@@ -9,11 +9,10 @@ import '../bet_league/bet_league.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-   HomeScreen({
+  HomeScreen({
     super.key,
   });
-    final HomeController controller = Get.find();
-
+  final HomeController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class HomeScreen extends StatelessWidget {
       MatchesScreen(),
       RoshnStandingsPage(),
       const BetLeague(),
-       ProfileScreen(),
+      ProfileScreen(),
     ];
 
     return Scaffold(

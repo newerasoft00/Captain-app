@@ -56,7 +56,6 @@ class RoshnStandingsPage extends StatelessWidget {
     return Tab(
       child: Text(
         title,
-        softWrap: true,
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w500,
@@ -107,22 +106,18 @@ class RoshnStandingsPage extends StatelessWidget {
               textColor: Theme.of(Get.context!).colorScheme.onSurface,
             ),
           ),
-          title: Padding(
-            padding: const EdgeInsets.only(right: 3),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('G'.tr),
-                Text('W'.tr),
-                Text('D'.tr),
-                Text('L'.tr),
-                Text('GF'.tr),
-                Text('Pts'.tr),
-              ],
-            ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('G'.tr),
+              Text('W'.tr),
+              Text('D'.tr),
+              Text('L'.tr),
+              Text('GF'.tr),
+              Text('Pts'.tr),
+            ],
           ),
         ),
-        const SizedBox(height: 10),
       ],
     );
   }
@@ -158,19 +153,16 @@ class RoshnStandingsPage extends StatelessWidget {
               ],
             ),
           ),
-          title: Padding(
-            padding: const EdgeInsets.only(right: 3),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(standing.standingP.toString()),
-                Text(standing.standingW.toString()),
-                Text(standing.standingD.toString()),
-                Text(standing.standingL.toString()),
-                Text(standing.standingGD.toString()),
-                Text(standing.standingPTS.toString()),
-              ],
-            ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(standing.standingP.toString()),
+              Text(standing.standingW.toString()),
+              Text(standing.standingD.toString()),
+              Text(standing.standingL.toString()),
+              Text(standing.standingGD.toString()),
+              Text(standing.standingPTS.toString()),
+            ],
           ),
         );
       },

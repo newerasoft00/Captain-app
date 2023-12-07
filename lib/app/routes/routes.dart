@@ -46,14 +46,13 @@ class Routes {
     GetPage(
       binding: HomeBindiings(),
       name: Routes.homeScreen,
-      page: () =>  HomeScreen(),
+      page: () => HomeScreen(),
     ),
     GetPage(
         binding: StandingBinding(),
         name: Routes.standingsScreen,
         page: () => const StandingsScreen(),
         transition: Transition.fadeIn),
-
     GetPage(
         name: Routes.feedbackScreen,
         binding: FeedBackBinding(),
@@ -66,7 +65,6 @@ class Routes {
         binding: VideoBinding(),
         page: () => const VideoScreen(),
         transition: Transition.fadeIn),
-
     GetPage(
       name: Routes.betLeague,
       page: () => const BetLeague(),
