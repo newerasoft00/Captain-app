@@ -73,10 +73,7 @@ class RoshnTopScorersPage extends GetView<TopScorerController> {
                       5.ph,
                       CustomText(
                         title: 'Assists: ${topScorer.assists}',
-                        textColor: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.5),
+                        textColor: Theme.of(context).colorScheme.onSurface,
                       ),
                     ],
                   ),
