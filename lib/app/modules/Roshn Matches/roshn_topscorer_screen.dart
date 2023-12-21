@@ -46,12 +46,8 @@ class RoshnTopScorersPage extends GetView<TopScorerController> {
                       ),
                     ),
                   ),
-                  title: Text(
-                    topScorer.playerName,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                  title: CustomText(
+                    title: topScorer.playerName,
                   ),
                   subtitle: Text(
                     topScorer.teamName,

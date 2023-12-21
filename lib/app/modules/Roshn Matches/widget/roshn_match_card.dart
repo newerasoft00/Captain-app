@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
 import 'package:sportsbet/app/widgets/custom_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
@@ -40,7 +41,9 @@ class RoshnMatchCard extends StatelessWidget {
           const Spacer(),
           CustomText(
             title: teamName,
-            textColor: Theme.of(Get.context!).colorScheme.onSurface,
+            style: poppinsMedium.copyWith(
+              color: Theme.of(Get.context!).colorScheme.onSurface,
+            ),
             wrapWords: true,
             minFontSize: 12,
             maxFontSize: 14,
@@ -85,7 +88,9 @@ class RoshnMatchCard extends StatelessWidget {
           5.pw,
           CustomText(
             title: teamName,
-            textColor: Theme.of(Get.context!).colorScheme.onSurface,
+            style: poppinsMedium.copyWith(
+              color: Theme.of(Get.context!).colorScheme.onSurface,
+            ),
             wrapWords: true,
             minFontSize: 12,
             maxFontSize: 14,
@@ -114,14 +119,18 @@ class RoshnMatchCard extends StatelessWidget {
     return fixture.eventLive == '0'
         ? CustomText(
             title: fixture.eventDate,
-            textColor: Theme.of(Get.context!).colorScheme.onSurface,
+            style: poppinsMedium.copyWith(
+              color: Theme.of(Get.context!).colorScheme.onSurface,
+            ),
             minFontSize: 11,
             maxFontSize: 13,
           )
         : Obx(
             () => CustomText(
               title: fixture.eventLive,
-              textColor: Theme.of(Get.context!).colorScheme.onSurface,
+              style: poppinsMedium.copyWith(
+                color: Theme.of(Get.context!).colorScheme.onSurface,
+              ),
               minFontSize: 12,
               maxFontSize: 13,
               wrapWords: true,
@@ -133,7 +142,9 @@ class RoshnMatchCard extends StatelessWidget {
     return fixture.eventFinalResult == "-"
         ? CustomText(
             title: formatTime(fixture.eventTime),
-            textColor: Theme.of(Get.context!).colorScheme.onSurface,
+            style: poppinsMedium.copyWith(
+              color: Theme.of(Get.context!).colorScheme.onSurface,
+            ),
             minFontSize: 16,
             maxFontSize: 17,
           )
@@ -144,7 +155,9 @@ class RoshnMatchCard extends StatelessWidget {
                 : context.width * 0.06,
             child: CustomText(
               title: fixture.eventFinalResult,
-              textColor: Theme.of(Get.context!).colorScheme.onSurface,
+              style: poppinsMedium.copyWith(
+                color: Theme.of(Get.context!).colorScheme.onSurface,
+              ),
               minFontSize: 15,
               maxFontSize: 16,
             ),

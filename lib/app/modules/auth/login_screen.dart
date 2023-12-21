@@ -6,8 +6,8 @@ import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
 import 'package:sign_in_button/sign_in_button.dart';
-
-import '../../utils/Core/helper/shared_preference/shared_preference.dart';
+import 'package:sportsbet/app/utils/Core/helper/log_printer.dart';
+import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
 import '../../routes/routes.dart';
 import 'Componant/otp.dart';
 import 'Componant/terms_of_use.dart';
@@ -54,11 +54,18 @@ class LoginScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(
-                          color: Theme.of(context).colorScheme.primary)),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .secondary
+                              .withOpacity(0.3))),
                   child: Padding(
                     padding: const EdgeInsets.all(5),
                     child: IntlPhoneField(
                       pickerDialogStyle: PickerDialogStyle(
+                        countryNameStyle: poppinsMedium.copyWith(
+                            color: Theme.of(context).colorScheme.secondary),
+                        countryCodeStyle: poppinsMedium.copyWith(
+                            color: Theme.of(context).colorScheme.secondary),
                         backgroundColor:
                             Theme.of(context).colorScheme.onPrimary,
                       ),
@@ -75,6 +82,7 @@ class LoginScreen extends StatelessWidget {
                       onChanged: (phone) {
                         signupController.phoneNumber.value =
                             phone.completeNumber.toString();
+                        logError(signupController.phoneNumber.value);
                       },
                     ),
                   ),
@@ -84,39 +92,25 @@ class LoginScreen extends StatelessWidget {
                   width: Get.width,
                   height: 45,
                   child: Obx(() => ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          disabledBackgroundColor: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.3),
-                          backgroundColor: Theme.of(context).cardColor,
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
                         onPressed: controller.termsAgree.value == true
                             ? () async {
-                                controller.presssignin.value = true;
+                                controller.toggleSignup();
                                 if (signupController.phoneNumber.value != '') {
-                                  UserPreference.setUserId(
-                                      controller.phoneNumber.value);
-                                  final bool isExistingUser =
-                                      await signupController
-                                          .signInWithPhoneNumber(
-                                              controller.phoneNumber.value);
-                                  if (isExistingUser) {
+                                  final bool isOTPSent =
+                                      await signupController.verifyPhone(
+                                          signupController.phoneNumber.value);
+
+                                  if (isOTPSent) {
                                     Get.to(() => OtpScreen(
                                           phoneNumber: signupController
                                               .phoneNumber.value,
+                                          isSignIn: true,
                                         ));
-                                    controller.presssignin.value = false;
                                   } else {
                                     signupController.showSnakBar();
-                                    controller.presssignin.value = false;
                                   }
                                 }
-                                controller.presssignin.value = false;
+                                controller.toggleSignup();
                               }
                             : null,
                         child: Obx(() {
@@ -201,15 +195,16 @@ class LoginScreen extends StatelessWidget {
                                     }
                                   : () {},
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
+                                borderRadius: BorderRadius.circular(10),
                               ),
+                              elevation: 0,
                               backgroundColor:
                                   controller.termsAgree.value == true
-                                      ? Theme.of(context).cardColor
+                                      ? Theme.of(context).colorScheme.secondary
                                       : Theme.of(context)
                                           .colorScheme
-                                          .primary
-                                          .withOpacity(0.3),
+                                          .onSurface
+                                          .withOpacity(0.15),
                             )),
                 ),
                 20.ph,

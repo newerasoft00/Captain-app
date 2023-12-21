@@ -23,6 +23,9 @@
         android:label="Roshan Bet"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8702457312612892~9527106858"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

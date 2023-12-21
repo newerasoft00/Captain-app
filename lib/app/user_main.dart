@@ -5,7 +5,6 @@ import 'translations/local.dart';
 import 'translations/local_controller.dart';
 import 'utils/Core/helper/shared_preference/shared_preference.dart';
 import 'routes/routes.dart';
-import 'utils/Core/themes/dark_light_theme_file.dart';
 import 'utils/Core/themes/theme_controller.dart';
 
 class UserApp extends StatelessWidget {
@@ -25,8 +24,8 @@ class UserApp extends StatelessWidget {
 
     return GetMaterialApp(
       navigatorKey: Get.key,
-      theme: light,
-      darkTheme: dark,
+      darkTheme: themeController.themes[themeController.selectedThemeIndex.value],
+      theme: themeController.themes[themeController.selectedThemeIndex.value],
       defaultTransition: Transition.rightToLeft,
       transitionDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,

@@ -6,20 +6,23 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:sportsbet/app/utils/Core/helper/log_printer.dart';
+import 'package:sportsbet/app/widgets/custom_appbar.dart';
 
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
 import '../cotroller/signup_controller.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key, required this.phoneNumber});
+  const OtpScreen({super.key, required this.phoneNumber, required this.isSignIn});
 
   final String phoneNumber;
-
+  final bool isSignIn;
   @override
   Widget build(BuildContext context) {
     final c = Get.put(SignupController());
 
     return Scaffold(
+      appBar: const CustomAppBar(title: ''),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -62,7 +65,7 @@ class OtpScreen extends StatelessWidget {
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back_ios),
                       onPressed: () {
-                        c.presssignup.value = false;
+                         c.presssignup.value = false;
                         c.stopTimer();
                         Get.back();
                       },
@@ -126,7 +129,8 @@ class OtpScreen extends StatelessWidget {
               outlineBorderRadius: Get.width * 0.09,
               onCompleted: (pin) async {
                 c.verficationotp.value = pin;
-                await c.verifyOTP(pin);
+                logError('compelet');
+                isSignIn? await c.signInAfterOTPVerification(pin):  await c.verifyOTP(pin);
                 await UserPreference.setUserId(c.phoneNumber.value.toString());
               },
             ),

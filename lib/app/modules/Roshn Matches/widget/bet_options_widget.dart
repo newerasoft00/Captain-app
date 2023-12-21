@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/modules/Roshn%20Matches/model/game_weak.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
 import 'package:sportsbet/app/widgets/custom_text.dart';
 
 import '../../../data/service/bet/get_user_bet.dart';
@@ -265,10 +266,10 @@ class BetOptionsWidget extends StatelessWidget {
                               child: Obx(
                                 () => Card(
                                   color: !controller.homebetted.value
-                                      ? Theme.of(context).colorScheme.secondary
+                                      ? Theme.of(context).cardColor
                                       : Theme.of(context)
-                                          .colorScheme
-                                          .primaryContainer,
+                                          .appBarTheme
+                                          .backgroundColor,
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -276,6 +277,7 @@ class BetOptionsWidget extends StatelessWidget {
                                     children: [
                                       CustomText(
                                         title: fixture.eventHomeTeam,
+                                        isBlack: !controller.homebetted.value,
                                         //fit: BoxFit.cover,
                                       ),
                                     ],
@@ -296,10 +298,10 @@ class BetOptionsWidget extends StatelessWidget {
                             child: Obx(
                               () => Card(
                                 color: !controller.awaybetted.value
-                                    ? Theme.of(context).colorScheme.secondary
+                                    ? Theme.of(context).cardColor
                                     : Theme.of(context)
-                                        .colorScheme
-                                        .primaryContainer,
+                                        .appBarTheme
+                                        .backgroundColor,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -307,6 +309,7 @@ class BetOptionsWidget extends StatelessWidget {
                                   children: [
                                     CustomText(
                                       title: fixture.eventAwayTeam,
+                                      isBlack: !controller.awaybetted.value,
                                       //fit: BoxFit.cover,
                                     ),
                                   ],
@@ -328,16 +331,19 @@ class BetOptionsWidget extends StatelessWidget {
                               child: Obx(
                                 () => Card(
                                   color: !controller.drawbetted.value
-                                      ? Theme.of(context).colorScheme.secondary
+                                      ? Theme.of(context).cardColor
                                       : Theme.of(context)
-                                          .colorScheme
-                                          .primaryContainer,
-                                  child: const Row(
+                                          .appBarTheme
+                                          .backgroundColor,
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      CustomText(title: 'Drawing'),
+                                      CustomText(
+                                        title: 'Drawing',
+                                        isBlack: !controller.drawbetted.value,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -350,11 +356,12 @@ class BetOptionsWidget extends StatelessWidget {
                                 padding: const EdgeInsets.all(10),
                                 child: SizedBox(
                                   width: Get.width,
+                                  height: context.height * 0.07,
                                   child: Row(
                                     children: [
                                       const Spacer(),
                                       Expanded(
-                                        flex: 2,
+                                        flex: 3,
                                         child: Center(
                                           child: TextFormField(
                                             autovalidateMode: AutovalidateMode
@@ -373,19 +380,27 @@ class BetOptionsWidget extends StatelessWidget {
                                                   .digitsOnly
                                             ],
                                             decoration: InputDecoration(
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onSurface
+                                                          .withOpacity(0.1))),
                                               hintText: fixture.eventHomeTeam,
+                                              hintStyle: poppinsMedium.copyWith(
+                                                  fontSize: 15),
                                               counterText: '',
                                               border: const OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.all(
-                                                          Radius.circular(20))),
+                                                          Radius.circular(10))),
                                             ),
                                           ),
                                         ),
                                       ),
                                       const Spacer(),
                                       Expanded(
-                                        flex: 2,
+                                        flex: 3,
                                         child: Center(
                                           child: TextFormField(
                                             onChanged: (value) {
@@ -404,12 +419,20 @@ class BetOptionsWidget extends StatelessWidget {
                                                   .digitsOnly
                                             ],
                                             decoration: InputDecoration(
+                                              hintStyle: poppinsMedium.copyWith(
+                                                  fontSize: 15),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onSurface
+                                                          .withOpacity(0.1))),
                                               hintText: fixture.eventAwayTeam,
                                               counterText: '',
                                               border: const OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.all(
-                                                          Radius.circular(20))),
+                                                          Radius.circular(10))),
                                             ),
                                           ),
                                         ),
@@ -431,14 +454,6 @@ class BetOptionsWidget extends StatelessWidget {
                       width: Get.width,
                       height: 45,
                       child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.secondary,
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
                           onPressed: () async {
                             if (formKey.currentState!.validate() &&
                                 controller.userChoicescore1.value != '' &&

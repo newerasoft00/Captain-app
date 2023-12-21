@@ -7,6 +7,7 @@ class LiveMatchController extends GetxController {
   final liveMatches = <LiveMatch>[].obs;
   final rliveMatches = <LiveMatch>[].obs;
   final liveMatchesTime = <LiveMatch>[].obs;
+  List<Object> matchesWithAd = <Object>[].obs;
   Timer? _updateTimer; // Declare a Timer variable
 
   @override
@@ -25,6 +26,7 @@ class LiveMatchController extends GetxController {
       // print("Error fetching live matches: $e");
     }
   }
+
   void fetchRpshnLiveMatches() async {
     final LiveMatchService service = Get.put(LiveMatchService());
     try {

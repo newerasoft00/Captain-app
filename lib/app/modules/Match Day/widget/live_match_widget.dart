@@ -18,8 +18,8 @@ class LiveMatchWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       child: Card(
-        elevation: 0,
-        color: Theme.of(context).cardColor.withOpacity(0.1),
+        elevation: 0.5,
+        color: Theme.of(context).cardColor,
         child: Padding(
           padding: const EdgeInsets.all(2),
           child: Column(

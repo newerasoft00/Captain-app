@@ -64,6 +64,8 @@
 		<key>UIStatusBarHidden</key>
 		<false/>
 		<key>LSApplicationQueriesSchemes</key>
+		<key>GADApplicationIdentifier</key>
+		<string>ca-app-pub-8702457312612892~9527106858</string>
 		<array>
 			<string>tel</string>
 		</array>

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:sportsbet/app/utils/Core/helper/log_printer.dart';
 
 import '../model/round_standing_model.dart';
 
@@ -84,9 +85,8 @@ class OverallBetPointController extends GetxController {
     try {
       final userDocRef = firestore.collection('User Information').doc(userID);
       await userDocRef.update({'total_bet_point': newAppearanceCount});
-      if (kDebugMode) {
-        print('Updated appearance count for user $userID: $newAppearanceCount');
-      }
+      logError(
+          'Updated appearance count for user $userID: $newAppearanceCount');
     } catch (e) {
       if (kDebugMode) {
         print('Error updating total_bet_point: $e');

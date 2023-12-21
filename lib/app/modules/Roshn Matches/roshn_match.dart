@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sportsbet/app/modules/Animation%20Controller/animation_controller.dart';
 import 'package:sportsbet/app/modules/Roshn%20Matches/controller/roshn_match_controller.dart';
 import 'package:sportsbet/app/modules/Vote/best_goals_screen.dart';
@@ -8,9 +9,9 @@ import 'package:sportsbet/app/modules/Vote/widget/animated_icon_button.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
 import '../../../../app/modules/Vote/widget/banner_widget.dart';
 import '../../utils/Core/themes/theme_controller.dart';
-import '../../utils/Core/utils/text_style.dart';
 import 'controller/bet_controller.dart';
 import 'model/game_weak.dart';
+import 'widget/banner_ad_widget.dart';
 import 'widget/roshn_match_card.dart';
 
 class RoshnMatchesPage extends StatefulWidget {
@@ -85,11 +86,7 @@ class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
                           // Ensure that 'value' matches the selectedRound value
                           child: Text(value,
                               softWrap: true,
-                              style: Get.isDarkMode
-                                  ? CustomTextTheme()
-                                      .getDarkTextTheme()
-                                      .bodyLarge
-                                  : CustomTextTheme().getTextTheme().bodyLarge),
+                              style: Theme.of(context).textTheme.bodyLarge),
                         );
                       }).toList(),
                     ))),
@@ -105,8 +102,11 @@ class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
                   controller.fetchData();
                 },
                 child: Center(
-                  child: Image.asset(
-                    'assets/Image/loading.png',
+                  child: LoadingAnimationWidget.discreteCircle(
+                    color: const Color(0xFFE83839),
+                    secondRingColor: const Color(0xff018677),
+                    thirdRingColor: const Color(0xFF0028F0),
+                    size: context.width * 0.13,
                   ),
                 ));
           } else {
@@ -157,9 +157,6 @@ class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
                             },
                             child: Card(
                                 elevation: 0,
-                                color: Theme.of(context)
-                                    .cardColor
-                                    .withOpacity(0.1),
                                 child: RoshnMatchCard(fixture: fixture)),
                           );
                         },
@@ -172,6 +169,7 @@ class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
           }
         },
       ),
+      // bottomNavigationBar: const BannerAdWidget(),
     );
   }
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
+import 'package:sportsbet/app/widgets/custom_text.dart';
 
+import '../Roshn Matches/widget/banner_ad_widget.dart';
 import 'widget/overall_widget.dart';
 import 'widget/round_widget.dart';
 
@@ -16,7 +19,11 @@ class BetLeague extends StatelessWidget {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                title: Text('Bet League'.tr),
+                title: CustomText(
+                  title: 'Bet League'.tr,
+                  style: poppinsMedium.copyWith(
+                      color: Theme.of(context).colorScheme.surface),
+                ),
                 centerTitle: true,
                 pinned: true,
                 floating: true,
@@ -26,19 +33,17 @@ class BetLeague extends StatelessWidget {
                   dividerColor: Theme.of(context).colorScheme.secondary,
                   tabs: [
                     Tab(
-                      child: Text(
-                        'Overall Rank'.tr,
-                        softWrap: true,
-                        style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w500),
+                      child: CustomText(
+                        title: 'Overall Rank'.tr,
+                        style: poppinsMedium.copyWith(
+                            color: Theme.of(context).colorScheme.surface),
                       ),
                     ),
                     Tab(
-                      child: Text(
-                        'Round Rank'.tr,
-                        softWrap: true,
-                        style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w500),
+                      child: CustomText(
+                        title: 'Round Rank'.tr,
+                        style: poppinsMedium.copyWith(
+                            color: Theme.of(context).colorScheme.surface),
                       ),
                     ),
                   ],
@@ -50,6 +55,7 @@ class BetLeague extends StatelessWidget {
             children: [UserAppearanceCountsPage(), RoundStandingWidget()],
           ),
         ),
+        // bottomNavigationBar: const BannerAdWidget(),
       ),
     );
   }

@@ -59,20 +59,19 @@ class RoundStandingWidget extends GetView<OverallBetPointController> {
                           children: [
                             ListTile(
                               leading: const SizedBox.shrink(),
-                              title: Text(
-                                'Name'.tr,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              trailing: Text(
-                                'Round Point'.tr,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              title: Text('Name'.tr,
+                                  style: poppinsMedium.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer)),
+                              trailing: Text('Round Point'.tr,
+                                  style: poppinsMedium.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer)),
                             ),
-                            const Divider(),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: item.userAppearanceCounts.entries
@@ -92,6 +91,10 @@ class RoundStandingWidget extends GetView<OverallBetPointController> {
                                         .primaryContainer,
                                     child: CustomText(
                                       title: '${index + 1}',
+                                      style: poppinsMedium.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer),
                                     ),
                                   ),
                                   title: CustomText(

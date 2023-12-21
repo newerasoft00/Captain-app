@@ -37,6 +37,7 @@ class HomeScreen extends StatelessWidget {
               },
               items: [
                 BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
                   icon: const Icon(CupertinoIcons.house_alt_fill),
                   label: 'Home'.tr,
                 ),

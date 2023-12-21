@@ -28,6 +28,11 @@ void showPollBottomSheet(
                 pollId: '1',
                 pollEnded: videoController.isUserVote.value,
                 onVoted: (PollOption pollOption, int newTotalVotes) async {
+                  if (!videoController.isVoteOpen.value) {
+                    // If voting is not open, do nothing
+                    return false;
+                  }
+
                   try {
                     videoController.updateUserVote(pollOption.id.toString());
                     // After voting, fetch the updated user vote data

@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sportsbet/app/widgets/snak_bar.dart';
 import '../../../routes/routes.dart';
+import '../../../utils/Core/helper/log_printer.dart';
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
 import '../../on_boarding/on_boarding_screen.dart';
 import '../Componant/otp.dart';
@@ -32,8 +33,6 @@ class SignupController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   bool _containsSpecialCharacters(String value) {
-    // Define the list of special characters that are not allowed in the name
-
     for (var char in value.characters) {
       if (specialCharacters.contains(char)) {
         return true;
@@ -46,10 +45,10 @@ class SignupController extends GetxController {
     _timer?.cancel();
   }
 
-  // Add this method to your SignupController class
-
+// Update the signInWithPhoneNumber method
   Future<bool> signInWithPhoneNumber(String phone) async {
     try {
+      logError('Try');
       final AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationID,
         smsCode: verficationotp.value,
@@ -57,28 +56,66 @@ class SignupController extends GetxController {
       // Sign in with the credential
       final UserCredential userCredential =
           await auth.signInWithCredential(credential);
+      logError('UserCredential finish');
 
       if (userCredential.user != null) {
+        logError('not null');
         // Check if the user exists in your Firestore collection
         final DocumentSnapshot userData = await FirebaseFirestore.instance
             .collection("User Information")
             .doc(phone)
             .get();
         if (userData.exists) {
-          await verifyPhone(phone);
-          Get.to(() => OtpScreen(phoneNumber: phone));
+          logError('exists');
+          logError(phone);
+          // Verification successful, navigate to OTP screen
+          Get.to(() => OtpScreen(
+                phoneNumber: phone,
+                isSignIn: true,
+              ));
           return true;
         } else {
+          logError('not exists');
+          logError(phone);
           return false;
         }
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('Error signing in: $e');
-      }
+      logError('error login');
+      logError('Error signing in: $e');
     }
 
     return false; // Default to returning false if there's an error
+  }
+
+// Modify the verifyPhone method to return a boolean indicating success
+  Future<bool> verifyPhone(String phone) async {
+    try {
+      auth.verifyPhoneNumber(
+          phoneNumber: phone,
+          verificationCompleted: (AuthCredential authCredential) {},
+          verificationFailed: (authException) {},
+          codeSent: (String id, [int? forceResent]) {
+            verificationID = id;
+            authState.value = 'codeSent successfully';
+            _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+              countdown.value = 60 - timer.tick;
+              if (timer.tick >= 60) {
+                authState.value = 'Verification timeout';
+                timer.cancel(); // Cancel the timer
+              }
+            });
+          },
+          codeAutoRetrievalTimeout: (id) {
+            verificationID = id;
+          },
+          timeout: const Duration(seconds: 60));
+
+      return true; // Verification initiated successfully
+    } catch (e) {
+      logError('Error initiating verification: $e');
+      return false; // Verification initiation failed
+    }
   }
 
   showSnakBar() {
@@ -92,27 +129,36 @@ class SignupController extends GetxController {
   }
 
   //sent code
-  verifyPhone(String phone) async {
-    auth.verifyPhoneNumber(
-        phoneNumber: phone,
-        verificationCompleted: (AuthCredential authCredential) {},
-        verificationFailed: (authException) {},
-        codeSent: (String id, [int? forceResent]) {
-          verificationID = id;
-          authState.value = 'codeSent successfully';
-          _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-            countdown.value = 60 - timer.tick;
-            if (timer.tick >= 60) {
-              authState.value = 'Verification timeout';
-              timer.cancel(); // Cancel the timer
-            }
-          });
-        },
-        codeAutoRetrievalTimeout: (id) {
-          verificationID = id;
-        },
-        timeout: const Duration(seconds: 60));
-  }
+  // Future<bool> verifyPhone(String phone) async {
+  //   try {
+  //     await auth.verifyPhoneNumber(
+  //         // Your existing code...
+  //         phoneNumber: phone,
+  //         verificationCompleted: (AuthCredential authCredential) {},
+  //         verificationFailed: (authException) {},
+  //         codeSent: (String id, [int? forceResent]) {
+  //           verificationID = id;
+  //           authState.value = 'codeSent successfully';
+  //           _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+  //             countdown.value = 60 - timer.tick;
+  //             if (timer.tick >= 60) {
+  //               authState.value = 'Verification timeout';
+  //               timer.cancel(); // Cancel the timer
+  //             }
+  //           });
+  //         },
+  //         codeAutoRetrievalTimeout: (id) {
+  //           verificationID = id;
+  //         },
+  //         timeout: const Duration(seconds: 60));
+
+  //     return true; // Indicate that OTP was sent successfully
+  //   } catch (e) {
+  //     logError('error sending OTP');
+  //     logError('Error sending OTP: $e');
+  //     return false; // Indicate that OTP sending failed
+  //   }
+  // }
 
   //verify code
   verifyOTP(String otp) async {
@@ -125,6 +171,7 @@ class SignupController extends GetxController {
       UserCredential userCredential =
           await auth.signInWithCredential(credential);
       if (userCredential.user != null) {
+        logError('user not null');
         if (name.value != '' &&
             phoneNumber.value.toString() != '' &&
             password.value != '' &&
@@ -179,6 +226,34 @@ class SignupController extends GetxController {
         backgroundColor: Colors.redAccent,
         duration: const Duration(seconds: 5),
       );
+    }
+  }
+
+  Future<void> signInAfterOTPVerification(String otp) async {
+    try {
+      AuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationID,
+        smsCode: otp,
+      );
+
+      UserCredential userCredential =
+          await auth.signInWithCredential(credential);
+      if (userCredential.user != null) {
+        logError('user not null and try Sign in');
+        await UserPreference.setIsLoggedIn(true);
+        await UserPreference.setUserId(phoneNumber.value.toString());
+        Get.to(() => const OnBoardingScreen());
+      } else {
+        // Handle the case where the OTP is incorrect
+        Get.snackbar(
+          'Error',
+          'Invalid OTP',
+          backgroundColor: Colors.redAccent,
+          duration: const Duration(seconds: 1),
+        );
+      }
+    } catch (e) {
+      showCustomSnackBar('invaild otp $e');
     }
   }
 

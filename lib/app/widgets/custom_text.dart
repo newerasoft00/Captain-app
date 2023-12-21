@@ -1,24 +1,23 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../utils/Core/themes/app_text_theme.dart';
 
 class CustomText extends StatelessWidget {
-  const CustomText({
-    super.key,
-    required this.title,
-    this.wrapWords = true,
-    this.maxFontSize = 16,
-    this.minFontSize = 16,
-    this.overflow = TextOverflow.ellipsis,
-    this.style,
-    this.maxLine = 1,
-    this.textColor,
-  });
+  const CustomText(
+      {super.key,
+      required this.title,
+      this.wrapWords = true,
+      this.maxFontSize = 16,
+      this.minFontSize = 16,
+      this.overflow = TextOverflow.ellipsis,
+      this.style,
+      this.maxLine = 1,
+      this.textColor,
+      this.isBlack = true});
 
   final String title;
   final bool wrapWords;
+  final bool isBlack;
   final double maxFontSize;
   final double minFontSize;
   final TextOverflow overflow;
@@ -34,12 +33,12 @@ class CustomText extends StatelessWidget {
       minFontSize: minFontSize,
       maxLines: maxLine,
       overflow: overflow,
-      style: style?.copyWith(color: textColor) ??
+      style: style ??
           poppinsMedium.copyWith(
-            fontWeight: FontWeight.w500,
-            color:
-                context.isDarkMode ? textColor ?? Colors.white : Colors.black,
-          ),
+              fontWeight: FontWeight.w500,
+              color: isBlack
+                  ? Theme.of(context).colorScheme.onSurface
+                  : Theme.of(context).colorScheme.surface),
     );
   }
 }

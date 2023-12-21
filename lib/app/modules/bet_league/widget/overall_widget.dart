@@ -17,8 +17,8 @@ class UserAppearanceCountsPage extends GetView<OverallBetPointController> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
+                color: Theme.of(context).appBarTheme.backgroundColor,
                 padding: const EdgeInsets.all(16),
-                color: Theme.of(context).colorScheme.secondary,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -26,51 +26,54 @@ class UserAppearanceCountsPage extends GetView<OverallBetPointController> {
                       title: 'Standings'.tr,
                       maxFontSize: 20,
                       minFontSize: 18,
+                      style: poppinsMedium.copyWith(
+                          color: Theme.of(context).colorScheme.surface),
                     ),
                     CustomText(
                       title: 'Total Point'.tr,
+                      maxFontSize: 20,
+                      minFontSize: 18,
+                      style: poppinsMedium.copyWith(
+                          color: Theme.of(context).colorScheme.surface),
                     ),
                   ],
                 ),
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: controller.userCounts.length,
-                  itemBuilder: (context, index) {
-                    final userCount = controller.userCounts[index];
-                    return Column(
-                      children: [
-                        const Divider(
-                          indent: 20,
-                          endIndent: 20,
-                          thickness: 0.2,
-                          height: 0.3,
-                        ),
-                        ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: (index == 0 ||
-                                    index == 1 ||
-                                    index == 2)
-                                ? Theme.of(context).colorScheme.primaryContainer
-                                : Theme.of(context).cardColor.withOpacity(0.3),
-                            child: CustomText(
-                              title: '${index + 1}',
-                            ),
-                          ),
-                          title: CustomText(
-                            title: '${userCount['userId']}',
+                child: Container(
+                  color: Theme.of(context).colorScheme.surface,
+                  child: ListView.builder(
+                    itemCount: controller.userCounts.length,
+                    itemBuilder: (context, index) {
+                      final userCount = controller.userCounts[index];
+                      return ListTile(
+                        tileColor: Colors.transparent,
+                        leading: CircleAvatar(
+                          backgroundColor: (index <= 2)
+                              ? Theme.of(context).colorScheme.primaryContainer
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0.5),
+                          child: CustomText(
+                            title: '${index + 1}',
                             style: poppinsMedium.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface),
-                          ),
-                          trailing: CustomText(
-                            title: '${userCount['appearanceCount']}',
-                            style: poppinsMedium.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface),
+                                color: Theme.of(context).colorScheme.onPrimary),
                           ),
                         ),
-                      ],
-                    );
-                  },
+                        title: CustomText(
+                          title: '${userCount['userId']}',
+                          style: poppinsMedium.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface),
+                        ),
+                        trailing: CustomText(
+                          title: '${userCount['appearanceCount']}',
+                          style: poppinsMedium.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

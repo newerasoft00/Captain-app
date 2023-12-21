@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/modules/Vote/widget/buttom_sheet_widget.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
 import 'package:sportsbet/app/widgets/custom_appbar.dart';
 import 'package:sportsbet/app/widgets/custom_text.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -77,14 +78,17 @@ class VideoScreen extends StatelessWidget {
             40.ph,
             Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: MaterialButton(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.9),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50)),
                   onPressed: () {
                     showPollBottomSheet(context, controller);
                   },
                   child: CustomText(
                     title: 'Choose Now'.tr,
                     wrapWords: true,
+                    style: poppinsMedium.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
                     maxFontSize: 18,
                     minFontSize: 16,
                   ),

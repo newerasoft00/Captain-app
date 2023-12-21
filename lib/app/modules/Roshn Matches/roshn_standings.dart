@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sportsbet/app/modules/Roshn%20Matches/controller/roshn_standings_controller.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
 import 'package:sportsbet/app/widgets/custom_text.dart';
+import '../../utils/Core/themes/app_text_theme.dart';
 import '../../utils/Core/themes/theme_controller.dart';
 import 'roshn_topscorer_screen.dart';
 
@@ -43,6 +43,7 @@ class RoshnStandingsPage extends StatelessWidget {
       centerTitle: true,
       pinned: true,
       floating: true,
+      snap: true,
       bottom: TabBar(
         tabs: [
           _buildTab('Standings'.tr),
@@ -96,29 +97,47 @@ class RoshnStandingsPage extends StatelessWidget {
   }
 
   Widget _buildStandingsHeader() {
-    return Column(
-      children: [
-        ListTile(
-          leading: SizedBox(
-            width: Get.width * 0.40,
-            child: CustomText(
-              title: 'Teams'.tr,
-              textColor: Theme.of(Get.context!).colorScheme.onSurface,
-            ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('G'.tr),
-              Text('W'.tr),
-              Text('D'.tr),
-              Text('L'.tr),
-              Text('GF'.tr),
-              Text('Pts'.tr),
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: ListTile(
+        tileColor: Theme.of(Get.context!).colorScheme.primary,
+        leading: SizedBox(
+          width: Get.width * 0.40,
+          child: CustomText(
+            title: 'Teams'.tr,
+            isBlack: false,
           ),
         ),
-      ],
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomText(
+              title: 'G'.tr,
+              isBlack: false,
+            ),
+            CustomText(
+              title: 'W'.tr,
+              isBlack: false,
+            ),
+            CustomText(
+              title: 'D'.tr,
+              isBlack: false,
+            ),
+            CustomText(
+              title: 'L'.tr,
+              isBlack: false,
+            ),
+            CustomText(
+              title: 'GF'.tr,
+              isBlack: false,
+            ),
+            CustomText(
+              title: 'Pts'.tr,
+              isBlack: false,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -129,40 +148,53 @@ class RoshnStandingsPage extends StatelessWidget {
       itemCount: sportsController.standings.length,
       itemBuilder: (context, index) {
         var standing = sportsController.standings[index];
-        return ListTile(
-          leading: SizedBox(
-            width: Get.width * 0.40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+        return Padding(
+          padding: const EdgeInsets.all(3),
+          child: ListTile(
+            leading: SizedBox(
+              width: Get.width * 0.40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: CustomText(
+                      title: "${standing.standingPlace}",
+                      minFontSize: 14,
+                      maxFontSize: 16,
+                      style: poppinsMedium.copyWith(
+                        color: Theme.of(Get.context!).colorScheme.onSurface,
+                      ),
+                    ),
+                  ),
+                  Expanded(flex: 3, child: _buildTeamLogo(standing.teamLogo)),
+                  Expanded(
+                    flex: 5,
+                    child: CustomText(
+                      title: standing.standingTeam,
+                      minFontSize: 14,
+                      maxFontSize: 16,
+                      style: poppinsMedium.copyWith(
+                        color: Theme.of(Get.context!).colorScheme.onSurface,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomText(
-                  title: "${standing.standingPlace}",
-                  textColor: Theme.of(Get.context!).colorScheme.onSurface,
-                  minFontSize: 14,
-                  maxFontSize: 16,
+                  title: standing.standingP.toString(),
                 ),
-                3.pw,
-                _buildTeamLogo(standing.teamLogo),
-                3.pw,
-                CustomText(
-                  title: standing.standingTeam,
-                  textColor: Theme.of(Get.context!).colorScheme.onSurface,
-                  minFontSize: 14,
-                  maxFontSize: 16,
-                ),
+                CustomText(title: standing.standingW.toString()),
+                CustomText(title: standing.standingD.toString()),
+                CustomText(title: standing.standingL.toString()),
+                CustomText(title: standing.standingGD.toString()),
+                CustomText(title: standing.standingPTS.toString()),
               ],
             ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(standing.standingP.toString()),
-              Text(standing.standingW.toString()),
-              Text(standing.standingD.toString()),
-              Text(standing.standingL.toString()),
-              Text(standing.standingGD.toString()),
-              Text(standing.standingPTS.toString()),
-            ],
           ),
         );
       },
@@ -172,10 +204,16 @@ class RoshnStandingsPage extends StatelessWidget {
   Widget _buildTeamLogo(String teamLogoUrl) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: CachedNetworkImage(
-        imageUrl: teamLogoUrl,
-        placeholder: (context, url) => const CircularProgressIndicator(),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
+      child: CircleAvatar(
+        radius: 25,
+        backgroundColor: Theme.of(Get.context!).colorScheme.onPrimary,
+        child: CachedNetworkImage(
+          width: 24,
+          imageUrl: teamLogoUrl,
+          placeholder: (context, url) =>
+              const CircularProgressIndicator.adaptive(),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+        ),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/widgets/custom_appbar.dart';
+import 'package:sportsbet/app/widgets/custom_text.dart';
 
 import 'controller/profile_controller.dart';
 import 'controller/user_bet_history_controller.dart';
@@ -14,13 +15,13 @@ class UserBetHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'Bet History',
+      appBar: CustomAppBar(
+        title: 'Bet History'.tr,
       ),
       body: Obx(
         () => _controller.betHistory.isEmpty
-            ? const Center(
-                child: Text('No bet history available.'),
+            ? Center(
+                child: Text('No bet history available.'.tr),
               )
             : Column(
                 children: [
@@ -36,7 +37,8 @@ class UserBetHistoryScreen extends StatelessWidget {
                         height: context.height * 0.2,
                         child: Center(
                             child: AutoSizeText(
-                          'Total Bet Point : ${pc.userinformation!.totalBetPoint.toString()}',
+                          'Total Bet Point : ${pc.userInformation!.totalBetPoint.toString()}'
+                              .tr,
                           style: TextStyle(
                               fontSize: 22,
                               color: Theme.of(context).colorScheme.onPrimary),
@@ -62,12 +64,16 @@ class UserBetHistoryScreen extends StatelessWidget {
                             final bets = _controller.betHistory[index];
                             return Card(
                               elevation: 0,
-                              color:
-                                  Theme.of(context).cardColor.withOpacity(0.17),
-                              child: ListTile(
-                                leading: Text('${index + 1}'),
-                                title: Text(bets['teams'].toString()),
-                                trailing: Text(bets['match_score'].toString()),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: ListTile(
+                                  leading: CustomText(title: '${index + 1}'),
+                                  title: CustomText(
+                                      title: bets['teams'].toString()),
+                                  trailing: CustomText(
+                                      title: bets['match_score'].toString()),
+                                ),
                               ),
                             );
                           },

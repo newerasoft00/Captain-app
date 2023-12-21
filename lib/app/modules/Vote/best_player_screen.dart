@@ -5,6 +5,7 @@ import 'package:flutter_polls/flutter_polls.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
 import 'package:sportsbet/app/widgets/custom_appbar.dart';
+import 'package:sportsbet/app/widgets/snak_bar.dart';
 
 import 'controller/vote_controller.dart';
 
@@ -26,8 +27,14 @@ class VotePage extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Obx(() => FlutterPolls(
                   pollId: '1',
-                  pollEnded: voteController.isUserVote.value,
+                  pollEnded: (voteController.isUserVote.value ||
+                      !voteController.isVoteOpen.value),
                   onVoted: (PollOption pollOption, int newTotalVotes) async {
+                    if (!voteController.isVoteOpen.value) {
+                      showCustomSnackBar('Vote has been finished');
+                      return false;
+                    }
+
                     try {
                       voteController.updateUserVote(pollOption.id.toString());
                       // After voting, fetch the updated user vote data

@@ -48,6 +48,9 @@ dependencies:
   flutter_polls: ^0.1.5
   youtube_player_flutter: ^8.1.2
   sign_in_button: ^3.2.0
+  loading_animation_widget: ^1.2.0+4
+  google_mobile_ads: ^4.0.0
+  firebase_core_platform_interface: ^5.0.0
 dev_dependencies:
   flutter_native_splash: ^2.3.2
   flutter_test:
@@ -75,8 +78,6 @@ flutter:
     - assets/
     - assets/Image/
     - assets/Privacy & Policy/privacy_policy.md
-    - assets/Image/loading.png
-    - assets/Image/no_internet.png
 
   fonts:
     - family: IBMPlexSans-Bold

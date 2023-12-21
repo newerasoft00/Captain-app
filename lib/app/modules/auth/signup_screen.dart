@@ -1,11 +1,13 @@
+// SignUpScreen.dart
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
-
 import '../../utils/Core/helper/shared_preference/shared_preference.dart';
+import '../../utils/Core/themes/app_text_theme.dart';
 import 'Componant/custom_textfield.dart';
 import 'Componant/otp.dart';
 import 'Componant/terms_of_use.dart';
@@ -58,6 +60,12 @@ class SignUpScreen extends StatelessWidget {
                           child: IntlPhoneField(
                             keyboardType: TextInputType.phone,
                             pickerDialogStyle: PickerDialogStyle(
+                              countryNameStyle: poppinsMedium.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                              countryCodeStyle: poppinsMedium.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
                               backgroundColor:
                                   Theme.of(context).colorScheme.onPrimary,
                             ),
@@ -75,7 +83,7 @@ class SignUpScreen extends StatelessWidget {
                   15.ph,
                   CustomTextField(
                       validator: controller.validateName,
-                      suffixcolor: Theme.of(context).primaryColor,
+                      suffixcolor: Theme.of(context).colorScheme.secondary,
                       suffixicon: Icons.person,
                       hint: 'Enter your name'.tr,
                       onChanged: (val) {
@@ -83,7 +91,7 @@ class SignUpScreen extends StatelessWidget {
                       }),
                   15.ph,
                   CustomTextField(
-                      suffixcolor: Theme.of(context).primaryColor,
+                      suffixcolor: Theme.of(context).colorScheme.secondary,
                       suffixicon: Icons.email,
                       hint: 'Enter your email'.tr,
                       onChanged: (val) {
@@ -94,15 +102,15 @@ class SignUpScreen extends StatelessWidget {
                     () => CustomTextField(
                         validator: controller.validpassword,
                         suffixcolor: controller.visiblepassword.value
-                            ? Colors.teal.shade700
-                            : Theme.of(context).primaryColor,
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.secondary,
                         onTapSuffix: () {
                           controller.togglepasswordEye();
                         },
                         visible: !controller.visiblepassword.value,
                         suffixicon: !controller.visiblepassword.value
                             ? Icons.visibility_off
-                            : Icons.visibility_outlined,
+                            : Icons.remove_red_eye,
                         hint: 'Enter your password'.tr,
                         onChanged: (val) {
                           controller.password.value = val;
@@ -113,14 +121,14 @@ class SignUpScreen extends StatelessWidget {
                       validator: controller.passwordmatch,
                       visible: !controller.visiblecheckpassword.value,
                       suffixcolor: controller.visiblecheckpassword.value
-                          ? Colors.teal.shade700
-                          : Theme.of(context).primaryColor,
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.secondary,
                       onTapSuffix: () {
                         controller.togglecheckpasswordEye();
                       },
                       suffixicon: !controller.visiblecheckpassword.value
                           ? Icons.visibility_off
-                          : Icons.visibility_outlined,
+                          : Icons.remove_red_eye,
                       hint: 'Re Enter your password'.tr,
                       onChanged: (val) {
                         controller.checkpassword.value = val;
@@ -129,17 +137,6 @@ class SignUpScreen extends StatelessWidget {
                   SizedBox(
                     width: Get.width,
                     child: Obx(() => ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            disabledBackgroundColor: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.3),
-                            backgroundColor: Theme.of(context).cardColor,
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
                           onPressed: controller.termsAgree.value == true
                               ? () async {
                                   controller.toggleSignup();
@@ -148,11 +145,24 @@ class SignUpScreen extends StatelessWidget {
                                       controller.phoneNumber.value);
                                   if (controller.formKey.currentState!
                                       .validate()) {
-                                    controller.verifyPhone(
+                                    await controller.verifyPhone(
                                         controller.phoneNumber.value);
-                                    Get.to(OtpScreen(
-                                        phoneNumber:
-                                            controller.phoneNumber.value));
+                                    final bool isOTPSent =
+                                        await controller.verifyPhone(
+                                            controller.phoneNumber.value);
+
+                                    if (isOTPSent) {
+                                      Get.to(() => OtpScreen(
+                                                phoneNumber: controller
+                                                    .phoneNumber.value,
+                                                isSignIn: false,
+                                              ))!
+                                          .then((value) =>
+                                              controller.toggleSignup());
+                                    } else {
+                                      controller.showSnakBar();
+                                    }
+
                                     controller.presssignup.value = false;
                                   }
                                   controller.toggleSignup();

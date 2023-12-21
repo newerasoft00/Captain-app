@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sportsbet/app/modules/Animation%20Controller/animation_controller.dart';
+import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
 
 import '../best_player_screen.dart';
 
@@ -40,10 +41,10 @@ class _BannerWidgetState extends State<BannerWidget> {
               alignment: Alignment.center,
               curve: Curves.linear,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(10),
                   color: context.isDarkMode
                       ? Theme.of(context).colorScheme.primaryContainer
-                      : Theme.of(context).primaryColor,
+                      : Theme.of(context).colorScheme.primary,
                   boxShadow: [
                     c.isShadowVisible.value
                         ? BoxShadow(
@@ -78,8 +79,14 @@ class _BannerWidgetState extends State<BannerWidget> {
                     onTap: () => Get.to(() => VotePage()),
                     repeatForever: true,
                     animatedTexts: [
-                      FlickerAnimatedText('Choose'.tr),
-                      FlickerAnimatedText('Best Player in the Round'.tr),
+                      FlickerAnimatedText('Choose'.tr,
+                          textStyle: poppinsMedium.copyWith(
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).colorScheme.onPrimary)),
+                      FlickerAnimatedText('Best Player in the Round'.tr,
+                          textStyle: poppinsMedium.copyWith(
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).colorScheme.onPrimary)),
                     ],
                   ),
                 ),
