@@ -21,7 +21,6 @@ class RoshnMatchController extends GetxController {
   // Fetch data from the API
   void fetchData() async {
     final response = await http.get(Uri.parse(UserPreference.getLeagueUrl()));
-
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
 

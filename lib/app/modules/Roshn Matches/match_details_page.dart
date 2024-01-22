@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../widgets/custom_appbar.dart';
 import 'controller/bet_controller.dart';
 import 'model/game_weak.dart';

@@ -1,8 +1,6 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../utils/Core/themes/app_text_theme.dart';
-import '../Roshn Matches/widget/banner_ad_widget.dart';
+import 'package:captain/app/widgets/custom_loader.dart';
 import 'controller/live_controller.dart';
 import 'widget/live_match_widget.dart';
 
@@ -25,23 +23,7 @@ class MatchesScreen extends StatelessWidget {
                 controller.liveMatches.clear();
                 controller.fetchLiveMatches();
               },
-              child: Center(
-                child: AnimatedTextKit(
-                  repeatForever: true,
-                  animatedTexts: [
-                    FlickerAnimatedText('No Live Match'.tr,
-                        textStyle: poppinsMedium.copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            color: Theme.of(context).colorScheme.primary)),
-                    FlickerAnimatedText('Wait'.tr,
-                        textStyle: poppinsMedium.copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            color: Theme.of(context).colorScheme.primary)),
-                  ],
-                ),
-              ),
+              child: const Center(child: CustomLoader()),
             );
           } else {
             return RefreshIndicator(
@@ -61,26 +43,12 @@ class MatchesScreen extends StatelessWidget {
                     return const SizedBox(
                       height: 5,
                     );
-                  }
-                  // if (index % 8 == 0) {
-                  //   return const Card(
-                  //     elevation: 0.5,
-                  //     child: Padding(
-                  //       padding: EdgeInsets.all(2),
-                  //       child: BannerAdWidget(),
-                  //     ),
-                  //   );
-                  // } else {
-                  //  return const SizedBox(
-                  //     height: 5,
-                  //   );
-                  // }
-
-                  ),
+                  }),
             );
           }
         },
       ),
+      // bottomNavigationBar: const CustomAdBanner(),
     );
   }
 }

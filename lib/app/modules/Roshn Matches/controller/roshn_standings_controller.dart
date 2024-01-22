@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:sportsbet/app/utils/Core/helper/log_printer.dart';
+import 'package:captain/app/utils/Core/helper/log_printer.dart';
 import '../../../utils/Core/utils/strings.dart';
 import '../model/roshn_standing.dart';
 

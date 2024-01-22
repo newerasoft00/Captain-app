@@ -59,7 +59,7 @@ class DefaultFirebaseOptions {
         '681994242014-e1ka22f7g7p63fb10dhrim96s45rds1f.apps.googleusercontent.com',
     iosClientId:
         '681994242014-69hniht66ppus2kmleiqgs86oam9ejrt.apps.googleusercontent.com',
-    iosBundleId: 'com.example.sportsbet',
+    iosBundleId: 'com.newera.captainapppp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -72,6 +72,6 @@ class DefaultFirebaseOptions {
         '681994242014-e1ka22f7g7p63fb10dhrim96s45rds1f.apps.googleusercontent.com',
     iosClientId:
         '681994242014-vnomq6hclbalgalhk662hqj7cr1d3e8j.apps.googleusercontent.com',
-    iosBundleId: 'com.example.sportsbet.RunnerTests',
+    iosBundleId: 'com.newera.captainappp.RunnerTests',
   );
 }

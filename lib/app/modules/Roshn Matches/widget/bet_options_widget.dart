@@ -3,10 +3,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/modules/Roshn%20Matches/model/game_weak.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
-import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
-import 'package:sportsbet/app/widgets/custom_text.dart';
+import 'package:captain/app/modules/Roshn%20Matches/model/game_weak.dart';
+import 'package:captain/app/utils/Core/helper/empty_padding.dart';
+import 'package:captain/app/utils/Core/themes/app_text_theme.dart';
+import 'package:captain/app/widgets/custom_text.dart';
 
 import '../../../data/service/bet/get_user_bet.dart';
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';

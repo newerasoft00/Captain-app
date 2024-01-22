@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:sportsbet/app/utils/Core/helper/shared_preference/shared_preference.dart';
+import 'package:captain/app/utils/Core/helper/shared_preference/shared_preference.dart';
 
 import '../../../modules/user feedback/model/feedback_model.dart';
 

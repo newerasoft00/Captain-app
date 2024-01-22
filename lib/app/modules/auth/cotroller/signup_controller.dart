@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/widgets/snak_bar.dart';
+import 'package:captain/app/widgets/snak_bar.dart';
 import '../../../routes/routes.dart';
 import '../../../utils/Core/helper/log_printer.dart';
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';

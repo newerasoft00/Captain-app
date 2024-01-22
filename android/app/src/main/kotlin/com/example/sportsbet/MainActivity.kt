@@ -1,4 +1,4 @@
-package com.example.sportsbet
+package com.newera.captainapp
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:captain/app/routes/routes.dart';
+import 'package:captain/app/utils/Core/helper/empty_padding.dart';
 import '../../utils/Core/helper/shared_preference/shared_preference.dart';
 import '../../utils/Core/themes/app_text_theme.dart';
+import '../../widgets/custom_appbar.dart';
 import 'Componant/custom_textfield.dart';
 import 'Componant/otp.dart';
 import 'Componant/terms_of_use.dart';
 import 'cotroller/signup_controller.dart';
-import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -22,6 +23,9 @@ class SignUpScreen extends StatelessWidget {
     final SignupController controller = Get.put(SignupController());
 
     return Scaffold(
+      appBar: CustomAppBar(
+        title: 'Sign Up now'.tr,
+      ),
       body: Form(
         key: controller.formKey,
         child: SingleChildScrollView(
@@ -41,11 +45,6 @@ class SignUpScreen extends StatelessWidget {
                       height: Get.width / 4,
                       child: Image.asset(
                           'assets/Roshn_Saudi_League_Logo.svg.png')),
-                  12.ph,
-                  Text(
-                    'Sign Up now'.tr,
-                    textAlign: TextAlign.center,
-                  ),
                   20.ph,
                   Container(
                       decoration: BoxDecoration(
@@ -54,10 +53,11 @@ class SignUpScreen extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .primary
-                                  .withOpacity(0.5))),
+                                  .withOpacity(0.3))),
                       child: Padding(
                           padding: const EdgeInsets.all(5),
                           child: IntlPhoneField(
+                            showDropdownIcon: false,
                             keyboardType: TextInputType.phone,
                             pickerDialogStyle: PickerDialogStyle(
                               countryNameStyle: poppinsMedium.copyWith(
@@ -66,8 +66,6 @@ class SignUpScreen extends StatelessWidget {
                               countryCodeStyle: poppinsMedium.copyWith(
                                   color:
                                       Theme.of(context).colorScheme.secondary),
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.onPrimary,
                             ),
                             decoration: InputDecoration(
                                 counterText: '',
@@ -191,7 +189,7 @@ class SignUpScreen extends StatelessWidget {
                       const Spacer(),
                       GestureDetector(
                         onTap: () {
-                          Get.off(() => const LoginScreen());
+                          Get.offNamed(Routes.loginscreen);
                         },
                         child: RichText(
                           text: TextSpan(
@@ -220,9 +218,6 @@ class SignUpScreen extends StatelessWidget {
                       const Spacer(),
                     ],
                   ),
-                  const Spacer(
-                    flex: 2,
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Row(
@@ -241,6 +236,9 @@ class SignUpScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const Spacer(
+                    flex: 2,
+                  )
                 ],
               ),
             ),

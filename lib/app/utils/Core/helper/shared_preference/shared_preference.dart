@@ -1,4 +1,4 @@
-import 'package:sportsbet/main.dart';
+import 'package:captain/main.dart';
 
 import '../../utils/strings.dart';
 
@@ -38,7 +38,7 @@ class UserPreference {
       return sharedpref!.getString('selected_league_logo') ??
           "assets/Roshn_Saudi_League_Logo.svg.png";
     }
-    return "";
+    return "assets/Roshn_Saudi_League_Logo.svg.png";
   }
 
   static Future<void> setSelectedLeagueKeys(String leagueName) =>

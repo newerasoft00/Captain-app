@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/utils/Core/helper/log_printer.dart';
-import 'package:sportsbet/app/utils/Core/themes/theme_controller.dart';
+import 'package:captain/app/utils/Core/helper/log_printer.dart';
+import 'package:captain/app/utils/Core/themes/theme_controller.dart';
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
 import '../../../utils/Core/utils/strings.dart';
 import '../model/user_information.dart';
@@ -11,7 +11,7 @@ import '../widget/butom_sheet.dart';
 
 class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();
-  
+
   final currentDate = DateTime.now().toLocal().toString().split(' ')[0].obs;
   final firestoreInstance = FirebaseFirestore.instance;
 

@@ -2,14 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/modules/profile/controller/profile_controller.dart';
-import 'package:sportsbet/app/modules/profile/controller/image_picker_controller.dart';
-import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
-import 'package:sportsbet/app/widgets/custom_text.dart';
+import 'package:captain/app/data/service/account_service/account_service.dart';
+import 'package:captain/app/modules/profile/controller/profile_controller.dart';
+import 'package:captain/app/modules/profile/controller/image_picker_controller.dart';
+import 'package:captain/app/utils/Core/themes/app_text_theme.dart';
+import 'package:captain/app/widgets/custom_loader.dart';
+import 'package:captain/app/widgets/custom_text.dart';
 import '../../routes/routes.dart';
 import '../../translations/local_controller.dart';
 import '../../utils/Core/helper/shared_preference/shared_preference.dart';
-import '../../utils/Core/themes/theme_controller.dart';
 import '../auth/cotroller/login_controller.dart';
 import 'widget/profile_menu_widget.dart';
 import 'widget/user_pic.dart';
@@ -22,7 +23,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MyLocalController localController = Get.find();
-    final ThemeController themeController = Get.find<ThemeController>();
     final ImagePickerController imageController = Get.find();
 
     Future<void> uploadImage() async {
@@ -112,9 +112,8 @@ class ProfileScreen extends StatelessWidget {
                                     : UserPreference.getSelectedLeaguelogo(),
                                 height: 30,
                                 width: 30,
-                                placeholder: (context, url) => const Center(
-                                    child:
-                                        CircularProgressIndicator.adaptive()),
+                                placeholder: (context, url) =>
+                                    const Center(child: CustomLoader()),
                                 errorWidget: (context, url, error) =>
                                     const Icon(Icons.error),
                               ),
@@ -138,17 +137,22 @@ class ProfileScreen extends StatelessWidget {
                             },
                           ),
                           ProfileMenuItem(
-                            icon: Icons.dark_mode,
-                            text: 'Change Theme'.tr,
-                            iconColor: Colors.amber,
-                            onTap: () => themeController.toggleTheme(0),
-                          ),
-                          ProfileMenuItem(
                             icon: Icons.language_rounded,
                             text: 'Change Language'.tr,
                             iconColor: Colors.pinkAccent,
                             onTap: () {
                               localController.toggleLang();
+                            },
+                          ),
+                          ProfileMenuItem(
+                            icon: CupertinoIcons.delete_solid,
+                            text: 'Delete Account'.tr,
+                            iconColor: Colors.red,
+                            onTap: () {
+                              final userID = controller.userInformation!.uid;
+                              DeleteAccountService()
+                                  .showDeleteConfirmationDialog(
+                                      userID, context);
                             },
                           ),
                           ProfileMenuItem(

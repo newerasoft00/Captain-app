@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/modules/Roshn%20Matches/roshn_match.dart';
-import 'package:sportsbet/app/modules/Roshn%20Matches/roshn_standings.dart';
+import 'package:captain/app/modules/Roshn%20Matches/roshn_match.dart';
+import 'package:captain/app/modules/Roshn%20Matches/roshn_standings.dart';
 import '../Match Day/match_day_screen.dart';
 import '../Profile/profile_screen.dart';
 import '../bet_league/bet_league.dart';

@@ -1,20 +1,20 @@
 import 'package:get/get.dart';
-import 'package:sportsbet/app/modules/Vote/best_goals_screen.dart';
-import 'package:sportsbet/app/modules/Vote/best_player_screen.dart';
-import 'package:sportsbet/app/modules/Vote/vote_binding.dart';
-import 'package:sportsbet/app/modules/auth/login_screen.dart';
-import 'package:sportsbet/app/modules/auth/signup_screen.dart';
-import 'package:sportsbet/app/modules/bet_league/bet_league.dart';
-import 'package:sportsbet/app/modules/home/home_bindings.dart';
-import 'package:sportsbet/app/modules/home/home_screen.dart';
-import 'package:sportsbet/app/modules/on_boarding/on_boarding_screen.dart';
-import 'package:sportsbet/app/modules/on_boarding/onboarding_bindings.dart';
-import 'package:sportsbet/app/modules/profile/profile_bindings.dart';
-import 'package:sportsbet/app/modules/profile/user_bet_history_screen.dart';
-import 'package:sportsbet/app/modules/standing/standing_binding.dart';
-import 'package:sportsbet/app/modules/standing/standings.dart';
-import 'package:sportsbet/app/modules/user%20feedback/feedback_binding.dart';
-import 'package:sportsbet/app/modules/user%20feedback/feedback_screen.dart';
+import 'package:captain/app/modules/Vote/best_goals_screen.dart';
+import 'package:captain/app/modules/Vote/best_player_screen.dart';
+import 'package:captain/app/modules/Vote/vote_binding.dart';
+import 'package:captain/app/modules/auth/login_screen.dart';
+import 'package:captain/app/modules/auth/signup_screen.dart';
+import 'package:captain/app/modules/bet_league/bet_league.dart';
+import 'package:captain/app/modules/home/home_bindings.dart';
+import 'package:captain/app/modules/home/home_screen.dart';
+import 'package:captain/app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:captain/app/modules/on_boarding/onboarding_bindings.dart';
+import 'package:captain/app/modules/profile/profile_bindings.dart';
+import 'package:captain/app/modules/profile/user_bet_history_screen.dart';
+import 'package:captain/app/modules/standing/standing_binding.dart';
+import 'package:captain/app/modules/standing/standings.dart';
+import 'package:captain/app/modules/user%20feedback/feedback_binding.dart';
+import 'package:captain/app/modules/user%20feedback/feedback_screen.dart';
 
 class Routes {
   static String loginscreen = '/loginscreen';

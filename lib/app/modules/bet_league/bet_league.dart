@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
-import 'package:sportsbet/app/widgets/custom_text.dart';
-
-import '../Roshn Matches/widget/banner_ad_widget.dart';
+import 'package:captain/app/utils/Core/themes/app_text_theme.dart';
+import 'package:captain/app/widgets/custom_text.dart';
+import '../ads/custom_ad_widget.dart';
 import 'widget/overall_widget.dart';
 import 'widget/round_widget.dart';
 
@@ -55,7 +54,7 @@ class BetLeague extends StatelessWidget {
             children: [UserAppearanceCountsPage(), RoundStandingWidget()],
           ),
         ),
-        // bottomNavigationBar: const BannerAdWidget(),
+        bottomNavigationBar: const CustomAdBanner(),
       ),
     );
   }

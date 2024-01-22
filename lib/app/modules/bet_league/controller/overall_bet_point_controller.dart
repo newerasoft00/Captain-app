@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/utils/Core/helper/log_printer.dart';
+import 'package:captain/app/utils/Core/helper/log_printer.dart';
 
 import '../model/round_standing_model.dart';
 

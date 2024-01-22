@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
+import 'package:captain/app/utils/Core/themes/app_text_theme.dart';
 
 class CustomMainButton extends StatelessWidget {
   const CustomMainButton({
@@ -44,7 +44,8 @@ class CustomMainButton extends StatelessWidget {
         child: Center(
           child: AutoSizeText(
             buttonLabel,
-            style: poppinsMedium.copyWith(color: Theme.of(context).colorScheme.onSecondary),
+            style: poppinsMedium.copyWith(
+                color: Theme.of(context).colorScheme.onSecondary),
           ),
         ),
       ),

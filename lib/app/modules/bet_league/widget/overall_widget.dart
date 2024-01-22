@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/modules/bet_league/controller/overall_bet_point_controller.dart';
-import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
-import 'package:sportsbet/app/widgets/custom_text.dart';
+import 'package:captain/app/modules/bet_league/controller/overall_bet_point_controller.dart';
+import 'package:captain/app/utils/Core/themes/app_text_theme.dart';
+import 'package:captain/app/widgets/custom_text.dart';
 
 class UserAppearanceCountsPage extends GetView<OverallBetPointController> {
   const UserAppearanceCountsPage({super.key});

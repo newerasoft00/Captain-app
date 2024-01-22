@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/modules/Roshn%20Matches/controller/top_scorer_controller.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
-import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
-import 'package:sportsbet/app/widgets/custom_text.dart';
+import 'package:captain/app/modules/Roshn%20Matches/controller/top_scorer_controller.dart';
+import 'package:captain/app/utils/Core/helper/empty_padding.dart';
+import 'package:captain/app/utils/Core/themes/app_text_theme.dart';
+import 'package:captain/app/widgets/custom_text.dart';
 
 class RoshnTopScorersPage extends GetView<TopScorerController> {
   final TopScorerController topScorerController =

@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polls/flutter_polls.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
-import 'package:sportsbet/app/widgets/custom_appbar.dart';
-import 'package:sportsbet/app/widgets/snak_bar.dart';
+import 'package:captain/app/utils/Core/helper/empty_padding.dart';
+import 'package:captain/app/widgets/custom_appbar.dart';
+import 'package:captain/app/widgets/snak_bar.dart';
 
 import 'controller/vote_controller.dart';
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
-import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
-import 'package:sportsbet/app/widgets/custom_text.dart';
+import 'package:captain/app/utils/Core/helper/empty_padding.dart';
+import 'package:captain/app/utils/Core/themes/app_text_theme.dart';
+import 'package:captain/app/widgets/custom_loader.dart';
+import 'package:captain/app/widgets/custom_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
 import '../model/game_weak.dart';
@@ -51,13 +52,12 @@ class RoshnMatchCard extends StatelessWidget {
           ),
           5.pw,
           CachedNetworkImage(
-            imageUrl: Uri.encodeFull(teamLogoUrl),
+            imageUrl: teamLogoUrl,
             width: Get.context!.width * 0.08,
             height: Get.context!.isPortrait
                 ? Get.context!.width * 0.1
                 : Get.context!.width * 0.05,
-            placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator.adaptive()),
+            placeholder: (context, url) => const Center(child: CustomLoader()),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ],
@@ -76,13 +76,12 @@ class RoshnMatchCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           CachedNetworkImage(
-            imageUrl: Uri.encodeFull(teamLogoUrl),
+            imageUrl: teamLogoUrl,
             width: Get.context!.width * 0.08,
             height: Get.context!.isPortrait
                 ? Get.context!.width * 0.1
                 : Get.context!.width * 0.05,
-            placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator.adaptive()),
+            placeholder: (context, url) => const Center(child: CustomLoader()),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
           5.pw,

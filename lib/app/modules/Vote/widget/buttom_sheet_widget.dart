@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polls/flutter_polls.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/modules/Vote/controller/best_goals_controller.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:captain/app/modules/Vote/controller/best_goals_controller.dart';
+import 'package:captain/app/utils/Core/helper/empty_padding.dart';
 
 void showPollBottomSheet(
     BuildContext context, VideoController videoController) {

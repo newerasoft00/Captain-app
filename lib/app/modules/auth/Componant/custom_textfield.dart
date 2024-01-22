@@ -32,7 +32,7 @@ class CustomTextField extends StatelessWidget {
           border: Border.all(
               color: Theme.of(context).colorScheme.primary.withOpacity(0.2)),
           color: Theme.of(context).cardColor.withOpacity(0.05),
-          borderRadius: BorderRadius.circular(20)),
+          borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: TextFormField(

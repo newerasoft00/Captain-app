@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:sportsbet/app/modules/Roshn%20Matches/controller/roshn_standings_controller.dart';
-import 'package:sportsbet/app/widgets/custom_text.dart';
+import 'package:captain/app/modules/Roshn%20Matches/controller/roshn_standings_controller.dart';
+import 'package:captain/app/widgets/custom_text.dart';
 import '../../utils/Core/themes/app_text_theme.dart';
 import '../../utils/Core/themes/theme_controller.dart';
 import 'roshn_topscorer_screen.dart';

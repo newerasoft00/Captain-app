@@ -1,8 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/modules/Animation%20Controller/animation_controller.dart';
-import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
+import 'package:captain/app/modules/Animation%20Controller/animation_controller.dart';
+import 'package:captain/app/utils/Core/themes/app_text_theme.dart';
 
 import '../best_player_screen.dart';
 

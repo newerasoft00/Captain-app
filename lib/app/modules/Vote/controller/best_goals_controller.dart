@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_polls/flutter_polls.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/data/service/Vote%20Services/goals_vote_services.dart';
+import 'package:captain/app/data/service/Vote%20Services/goals_vote_services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoController extends GetxController {

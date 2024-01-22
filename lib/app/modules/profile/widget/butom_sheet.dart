@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/widgets/custom_text.dart';
+import 'package:captain/app/widgets/custom_text.dart';
 import '../../../utils/Core/themes/app_text_theme.dart';
 import '../controller/profile_controller.dart';
 
@@ -16,7 +16,7 @@ class CupertinoActionSheetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.height * 0.55,
+      height: context.height * 0.5,
       child: CupertinoActionSheet(
         title: Text('Select your favorite League'.tr),
         actions: leagues.keys.map((leagueName) {

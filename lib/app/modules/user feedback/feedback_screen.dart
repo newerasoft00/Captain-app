@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/modules/user%20feedback/widget/rating_bar.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
-import 'package:sportsbet/app/widgets/custom_appbar.dart';
-import 'package:sportsbet/app/widgets/custom_text.dart';
+import 'package:captain/app/modules/user%20feedback/widget/rating_bar.dart';
+import 'package:captain/app/utils/Core/helper/empty_padding.dart';
+import 'package:captain/app/widgets/custom_appbar.dart';
+import 'package:captain/app/widgets/custom_text.dart';
 
 import 'controller/feedback_controller.dart';
 

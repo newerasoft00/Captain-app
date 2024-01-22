@@ -2,11 +2,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/modules/Vote/widget/buttom_sheet_widget.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
-import 'package:sportsbet/app/utils/Core/themes/app_text_theme.dart';
-import 'package:sportsbet/app/widgets/custom_appbar.dart';
-import 'package:sportsbet/app/widgets/custom_text.dart';
+import 'package:captain/app/modules/Vote/widget/buttom_sheet_widget.dart';
+import 'package:captain/app/utils/Core/helper/empty_padding.dart';
+import 'package:captain/app/utils/Core/themes/app_text_theme.dart';
+import 'package:captain/app/widgets/custom_appbar.dart';
+import 'package:captain/app/widgets/custom_text.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'controller/best_goals_controller.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sportsbet/app/utils/Core/utils/color.dart';
+import 'package:captain/app/utils/Core/utils/color.dart';
 import 'custom_theme.dart';
 import 'color_enum.dart';
 
@@ -30,25 +30,19 @@ class ThemeController extends GetxController {
         .buildThemeData(MyColor.alWehda),
     CustomTheme(color: AlFihaColorModel.colorModel)
         .buildThemeData(MyColor.alFiha),
-
     CustomTheme(color: AlShababColorModel.colorModel)
         .buildThemeData(MyColor.alShabab),
     CustomTheme(color: AlTaiColorModel.colorModel)
         .buildThemeData(MyColor.alTai),
-
-   CustomTheme(color: AlKhaleejColorModel.colorModel)
+    CustomTheme(color: AlKhaleejColorModel.colorModel)
         .buildThemeData(MyColor.alKhaleej),
-
     CustomTheme(color: AlRiyadhColorModel.colorModel)
         .buildThemeData(MyColor.alRiyadh),
-        
     CustomTheme(color: AlRaedColorModel.colorModel)
         .buildThemeData(MyColor.alRaed),
-
     CustomTheme(color: AlAkhdoudColorModel.colorModel)
         .buildThemeData(MyColor.alAkhdoud),
-    CustomTheme(color: AbhaColorModel.colorModel)
-        .buildThemeData(MyColor.abha),
+    CustomTheme(color: AbhaColorModel.colorModel).buildThemeData(MyColor.abha),
     CustomTheme(color: AlHazmColorModel.colorModel)
         .buildThemeData(MyColor.alHazm),
   ];

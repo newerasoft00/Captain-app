@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:captain/app/utils/Core/helper/empty_padding.dart';
 import '../model/live_match_model.dart';
 
 class LiveMatchWidget extends StatelessWidget {
@@ -39,7 +39,7 @@ class LiveMatchWidget extends StatelessWidget {
                         height: 15,
                         imageUrl: Uri.encodeFull(livematch.leagueLogo),
                         placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
+                            const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.blur_on_rounded),
                       ),
@@ -92,8 +92,8 @@ class LiveMatchWidget extends StatelessWidget {
                               imageUrl: Uri.encodeFull(livematch.homeTeamLogo),
                               width: Get.width * 0.09,
                               height: Get.width * 0.09,
-                              placeholder: (context, url) =>
-                                  const CircularProgressIndicator(),
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
                                   const Icon(Icons.error),
                             ),

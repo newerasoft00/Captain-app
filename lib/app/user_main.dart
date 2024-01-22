@@ -24,9 +24,10 @@ class UserApp extends StatelessWidget {
 
     return GetMaterialApp(
       navigatorKey: Get.key,
-      darkTheme: themeController.themes[themeController.selectedThemeIndex.value],
+      darkTheme:
+          themeController.themes[themeController.selectedThemeIndex.value],
       theme: themeController.themes[themeController.selectedThemeIndex.value],
-      defaultTransition: Transition.rightToLeft,
+      defaultTransition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
       title: 'Roshan Bet',

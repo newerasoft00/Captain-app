@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/utils/Core/helper/empty_padding.dart';
+import 'package:captain/app/utils/Core/helper/empty_padding.dart';
 
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
 import '../cotroller/signup_controller.dart';

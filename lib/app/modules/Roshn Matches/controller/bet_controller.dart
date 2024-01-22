@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:sportsbet/app/modules/Roshn%20Matches/match_details_page.dart';
+import 'package:captain/app/modules/Roshn%20Matches/match_details_page.dart';
 
 import '../../../data/service/bet/get_user_bet.dart';
 import '../../../data/service/bet/new_bet_service.dart';

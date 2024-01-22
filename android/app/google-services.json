@@ -53,7 +53,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:681994242014:android:f6511722055298e1f6bf4f",
         "android_client_info": {
-          "package_name": "com.example.sportsbet"
+          "package_name": "com.newera.captainapp"
         }
       },
       "oauth_client": [
@@ -61,7 +61,7 @@
           "client_id": "681994242014-rsuctd41ttresg0q8rjc2bd15ipp1118.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.sportsbet",
+            "package_name": "com.newera.captainapp",
             "certificate_hash": "ba8524d2a04e019a45b26c0f179b246323c0e582"
           }
         },
