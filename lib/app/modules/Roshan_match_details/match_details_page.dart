@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../../widgets/custom_appbar.dart';
 import 'controller/bet_controller.dart';
-import 'model/game_weak.dart';
-import 'widget/bet_options_widget.dart';
-import 'widget/roshn_match_card.dart';
+import '../Roshn Matches/model/game_weak.dart';
+import '../Roshn Matches/widget/bet_options_widget.dart';
+import '../Roshn Matches/widget/roshn_match_card.dart';
 
 class MatchDetailsPage extends StatelessWidget {
   final RoshnMatch fixture;
@@ -52,8 +53,9 @@ class MatchDetailsPage extends StatelessWidget {
                                 : const SizedBox(),
                           ],
                         )
-                      : const Center(
-                          child: Text('Bet closed for this match'),
+                      : Center(
+                          child: Lottie.asset('assets/Image/closed_bet.json',
+                              reverse: true, repeat: true),
                         ),
                 );
               }),

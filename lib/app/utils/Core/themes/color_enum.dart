@@ -18,4 +18,5 @@ enum MyColor {
   alAkhdoud,
   abha,
   alHazm,
+  dark
 }

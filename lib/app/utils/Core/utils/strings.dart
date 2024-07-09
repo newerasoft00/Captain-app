@@ -1,4 +1,3 @@
-
 //!!!!! app Strings
 
 const String baseurl = 'https://api.sportmonks.com/v3/football/';
@@ -12,7 +11,7 @@ const String standingEndPoint = 'standings?';
 //
 const String allsportsapi = 'https://apiv2.allsportsapi.com/football/?met=';
 const String allsportsapiKey =
-    '&APIkey=2138d9e0fdddf8afadcf2818e03649092f2e687c0cc68d18c20f39f6611bf58b&';
+    '&APIkey=004044d4bb01155d8b8881ae0be1dee53ec81b4c481663f610b80dea769feb49&';
 const String saudiaCountryID = '&countryId=97';
 const String saudiaLeague = '&leagueId=278';
 const String englishLeague = '&leagueId=152';
@@ -32,24 +31,16 @@ final Map<String, Map<String, dynamic>> leaguesTeams = {
   'Al Nassr': {'https://apiv2.allsportsapi.com/logo/371_al-nassr.jpg': 1},
   'Al Ahli': {'https://apiv2.allsportsapi.com/logo/359_al-ahli.jpg': 2},
   'Al Taawon': {'https://apiv2.allsportsapi.com/logo/368_al-taawon.jpg': 3},
-  'Al Ittihad': {
-    'https://apiv2.allsportsapi.com/logo/6328_al-ittihad.jpg': 4
-  },
+  'Al Ittihad': {'https://apiv2.allsportsapi.com/logo/6328_al-ittihad.jpg': 4},
   'Damak': {'https://apiv2.allsportsapi.com/logo/6336_damak.jpg': 5},
   'Al Fateh': {'https://apiv2.allsportsapi.com/logo/6331_al-fateh.jpg': 6},
-  'Al Ittifaq': {
-    'https://apiv2.allsportsapi.com/logo/6329_al-ittifaq.jpg': 7
-  },
+  'Al Ittifaq': {'https://apiv2.allsportsapi.com/logo/6329_al-ittifaq.jpg': 7},
   'Al Wehda': {'https://apiv2.allsportsapi.com/logo/362_al-wehda.jpg': 8},
   'Al Fayha': {'https://apiv2.allsportsapi.com/logo/6308_al-fayha.jpg': 9},
   'Al Shabab': {'https://apiv2.allsportsapi.com/logo/6327_al-shabab.jpg': 10},
   'Al Tai': {'https://apiv2.allsportsapi.com/logo/6310_al-tai.jpg': 11},
-  'Al Khaleej': {
-    'https://apiv2.allsportsapi.com/logo/6312_al-khaleej.jpg': 12
-  },
-  'Al Riyadh': {
-    'https://apiv2.allsportsapi.com/logo/16129_al-riyadh.jpg': 13
-  },
+  'Al Khaleej': {'https://apiv2.allsportsapi.com/logo/6312_al-khaleej.jpg': 12},
+  'Al Riyadh': {'https://apiv2.allsportsapi.com/logo/16129_al-riyadh.jpg': 13},
   'Al Raed': {'https://apiv2.allsportsapi.com/logo/6334_al-raed.jpg': 14},
   'Al Akhdoud': {
     'https://apiv2.allsportsapi.com/logo/18903_al-akhdoud.jpg': 15

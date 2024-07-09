@@ -13,7 +13,7 @@ class MatchesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Live Match'.tr),
-        centerTitle: true,
+        // centerTitle: true,
       ),
       body: Obx(
         () {
@@ -23,7 +23,12 @@ class MatchesScreen extends StatelessWidget {
                 controller.liveMatches.clear();
                 controller.fetchLiveMatches();
               },
-              child: const Center(child: CustomLoader()),
+              child: Center(
+                  child: CustomLoader(
+                imagePath: 'assets/Image/no_live_match.json',
+                sizeW: context.width * 0.5,
+                sizeH: context.height * 0.3,
+              )),
             );
           } else {
             return RefreshIndicator(

@@ -14,11 +14,55 @@
       },
       "oauth_client": [
         {
-          "client_id": "681994242014-e1ka22f7g7p63fb10dhrim96s45rds1f.apps.googleusercontent.com",
+          "client_id": "681994242014-v17ktgfs5hlqp1jkki37q3lhp76o1620.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbLmxwr9zkstm94MMQCypgbVAewk9clis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681994242014-jcrsgnc721gor7uj4548hfabi8o18lau.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "681994242014-2dt4pf39hah409o5k17j41cak958kl7c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.dashboard"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681994242014:android:f6511722055298e1f6bf4f",
+        "android_client_info": {
+          "package_name": "com.example.sportsbet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681994242014-j4pr15dta9cbgufamnn0nq399tbbqqhb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.dashboard",
-            "certificate_hash": "ba8524d2a04e019a45b26c0f179b246323c0e582"
+            "package_name": "com.example.sportsbet",
+            "certificate_hash": "d5052c9394246e2d2e89e49b6702608b2ff6f4ce"
+          }
+        },
+        {
+          "client_id": "681994242014-niod4c46iils1q17iqsfpfgmjdttrgkg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sportsbet",
+            "certificate_hash": "e7313cf7305421932af92b2067d699531bc942d3"
           }
         },
         {
@@ -51,18 +95,18 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:681994242014:android:f6511722055298e1f6bf4f",
+        "mobilesdk_app_id": "1:681994242014:android:a4f6999efc04b45af6bf4f",
         "android_client_info": {
           "package_name": "com.newera.captainapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "681994242014-rsuctd41ttresg0q8rjc2bd15ipp1118.apps.googleusercontent.com",
+          "client_id": "681994242014-mu1lc0qid6idd61d7cv0d0l1ebvb12g4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.newera.captainapp",
-            "certificate_hash": "ba8524d2a04e019a45b26c0f179b246323c0e582"
+            "certificate_hash": "e7313cf7305421932af92b2067d699531bc942d3"
           }
         },
         {

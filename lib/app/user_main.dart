@@ -22,26 +22,30 @@ class UserApp extends StatelessWidget {
         ? Locale(localeValue)
         : const Locale('en');
 
-    return GetMaterialApp(
-      navigatorKey: Get.key,
-      darkTheme:
-          themeController.themes[themeController.selectedThemeIndex.value],
-      theme: themeController.themes[themeController.selectedThemeIndex.value],
-      defaultTransition: Transition.fadeIn,
-      transitionDuration: const Duration(milliseconds: 500),
-      debugShowCheckedModeBanner: false,
-      title: 'Roshan Bet',
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const <Locale>[Locale('en'), Locale('ar')],
-      locale: locale,
-      translations: MyLocal(),
-      getPages: Routes.getPages,
-      initialRoute:
-          UserPreference.isLoggedIn() ? Routes.homeScreen : Routes.loginscreen,
+    return SafeArea(
+      top: true,
+      child: GetMaterialApp(
+        navigatorKey: Get.key,
+        darkTheme:
+            themeController.themes[themeController.selectedThemeIndex.value],
+        theme: themeController.themes[themeController.selectedThemeIndex.value],
+        defaultTransition: Transition.fadeIn,
+        transitionDuration: const Duration(milliseconds: 500),
+        debugShowCheckedModeBanner: false,
+        title: 'Roshan Bet',
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const <Locale>[Locale('en'), Locale('ar')],
+        locale: locale,
+        translations: MyLocal(),
+        getPages: Routes.getPages,
+        initialRoute: UserPreference.isLoggedIn()
+            ? Routes.homeScreen
+            : Routes.loginscreen,
+      ),
     );
   }
 }

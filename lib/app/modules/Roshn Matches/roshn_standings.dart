@@ -39,7 +39,7 @@ class RoshnStandingsPage extends StatelessWidget {
 
   Widget _buildSliverAppBar() {
     return SliverAppBar(
-      title: Text('Roshn League'.tr),
+      // title: Text('Roshn League'.tr),
       centerTitle: true,
       pinned: true,
       floating: true,

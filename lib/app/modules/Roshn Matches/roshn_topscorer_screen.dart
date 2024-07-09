@@ -24,12 +24,12 @@ class RoshnTopScorersPage extends GetView<TopScorerController> {
               final topScorer = topScorerController.topScorers[index];
               return Card(
                 margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                elevation: 5,
+                elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: ListTile(
-                  contentPadding: const EdgeInsets.all(16),
+                  // contentPadding: const EdgeInsets.all(16),
                   leading: CircleAvatar(
                     radius: 20,
                     backgroundColor: topScorer.playerPlace < 4

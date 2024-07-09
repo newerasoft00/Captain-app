@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:captain/app/modules/Roshn%20Matches/match_details_page.dart';
+import 'package:captain/app/modules/Roshan_match_details/match_details_page.dart';
 
 import '../../../data/service/bet/get_user_bet.dart';
 import '../../../data/service/bet/new_bet_service.dart';
 import '../../../data/service/bet/save_user_bet.dart';
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
-import '../model/game_weak.dart';
+import '../../Roshn Matches/model/game_weak.dart';
 
 class BetOptionController extends GetxController {
   final betOptions = [].obs;

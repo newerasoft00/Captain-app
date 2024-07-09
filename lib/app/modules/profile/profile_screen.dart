@@ -34,7 +34,6 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Account'.tr),
-        centerTitle: true,
       ),
       body: Obx(
         () {

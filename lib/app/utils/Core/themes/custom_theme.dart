@@ -24,7 +24,8 @@ class CustomTheme extends MyCustomTheme {
   @override
   AppBarTheme getAppBarTheme(MyColor color) {
     return AppBarTheme(
-      centerTitle: true,
+      toolbarHeight: 70,
+      centerTitle: false,
       backgroundColor: this.color.appBarColor,
       scrolledUnderElevation: 0,
       surfaceTintColor: const Color(0xff24292F),

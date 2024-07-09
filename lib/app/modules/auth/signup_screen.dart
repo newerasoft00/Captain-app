@@ -9,7 +9,6 @@ import 'package:captain/app/routes/routes.dart';
 import 'package:captain/app/utils/Core/helper/empty_padding.dart';
 import '../../utils/Core/helper/shared_preference/shared_preference.dart';
 import '../../utils/Core/themes/app_text_theme.dart';
-import '../../widgets/custom_appbar.dart';
 import 'Componant/custom_textfield.dart';
 import 'Componant/otp.dart';
 import 'Componant/terms_of_use.dart';
@@ -23,9 +22,7 @@ class SignUpScreen extends StatelessWidget {
     final SignupController controller = Get.put(SignupController());
 
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Sign Up now'.tr,
-      ),
+      resizeToAvoidBottomInset: true,
       body: Form(
         key: controller.formKey,
         child: SingleChildScrollView(
@@ -33,7 +30,7 @@ class SignUpScreen extends StatelessWidget {
             padding:
                 const EdgeInsets.only(top: 45, bottom: 16, right: 16, left: 16),
             child: SizedBox(
-              height: context.height - 50,
+              height: context.height * 0.85,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

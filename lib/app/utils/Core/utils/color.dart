@@ -4,11 +4,11 @@ import '../themes/color_model.dart';
 
 class AlHilalColorModel {
   static MyColorModel colorModel = MyColorModel(
-    primaryColor: const Color(0xFF0028F0),
+    primaryColor: const Color(0xFF0079FF),
     onPrimaryColor: const Color(0xFFf8f9fa),
-    textColor: const Color(0xff000A46),
-    appBarColor: const Color(0xFF102684),
-    primaryContainer: const Color(0xff000A46),
+    textColor: const Color(0xff0E2954),
+    appBarColor: const Color(0xFF0079FF),
+    primaryContainer: const Color(0xff0E2954),
     cardColor: const Color(0xffE9EFF7),
     onPrimaryContainer: const Color(0xFFf8f9fa),
     background: const Color(0xFFf8f9fa),
@@ -301,6 +301,7 @@ class AlHazmColorModel {
     listTile: const Color(0xffE1EAF5),
   );
 }
+
 
 class ColorTealDark {
   static Color primaryColor = const Color(0xFF006A60);

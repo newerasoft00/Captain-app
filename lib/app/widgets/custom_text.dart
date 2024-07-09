@@ -37,7 +37,7 @@ class CustomText extends StatelessWidget {
           poppinsMedium.copyWith(
               fontWeight: FontWeight.w500,
               color: isBlack
-                  ? Theme.of(context).colorScheme.onSurface
+                  ? const Color(0xff222222)
                   : Theme.of(context).colorScheme.surface),
     );
   }

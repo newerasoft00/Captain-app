@@ -46,7 +46,6 @@ class ThemeController extends GetxController {
     CustomTheme(color: AlHazmColorModel.colorModel)
         .buildThemeData(MyColor.alHazm),
   ];
-
   @override
   void onInit() {
     super.onInit();

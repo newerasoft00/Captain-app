@@ -9,7 +9,7 @@ import 'package:captain/app/utils/Core/helper/empty_padding.dart';
 import 'package:captain/app/widgets/custom_loader.dart';
 import '../../../../app/modules/Vote/widget/banner_widget.dart';
 import '../../utils/Core/themes/theme_controller.dart';
-import 'controller/bet_controller.dart';
+import '../Roshan_match_details/controller/bet_controller.dart';
 import 'model/game_weak.dart';
 import 'widget/roshn_match_card.dart';
 
@@ -33,30 +33,10 @@ class _RoshnMatchesPageState extends State<RoshnMatchesPage> {
         title: Obx(
           () => controller.roshnFixtures.isEmpty
               ? const SizedBox()
-              : Row(
-                  children: [
-                    SizedBox(
-                      height: 32,
-                      width: 32,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(35),
-                        child: CachedNetworkImage(
-                          imageUrl: controller.roshnFixtures[0].leagueLogo,
-                          width: Get.width * 0.170,
-                          height: Get.width * 0.170,
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                        ),
-                      ),
-                    ),
-                    10.pw,
-                    Text(
-                      controller.roshnFixtures[0].leagueName.toString(),
-                      softWrap: true,
-                    ),
-                  ],
+              : Text(
+                  'Roshan League'.tr,
+                  softWrap: true,
+                  style: const TextStyle(fontSize: 18),
                 ),
         ),
         actions: [

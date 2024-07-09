@@ -7,9 +7,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final VoidCallback? onTap;
   final bool isBackButtonExist;
+  final Color? iconColor;
   const CustomAppBar({
     super.key,
     this.onTap,
+    this.iconColor,
     this.title,
     this.isBackButtonExist = true,
   });
@@ -24,8 +26,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: isBackButtonExist
           ? IconButton(
               icon: const Icon(Icons.arrow_back_ios),
-              color:  Theme.of(context).colorScheme.surface,
-              onPressed: onTap ?? ()=> Navigator.pop(context),
+              color: iconColor ?? Theme.of(context).colorScheme.surface,
+              onPressed: onTap ?? () => Navigator.pop(context),
             )
           : const SizedBox(),
       elevation: 0,
@@ -33,5 +35,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size(1170, GetPlatform.isDesktop ? 70 : 50);
+  Size get preferredSize => Size(1170, GetPlatform.isDesktop ? 70 : 65);
 }

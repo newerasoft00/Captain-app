@@ -10,8 +10,8 @@ import 'package:captain/app/widgets/custom_text.dart';
 
 import '../../../data/service/bet/get_user_bet.dart';
 import '../../../utils/Core/helper/shared_preference/shared_preference.dart';
+import '../../Roshan_match_details/controller/bet_controller.dart';
 import '../../bet_league/model/user_bet.dart';
-import '../controller/bet_controller.dart';
 
 class BetOptionsWidget extends StatelessWidget {
   const BetOptionsWidget({super.key, required this.fixture});
